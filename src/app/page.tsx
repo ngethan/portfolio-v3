@@ -1,5 +1,7 @@
 "use client";
 
+import Cursor from "@/components/layout/Cursor";
+import Navbar from "@/components/layout/Navbar";
 import About from "@/components/sections/About";
 import Hero from "@/components/sections/Hero";
 import Work from "@/components/sections/Work";
@@ -7,9 +9,13 @@ import Work from "@/components/sections/Work";
 export default function Home() {
     return (
         <>
-            <Hero />
-            <About />
-            <Work />
+            <Cursor />
+            <Navbar />
+            <div className="mt-[50px]">
+                <Hero />
+                <About />
+                <Work />
+            </div>
         </>
     );
 }

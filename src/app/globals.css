@@ -77,7 +77,7 @@ body {
     body {
         margin: 0;
         padding: 0;
-        background-color: theme("colors.gray.800");
+        background-color: theme("colors.black");
         -webkit-font-smoothing: antialiased;
         text-rendering: optimizeLegibility;
     }

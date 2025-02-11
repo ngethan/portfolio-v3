@@ -1,8 +1,11 @@
-import React from "react";
+"use client";
+
+import React, { useRef, useEffect } from "react";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "./dialog";
 import { Badge } from "./badge";
 import Link from "next/link";
 import { BorderBeam } from "../magicui/border-beam";
+import { useAccordionHover } from "../sections/Work";
 
 const WorkAccordion = ({
     company,
@@ -19,15 +22,66 @@ const WorkAccordion = ({
     tags: string[];
     url?: string;
 }) => {
+    const circleRef = useRef<HTMLDivElement | null>(null);
+    const mouseX = useRef(0);
+    const mouseY = useRef(0);
+    const { hoveredId, setHoveredId } = useAccordionHover();
+
+    useEffect(() => {
+        let animationFrameId: number;
+
+        const updateCirclePosition = () => {
+            if (circleRef.current) {
+                circleRef.current.style.transform = `translate(${mouseX.current}px, ${mouseY.current}px)`;
+            }
+            animationFrameId = requestAnimationFrame(updateCirclePosition);
+        };
+
+        animationFrameId = requestAnimationFrame(updateCirclePosition);
+
+        return () => cancelAnimationFrame(animationFrameId);
+    }, []);
+
+    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        mouseX.current = e.clientX - rect.left - 50;
+        mouseY.current = e.clientY - rect.top - 50;
+    };
+
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <div className="w-full cursor-pointer mb-5">
-                    <div className="flex justify-between mb-5">
-                        <h3 className="text-[2rem] md:text-[1.3rem]">{company}</h3>
-                        <h3 className="text-[2rem] md:text-[1.3rem]">{duration}</h3>
+                <div
+                    data-hover="true"
+                    className="w-full cursor-none pt-5 relative overflow-visible group transform transition-transform duration-200 hover:scale-105"
+                    onMouseEnter={() => {
+                        setHoveredId(company);
+                    }}
+                    onMouseLeave={() => {
+                        setHoveredId(null);
+                    }}
+                    onMouseMove={handleMouseMove}
+                >
+                    <div
+                        data-hover="true"
+                        className="absolute bottom-0 left-0 w-full h-0 bg-primary-700 transition-all duration-300 ease-out group-hover:h-full"
+                    ></div>
+
+                    <div
+                        data-hover="true"
+                        className="relative z-10 transition-opacity duration-200"
+                        style={{ opacity: hoveredId && hoveredId !== company ? 0.6 : 1 }}
+                    >
+                        <div data-hover="true" className="flex justify-between mb-5">
+                            <h3 data-hover="true" className="text-[2rem] md:text-[1.3rem]">
+                                {company}
+                            </h3>
+                            <h3 data-hover="true" className="text-[2rem] md:text-[1.3rem]">
+                                {duration}
+                            </h3>
+                        </div>
+                        <hr data-hover="true" className="bg-white" />
                     </div>
-                    <hr className="bg-white" />
                 </div>
             </DialogTrigger>
             <DialogContent>
@@ -43,19 +97,17 @@ const WorkAccordion = ({
                         )}
                     </DialogTitle>
                 </DialogHeader>
-                <DialogDescription>
-                    {description.map((d, i) => {
-                        return <li key={i}>{d}</li>;
-                    })}
+                <DialogDescription className="space-y-3">
+                    {description.map((d, i) => (
+                        <li key={i}>{d}</li>
+                    ))}
                 </DialogDescription>
                 <DialogFooter className="flex-wrap">
-                    {tags.map((d, i) => {
-                        return (
-                            <Badge variant="secondary" className="whitespace-nowrap" key={i}>
-                                {d}
-                            </Badge>
-                        );
-                    })}
+                    {tags.map((d, i) => (
+                        <Badge variant="secondary" className="whitespace-nowrap" key={i}>
+                            {d}
+                        </Badge>
+                    ))}
                 </DialogFooter>
                 <BorderBeam duration={4} size={300} className="from-transparent via-primary-500 to-transparent" />
                 <BorderBeam duration={4} delay={2} size={300} className="from-transparent via-white to-transparent" />

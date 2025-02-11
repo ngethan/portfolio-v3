@@ -48,7 +48,6 @@ const work = [
     {
         company: "Ethan Ng Technologies, LLC",
         title: "CEO",
-        url: "https://ethanng.dev/",
         duration: "Sept '20 — Dec '23",
         description: [
             "Developed software solutions, including websites, Java plugins, mobile apps, and Discord bots for over 50 clients and generated over $150K in revenue across 4 years",
