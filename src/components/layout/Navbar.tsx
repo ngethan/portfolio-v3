@@ -57,7 +57,7 @@ const Navbar = () => {
                 <ul className="hidden items-center gap-4 text-[12px] md:flex">
                     <li>
                         <h1
-                            className="uppercase cursor-pointer hover-animation-dark font-medium duration-300 hover:text-primary-400"
+                            className="uppercase cursor-pointer hover-animation-400 font-medium duration-300 hover:text-primary-400"
                             data-section="bio"
                             onClick={handleViewSection}
                         >
@@ -66,7 +66,7 @@ const Navbar = () => {
                     </li>
                     <li>
                         <h1
-                            className="uppercase cursor-pointer hover-animation-dark font-medium duration-300 hover:text-primary-400"
+                            className="uppercase cursor-pointer hover-animation-400 font-medium duration-300 hover:text-primary-400"
                             data-section="work"
                             onClick={handleViewSection}
                         >
@@ -75,7 +75,7 @@ const Navbar = () => {
                     </li>
                     <li>
                         <h1
-                            className="uppercase cursor-pointer hover-animation-dark font-medium duration-300 hover:text-primary-400"
+                            className="uppercase cursor-pointer hover-animation-400 font-medium duration-300 hover:text-primary-400"
                             data-section="projects"
                             onClick={handleViewSection}
                         >
@@ -83,7 +83,7 @@ const Navbar = () => {
                         </h1>
                     </li>
                     <li>
-                        <h1 className="uppercase cursor-pointer hover-animation-dark font-medium duration-300 hover:text-primary-400">
+                        <h1 className="uppercase cursor-pointer hover-animation-400 font-medium duration-300 hover:text-primary-400">
                             <Link href="/Ethan%20Ng%20Resume.pdf" target="_blank">
                                 Résumé
                             </Link>
@@ -93,7 +93,7 @@ const Navbar = () => {
                         <Link
                             href="/photos"
                             target="_blank"
-                            className="uppercase cursor-pointer hover-animation-dark font-medium duration-300 hover:text-primary-400"
+                            className="uppercase cursor-pointer hover-animation-400 font-medium duration-300 hover:text-primary-400"
                         >
                             Photos
                         </Link>
@@ -119,7 +119,7 @@ const Navbar = () => {
                 <ul className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-gray-800 font-mono text-lg">
                     <li className="fixed top-[15%]">
                         <p
-                            className="hover-animation-dark py-6 text-4xl duration-300 hover:text-primary-400"
+                            className="hover-animation-400 py-6 text-4xl duration-300 hover:text-primary-400"
                             data-section="about"
                             onClick={handleViewSection}
                         >
@@ -128,7 +128,7 @@ const Navbar = () => {
                     </li>
                     <li className="fixed top-[27%]">
                         <p
-                            className="hover-animation-dark py-6 text-4xl duration-300 hover:text-primary-400"
+                            className="hover-animation-400 py-6 text-4xl duration-300 hover:text-primary-400"
                             data-section="skills"
                             onClick={handleViewSection}
                         >
@@ -137,7 +137,7 @@ const Navbar = () => {
                     </li>
                     <li className="fixed top-[39%]">
                         <p
-                            className="hover-animation-dark py-6 text-4xl duration-300 hover:text-primary-400"
+                            className="hover-animation-400 py-6 text-4xl duration-300 hover:text-primary-400"
                             data-section="work"
                             onClick={handleViewSection}
                         >
@@ -146,7 +146,7 @@ const Navbar = () => {
                     </li>
                     <li className="fixed top-[51%]">
                         <p
-                            className="hover-animation-dark py-6 text-4xl duration-300 hover:text-primary-400"
+                            className="hover-animation-400 py-6 text-4xl duration-300 hover:text-primary-400"
                             onClick={handleViewSection}
                         >
                             <Link href="/Ethan_Ng_Resume" target="_blank">
@@ -155,7 +155,7 @@ const Navbar = () => {
                         </p>
                     </li>
                     <li className="fixed top-[63%]">
-                        <p className="hover-animation-dark py-6 text-4xl duration-300 hover:text-primary-400">
+                        <p className="hover-animation-400 py-6 text-4xl duration-300 hover:text-primary-400">
                             <Link href="/photos" target="_blank">
                                 PHOTOS
                             </Link>
@@ -163,7 +163,7 @@ const Navbar = () => {
                     </li>
                     <li className="fixed top-[75%]">
                         <p
-                            className="hover-animation-dark py-6 text-4xl duration-300 hover:text-primary-400"
+                            className="hover-animation-400 py-6 text-4xl duration-300 hover:text-primary-400"
                             data-section="contact"
                             onClick={handleViewSection}
                         >

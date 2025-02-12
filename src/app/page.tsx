@@ -13,6 +13,7 @@ import Skills from "@/components/sections/Skills";
 import Contact from "@/components/sections/Contact";
 import Footer from "@/components/layout/Footer";
 import Projects from "@/components/sections/Projects";
+import Loading from "@/components/sections/Loading";
 
 export default function Home() {
     useEffect(() => {
@@ -34,6 +35,7 @@ export default function Home() {
 
     return (
         <>
+            <Loading />
             <Cursor />
             <Hero />
             <Navbar />

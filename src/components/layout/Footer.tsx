@@ -11,35 +11,35 @@ const Footer: React.FC = () => {
         <div className="relative text-white">
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                 <h1
-                    className="font-bold text-[#767676] whitespace-nowrap overflow-hidden uppercase select-none"
-                    style={{ fontSize: "16vw", opacity: 0.1 }}
+                    className="font-bold bg-gradient-to-r from-[#111] via-[#303030] to-[#111] bg-clip-text text-transparent whitespace-nowrap overflow-hidden uppercase select-none drop-shadow-[0_0_1.2px_rgba(255,255,255,1)]"
+                    style={{ fontSize: "16vw" }}
                 >
                     MY SOCIALS
                 </h1>
             </div>
             <div className="flex justify-center">
-                <hr className="mb-10 w-[91vw]" />
+                <hr className="mb-8 w-[91vw]" />
             </div>
             <div className="relative z-10">
-                <div className="w-full flex justify-center mb-[240px]">
+                <div className="w-full flex justify-center mb-[250px]">
                     <div className="w-[90vw]">
                         <ul className="flex justify-between">
                             <li className="list-none flex gap-1 items-center text-lg">
-                                <Link className="hover-animation-dark" href="mailto:hello@ethans.site" target="_blank">
+                                <Link className="hover-animation-400" href="mailto:hello@ethans.site" target="_blank">
                                     hello@ethans.site
                                 </Link>
                                 <LuArrowUpRight />
                             </li>
                             <br />
                             <li className="list-none flex gap-1 items-center text-lg">
-                                <Link className="hover-animation-dark" href="https://github.com/ngethan" target="_blank">
+                                <Link className="hover-animation-400" href="https://github.com/ngethan" target="_blank">
                                     Github
                                 </Link>
                                 <LuArrowUpRight />
                             </li>
                             <li className="list-none flex gap-1 items-center text-lg">
                                 <Link
-                                    className="hover-animation-dark"
+                                    className="hover-animation-400"
                                     href="https://linkedin.com/in/ethan--ng"
                                     target="_blank"
                                 >
@@ -48,14 +48,14 @@ const Footer: React.FC = () => {
                                 <LuArrowUpRight />
                             </li>
                             <li className="list-none flex gap-1 items-center text-lg">
-                                <Link className="hover-animation-dark" href="https://instagram.com/ethn.ng" target="_blank">
+                                <Link className="hover-animation-400" href="https://instagram.com/ethn.ng" target="_blank">
                                     Instagram
                                 </Link>
                                 <LuArrowUpRight />
                             </li>
                             <li className="list-none flex gap-1 items-center text-lg">
                                 <Link
-                                    className="hover-animation-dark"
+                                    className="hover-animation-400"
                                     href="https://monkeytype.com/profile/ethan.ng"
                                     target="_blank"
                                 >

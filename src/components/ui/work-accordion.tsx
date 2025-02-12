@@ -1,11 +1,12 @@
 "use client";
 
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, ReactNode } from "react";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "./dialog";
 import { Badge } from "./badge";
 import Link from "next/link";
 import { BorderBeam } from "../magicui/border-beam";
 import { useAccordionHover } from "../sections/Work";
+import { HyperText } from "../magicui/hyper-text";
 
 const WorkAccordion = ({
     company,
@@ -18,7 +19,7 @@ const WorkAccordion = ({
     company: string;
     duration: string;
     title: string;
-    description: string[];
+    description: ReactNode;
     tags: string[];
     url?: string;
 }) => {
@@ -72,10 +73,16 @@ const WorkAccordion = ({
                         className="relative z-10 transition-opacity duration-200"
                         style={{ opacity: hoveredId && hoveredId !== company ? 0.6 : 1 }}
                     >
-                        <div data-click-me="true" className="flex justify-between mb-5">
-                            <h3 data-click-me="true" className="text-[2rem] md:text-[1.3rem]">
+                        <div className="flex justify-between mb-5">
+                            <HyperText
+                                animateOnHover={false}
+                                startOnView={true}
+                                duration={500}
+                                data-click-me="true"
+                                className="text-[2rem] md:text-[1.3rem] font-medium"
+                            >
                                 {company}
-                            </h3>
+                            </HyperText>
                             <h3 data-click-me="true" className="text-[2rem] md:text-[1.3rem]">
                                 {duration}
                             </h3>
@@ -89,7 +96,7 @@ const WorkAccordion = ({
                     <DialogTitle>
                         {title} @{" "}
                         {url ? (
-                            <Link className="text-primary-500 hover-animation-dark" href={url} target="_blank">
+                            <Link className="text-primary-500 hover-animation-500" href={url} target="_blank">
                                 {company}
                             </Link>
                         ) : (
@@ -97,11 +104,7 @@ const WorkAccordion = ({
                         )}
                     </DialogTitle>
                 </DialogHeader>
-                <DialogDescription className="space-y-3">
-                    {description.map((d, i) => (
-                        <li key={i}>{d}</li>
-                    ))}
-                </DialogDescription>
+                <DialogDescription className="space-y-3">{description}</DialogDescription>
                 <DialogFooter className="flex-wrap">
                     {tags.map((d, i) => (
                         <Badge variant="secondary" className="whitespace-nowrap" key={i}>

@@ -96,20 +96,29 @@
         background: rgb(232, 49, 63, 0.3);
     }
 
-    .hover-animation-light {
+    .hover-animation-200 {
         background: linear-gradient(theme("colors.primary.200") 0 0) var(--p, 0) 100% / var(--d, 0) 1px no-repeat !important;
         transition: 0.3s, background-position 0s 0.3s;
     }
-    .hover-animation-light:hover {
+    .hover-animation-200:hover {
         --d: 100%;
         --p: 100%;
     }
 
-    .hover-animation-dark {
+    .hover-animation-400 {
         background: linear-gradient(theme("colors.primary.400") 0 0) var(--p, 0) 100% / var(--d, 0) 1px no-repeat !important;
         transition: 0.3s, background-position 0s 0.3s;
     }
-    .hover-animation-dark:hover {
+    .hover-animation-400:hover {
+        --d: 100%;
+        --p: 100%;
+    }
+
+    .hover-animation-500 {
+        background: linear-gradient(theme("colors.primary.500") 0 0) var(--p, 0) 100% / var(--d, 0) 1px no-repeat !important;
+        transition: 0.3s, background-position 0s 0.3s;
+    }
+    .hover-animation-500:hover {
         --d: 100%;
         --p: 100%;
     }

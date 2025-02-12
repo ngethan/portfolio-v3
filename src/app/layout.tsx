@@ -72,7 +72,7 @@ export default function RootLayout({
             className={`${neueMontreal.variable} ${geistMono.variable} font-sans antialiased`}
             lang="en"
         >
-            <body>
+            <body suppressHydrationWarning>
                 <PostHogProvider>
                     <CursorProvider>{children}</CursorProvider>
                 </PostHogProvider>
