@@ -9,6 +9,10 @@ import { useEffect } from "react";
 import Lenis from "lenis";
 import { gsap } from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import Skills from "@/components/sections/Skills";
+import Contact from "@/components/sections/Contact";
+import Footer from "@/components/layout/Footer";
+import Projects from "@/components/sections/Projects";
 
 export default function Home() {
     useEffect(() => {
@@ -36,6 +40,10 @@ export default function Home() {
             <div className="mt-[80px]">
                 <About />
                 <Work />
+                <Projects />
+                <Skills />
+                <Contact />
+                <Footer />
             </div>
         </>
     );

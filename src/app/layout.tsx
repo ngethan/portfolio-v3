@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist_Mono } from "next/font/google";
 import "./globals.css";
 import localFont from "next/font/local";
+import { CursorProvider } from "@/context/CursorContext";
 
 const neueMontreal = localFont({
     src: [
@@ -70,7 +71,9 @@ export default function RootLayout({
             className={`${neueMontreal.variable} ${geistMono.variable} font-sans antialiased`}
             lang="en"
         >
-            <body>{children}</body>
+            <body>
+                <CursorProvider>{children}</CursorProvider>
+            </body>
         </html>
     );
 }

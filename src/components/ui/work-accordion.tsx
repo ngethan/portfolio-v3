@@ -52,7 +52,7 @@ const WorkAccordion = ({
         <Dialog>
             <DialogTrigger asChild>
                 <div
-                    data-hover="true"
+                    data-click-me="true"
                     className="w-full font-medium cursor-none pt-5 relative overflow-visible group transform transition-transform duration-200 hover:scale-105"
                     onMouseEnter={() => {
                         setHoveredId(company);
@@ -63,24 +63,24 @@ const WorkAccordion = ({
                     onMouseMove={handleMouseMove}
                 >
                     <div
-                        data-hover="true"
+                        data-click-me="true"
                         className="absolute bottom-0 left-0 w-full h-0 bg-primary-700 transition-all duration-300 ease-out group-hover:h-full"
                     ></div>
 
                     <div
-                        data-hover="true"
+                        data-click-me="true"
                         className="relative z-10 transition-opacity duration-200"
                         style={{ opacity: hoveredId && hoveredId !== company ? 0.6 : 1 }}
                     >
-                        <div data-hover="true" className="flex justify-between mb-5">
-                            <h3 data-hover="true" className="text-[2rem] md:text-[1.3rem]">
+                        <div data-click-me="true" className="flex justify-between mb-5">
+                            <h3 data-click-me="true" className="text-[2rem] md:text-[1.3rem]">
                                 {company}
                             </h3>
-                            <h3 data-hover="true" className="text-[2rem] md:text-[1.3rem]">
+                            <h3 data-click-me="true" className="text-[2rem] md:text-[1.3rem]">
                                 {duration}
                             </h3>
                         </div>
-                        <hr data-hover="true" className="bg-white" />
+                        <hr data-click-me="true" className="bg-white" />
                     </div>
                 </div>
             </DialogTrigger>

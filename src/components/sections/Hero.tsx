@@ -1,4 +1,5 @@
-// import { useAnimation } from "framer-motion";
+"use client";
+
 import React, { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 import { motion } from "motion/react";
@@ -11,13 +12,8 @@ const Hero = () => {
         if (!navbar) return;
 
         const timeout = setTimeout(() => {
-            if (inView) {
-                console.log("Hero section in view → Hiding navbar");
-                navbar.classList.add("opacity-0", "pointer-events-none");
-            } else {
-                console.log("Hero section out of view → Showing navbar");
-                navbar.classList.remove("opacity-0", "pointer-events-none");
-            }
+            if (inView) navbar.classList.add("opacity-0", "pointer-events-none");
+            else navbar.classList.remove("opacity-0", "pointer-events-none");
         }, 500);
 
         return () => clearTimeout(timeout);
@@ -34,7 +30,7 @@ const Hero = () => {
                 </motion.div>
             </div>
             <div>
-                <h1 className="text-center">Ethan Ng</h1>
+                <h1 className="text-center">hero section</h1>
             </div>
         </div>
     );

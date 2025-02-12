@@ -2,13 +2,14 @@
 
 import Link from "next/link";
 import React from "react";
+import Porsche from "../glbs/porsche";
 
 const About = () => {
     return (
-        <div className="bg-black text-white w-full pb-20">
+        <div className="bg-black text-white w-full pb-20" id="bio">
             <div className="mx-[1rem]">
                 <div className="relative grid grid-cols-8 pb-14">
-                    <div className="lg:text-[9rem] text-[5rem] md:text-[7rem] col-span-8 text-center flex justify-left items-center">
+                    <div className="lg:text-[9rem] text-[5rem] md:text-[7rem] col-span-8 flex items-center">
                         <h1 className="mr-20 text-left uppercase font-bold largeTablet:!text-[7rem] largeTablet:leading-[1] tablet:!text-[5rem] phone:!text-[4rem] smallPhone:!text-[2.8rem]">
                             A Little
                         </h1>
@@ -17,9 +18,9 @@ const About = () => {
                                 <path
                                     id="circlePath"
                                     d="M 100, 100
-               m -75, 0
-               a 75,75 0 1,1 150,0
-               a 75,75 0 1,1 -150,0"
+                   m -75, 0
+                   a 75,75 0 1,1 150,0
+                   a 75,75 0 1,1 -150,0"
                                 />
                             </defs>
                             <text fill="white" fontSize="24" className="cursor-default font-bold">
@@ -29,11 +30,17 @@ const About = () => {
                             </text>
                         </svg>
                     </div>
-                    <h1 className="lg:text-[9rem] text-[5rem] md:text-[7rem] col-start-2 col-span-8 phone:col-start-2 phone:col-span-7">
+                    <div className="lg:text-[9rem] text-[5rem] md:text-[7rem] col-start-2 col-span-8 phone:col-start-2 phone:col-span-7">
                         <h1 className="text-left uppercase font-bold largeTablet:!text-[7rem] largeTablet:leading-[1] tablet:!text-[5rem] phone:!text-[4rem] smallPhone:!text-[2.8rem]">
                             About Me
                         </h1>
-                    </h1>
+                    </div>
+                </div>
+
+                <div className="relative">
+                    <div className="absolute right-0 top-1/2 transform -translate-y-[50%] md:-translate-y-[75%] w-[400px] h-[400px]">
+                        <Porsche />
+                    </div>
                 </div>
 
                 <div className="flex md:justify-between w-full md:flex-row flex-col md:max-w-[80vw] lg:max-w-[75vw] max-w-[95vw]">
@@ -55,11 +62,11 @@ const About = () => {
                         >
                             Connect
                         </Link>
-                        , an alumni outreach platform. raised in New York. I also like{" "}
+                        , an alumni outreach platform. Raised in New York. I also like{" "}
                         <Link className="hover-animation-dark text-primary-400" href="/photos">
                             photography 📸
                         </Link>
-                        , piano 🎹, cars 🏎️ , tennis 🎾, and film 🎥
+                        , piano 🎹, cars 🏎️, tennis 🎾, and film 🎥
                     </p>
                 </div>
             </div>

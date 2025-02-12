@@ -4,7 +4,6 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Spin as Hamburger } from "hamburger-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { Button } from "../ui/button";
 import { HiGlobeAmericas } from "react-icons/hi2";
 
 const Navbar = () => {
@@ -32,15 +31,12 @@ const Navbar = () => {
 
     const handleViewSection = async (e: React.MouseEvent<HTMLElement>) => {
         const section = (e.target as HTMLElement).dataset.section;
-        if (section === "writing") {
-            await router.push("/writing");
-        } else {
-            if (pathname !== "/") await router.push("/");
-            document.getElementById(section!)!.scrollIntoView();
 
-            if (window.innerWidth < 768) {
-                setNav(false);
-            }
+        if (pathname !== "/") await router.push("/");
+        document.getElementById(section!)!.scrollIntoView();
+
+        if (window.innerWidth < 768) {
+            setNav(false);
         }
     };
 
@@ -50,10 +46,10 @@ const Navbar = () => {
                 <div className="flex items-center">
                     <Link href="/">ETHAN NG</Link>
                 </div>
-                <p className="font-medium text-md uppercase flex items-center gap-3 text-[14px] text-gray-300">
+                <div className="font-medium text-md uppercase flex items-center gap-3 text-[14px] text-gray-300">
                     <div className="animate-pulse bg-[#83E084] rounded-full w-3 h-3" />
                     <span> Open to work</span>
-                </p>
+                </div>
                 <p className="font-medium flex text-md items-center gap-3 text-[14px] text-gray-300">
                     <HiGlobeAmericas />
                     <span> STL {time}</span>
@@ -61,38 +57,35 @@ const Navbar = () => {
                 <ul className="hidden items-center gap-4 text-[12px] md:flex">
                     <li>
                         <h1
-                            className="hover-animation-dark font-medium duration-300 hover:text-primary-400"
-                            data-section="about"
+                            className="uppercase cursor-pointer hover-animation-dark font-medium duration-300 hover:text-primary-400"
+                            data-section="bio"
                             onClick={handleViewSection}
                         >
-                            ABOUT
+                            Bio
                         </h1>
                     </li>
                     <li>
                         <h1
-                            className="hover-animation-dark font-medium duration-300 hover:text-primary-400"
-                            data-section="skills"
-                            onClick={handleViewSection}
-                        >
-                            SKILLS
-                        </h1>
-                    </li>
-                    <li>
-                        <h1
-                            className="hover-animation-dark font-medium duration-300 hover:text-primary-400"
+                            className="uppercase cursor-pointer hover-animation-dark font-medium duration-300 hover:text-primary-400"
                             data-section="work"
                             onClick={handleViewSection}
                         >
-                            WORK
+                            Work
                         </h1>
                     </li>
                     <li>
                         <h1
-                            className="hover-animation-dark font-medium duration-300 hover:text-primary-400"
-                            data-section="writing"
+                            className="uppercase cursor-pointer hover-animation-dark font-medium duration-300 hover:text-primary-400"
+                            data-section="projects"
+                            onClick={handleViewSection}
                         >
+                            Projects
+                        </h1>
+                    </li>
+                    <li>
+                        <h1 className="uppercase cursor-pointer hover-animation-dark font-medium duration-300 hover:text-primary-400">
                             <Link href="/Ethan%20Ng%20Resume.pdf" target="_blank">
-                                RESUME
+                                Résumé
                             </Link>
                         </h1>
                     </li>
@@ -100,21 +93,18 @@ const Navbar = () => {
                         <Link
                             href="/photos"
                             target="_blank"
-                            className="hover-animation-dark font-medium duration-300 hover:text-primary-400"
+                            className="uppercase cursor-pointer hover-animation-dark font-medium duration-300 hover:text-primary-400"
                         >
-                            PHOTOS
+                            Photos
                         </Link>
                     </li>
                     <li>
-                        <Button
-                            data-section="contact"
-                            onClick={handleViewSection}
-                            type="button"
-                            aria-label="Contact"
-                            className="font-medium"
+                        <Link
+                            href="mailto:hello@ethans.site"
+                            className="uppercase inline-flex items-center justify-center text-sm ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-950 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 dark:ring-offset-primary-950 dark:focus-visible:ring-primary-300 duration-300 font-mono bg-transparent text-gray-50 border border-gray-400 hover:border-primary-500 h-10 px-6 py-2 font-medium"
                         >
-                            <span className="text-[12px]">CONTACT</span>
-                        </Button>
+                            <span className="text-[12px]">Contact</span>
+                        </Link>
                     </li>
                 </ul>
 

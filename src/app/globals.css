@@ -141,4 +141,20 @@
     .animate-pulse {
         animation: pulse 40s infinite;
     }
+
+    .animate-highlight {
+        background-image: linear-gradient(#f43f5e, #f43f5e);
+        background-repeat: no-repeat;
+        padding: 0px 10px;
+
+        background-size: 0px 100%;
+        background-position: 0 0;
+        transition: background-size 0.3s, background-position 0.2s 0.4s;
+    }
+
+    .animate-highlight:hover {
+        background-size: 100% 100%;
+        background-position: 100% 0;
+        transition: background-size 0.3s, background-position 0.2s 0.4s;
+    }
 }
