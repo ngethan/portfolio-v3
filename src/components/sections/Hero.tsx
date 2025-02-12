@@ -98,14 +98,14 @@ const Hero: React.FC = () => {
                     <div className="flex flex-col gap-2 items-center w-[33%] justify-center">
                         <p className="uppercase font-medium font-mono">Delivering Exceptional Experiences</p>
                     </div>
-                    <div className="w-[33%]">
+                    <div className="w-[33%] flex justify-end">
                         <Link
                             href="https://github.com/ngethan/portfolio-v3"
                             target="_blank"
-                            className="flex gap-2 items-center justify-end"
+                            className="flex w-fit gap-2 items-center group"
                         >
-                            <p className="uppercase font-medium">GitHub</p>
-                            <LuCodeXml />
+                            <p className="uppercase font-medium group-hover:text-primary-500 duration-150">GitHub</p>
+                            <LuCodeXml className="group-hover:text-primary-500 duration-150" />
                         </Link>
                     </div>
                 </div>

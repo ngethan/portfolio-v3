@@ -70,18 +70,14 @@ const Footer: React.FC = () => {
                 </div>
 
                 <Marquee pauseOnHover className="[--duration:15s] py-4 duration-300 text-white overflow-hidden">
-                    <p className="gap-2 text-xl font-medium flex items-center">
-                        <span>MADE WITH </span>
-                        <FaHeart className="text-primary-500" />
-                        <span> BY ETHAN NG</span>
-                        <span>•</span>
-                    </p>
-                    <p className="gap-2 text-xl font-medium flex items-center">
-                        <span>MADE WITH </span>
-                        <FaHeart className="text-primary-500" />
-                        <span> BY ETHAN NG</span>
-                        <span>•</span>
-                    </p>
+                    {[1, 2, 3, 4, 5].map((k) => (
+                        <p key={k} className="gap-2 text-xl font-medium flex items-center">
+                            <span>MADE WITH </span>
+                            <FaHeart className="text-primary-500" />
+                            <span> BY ETHAN NG</span>
+                            <span>•</span>
+                        </p>
+                    ))}
                 </Marquee>
             </div>
         </div>

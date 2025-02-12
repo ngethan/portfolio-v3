@@ -166,4 +166,9 @@
         background-position: 100% 0;
         transition: background-size 0.3s, background-position 0.2s 0.4s;
     }
+
+    .no-scroll {
+        overflow: hidden;
+        height: 100vh;
+    }
 }
