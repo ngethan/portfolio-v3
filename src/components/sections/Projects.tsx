@@ -5,7 +5,7 @@ import Laptop from "../glbs/laptop";
 
 const Projects = () => {
     return (
-        <div className="bg-black text-white w-full mb-[25rem]" id="bio">
+        <div className="bg-black text-white w-full mb-[25rem]" id="projects">
             <div className="mx-[1rem]">
                 <div className="relative grid grid-cols-8 pb-14">
                     <div className="lg:text-[9rem] text-[5rem] md:text-[7rem] col-span-8 text-center flex justify-left items-center">

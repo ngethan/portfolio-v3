@@ -29,8 +29,10 @@ export default {
                     DEFAULT: "hsl(var(--primary))",
                     foreground: "hsl(var(--primary-foreground))",
                 },
+                // black: "#1b1b1b",
+                // white: "#F4ECE1",
                 black: "#111111",
-                white: "#E1DED4",
+                white: "#DAD6CA",
                 gray: {
                     "50": "#ffffff",
                     "100": "#ededed",
