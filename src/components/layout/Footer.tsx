@@ -13,32 +13,36 @@ const Footer = () => {
                 <div className="w-[90vw]">
                     <ul>
                         <li className="list-none flex gap-1 items-center text-lg">
-                            <Link className="hover-animation-dark" href="mailto:hello@ethans.site">
+                            <Link className="hover-animation-dark" href="mailto:hello@ethans.site" target="_blank">
                                 hello@ethans.site
                             </Link>
                             <LuArrowUpRight />
                         </li>
                         <br />
                         <li className="list-none flex gap-1 items-center text-lg">
-                            <Link className="hover-animation-dark" href="https://github.com/ngethan">
+                            <Link className="hover-animation-dark" href="https://github.com/ngethan" target="_blank">
                                 Github
                             </Link>
                             <LuArrowUpRight />
                         </li>
                         <li className="list-none flex gap-1 items-center text-lg">
-                            <Link className="hover-animation-dark" href="https://linkedin.com/in/ethan--ng">
+                            <Link className="hover-animation-dark" href="https://linkedin.com/in/ethan--ng" target="_blank">
                                 LinkedIn
                             </Link>
                             <LuArrowUpRight />
                         </li>
                         <li className="list-none flex gap-1 items-center text-lg">
-                            <Link className="hover-animation-dark" href="https://instagram.com/ethn.ng">
+                            <Link className="hover-animation-dark" href="https://instagram.com/ethn.ng" target="_blank">
                                 Instagram
                             </Link>
                             <LuArrowUpRight />
                         </li>
                         <li className="list-none flex gap-1 items-center text-lg">
-                            <Link className="hover-animation-dark" href="https://monkeytype.com/profile/ethan.ng">
+                            <Link
+                                className="hover-animation-dark"
+                                href="https://monkeytype.com/profile/ethan.ng"
+                                target="_blank"
+                            >
                                 Monkeytype
                             </Link>
                             <LuArrowUpRight />

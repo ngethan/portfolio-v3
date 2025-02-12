@@ -3,6 +3,7 @@ import { Geist_Mono } from "next/font/google";
 import "./globals.css";
 import localFont from "next/font/local";
 import { CursorProvider } from "@/context/CursorContext";
+import { PostHogProvider } from "@/components/posthog/PostHogProvider";
 
 const neueMontreal = localFont({
     src: [
@@ -72,7 +73,9 @@ export default function RootLayout({
             lang="en"
         >
             <body>
-                <CursorProvider>{children}</CursorProvider>
+                <PostHogProvider>
+                    <CursorProvider>{children}</CursorProvider>
+                </PostHogProvider>
             </body>
         </html>
     );
