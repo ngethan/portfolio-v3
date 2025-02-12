@@ -18,14 +18,14 @@ importers:
         specifier: ^1.1.2
         version: 1.1.2(@types/react@19.0.8)(react@19.0.0)
       '@react-spring/core':
-        specifier: ^9.7.5
+        specifier: ^9.7.2
         version: 9.7.5(react@19.0.0)
       '@react-spring/three':
-        specifier: ^9.7.5
-        version: 9.7.5(@react-three/fiber@9.0.0-alpha.8(@types/react@19.0.8)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(three@0.153.0))(react@19.0.0)(three@0.153.0)
+        specifier: 9.7.2
+        version: 9.7.2(@react-three/fiber@9.0.0-alpha.8(@types/react@19.0.8)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(three@0.153.0))(react@19.0.0)(three@0.153.0)
       '@react-spring/web':
-        specifier: ^9.7.5
-        version: 9.7.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        specifier: 9.7.2
+        version: 9.7.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@react-three/drei':
         specifier: 9.76.0
         version: 9.76.0(@react-three/fiber@9.0.0-alpha.8(@types/react@19.0.8)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(three@0.153.0))(@types/three@0.153.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(three@0.153.0)
@@ -1068,8 +1068,8 @@ packages:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
       three: '>=0.126'
 
-  '@react-spring/three@9.7.5':
-    resolution: {integrity: sha512-RxIsCoQfUqOS3POmhVHa1wdWS0wyHAUway73uRLp3GAL5U2iYVNdnzQsep6M2NZ994BlW8TcKuMtQHUqOsy6WA==}
+  '@react-spring/three@9.7.2':
+    resolution: {integrity: sha512-u7VAjc+az82PM+WOC2sTbZQLBixuN+0jX/oahzyjEnIds5eUJgaBqZRYAAEMupuzGGl8H3QqL3bFgBEQLq6ADQ==}
     peerDependencies:
       '@react-three/fiber': '>=6.0'
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
@@ -1081,8 +1081,8 @@ packages:
   '@react-spring/types@9.7.5':
     resolution: {integrity: sha512-HVj7LrZ4ReHWBimBvu2SKND3cDVUPWKLqRTmWe/fNY6o1owGOX0cAHbdPDTMelgBlVbrTKrre6lFkhqGZErK/g==}
 
-  '@react-spring/web@9.7.5':
-    resolution: {integrity: sha512-lmvqGwpe+CSttsWNZVr+Dg62adtKhauGwLyGE/RRyZ8AAMLgb9x3NDMA5RMElXo+IMyTkPp7nxTB8ZQlmhb6JQ==}
+  '@react-spring/web@9.7.2':
+    resolution: {integrity: sha512-7qNc7/5KShu2D05x7o2Ols2nUE7mCKfKLaY2Ix70xPMfTle1sZisoQMBFgV9w/fSLZlHZHV9P0uWJqEXQnbV4Q==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
@@ -4460,7 +4460,7 @@ snapshots:
       react: 19.0.0
       three: 0.153.0
 
-  '@react-spring/three@9.7.5(@react-three/fiber@9.0.0-alpha.8(@types/react@19.0.8)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(three@0.153.0))(react@19.0.0)(three@0.153.0)':
+  '@react-spring/three@9.7.2(@react-three/fiber@9.0.0-alpha.8(@types/react@19.0.8)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(three@0.153.0))(react@19.0.0)(three@0.153.0)':
     dependencies:
       '@react-spring/animated': 9.7.5(react@19.0.0)
       '@react-spring/core': 9.7.5(react@19.0.0)
@@ -4474,7 +4474,7 @@ snapshots:
 
   '@react-spring/types@9.7.5': {}
 
-  '@react-spring/web@9.7.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
+  '@react-spring/web@9.7.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
     dependencies:
       '@react-spring/animated': 9.7.5(react@19.0.0)
       '@react-spring/core': 9.7.5(react@19.0.0)
