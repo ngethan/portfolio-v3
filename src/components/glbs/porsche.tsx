@@ -230,7 +230,7 @@ const Porsche = () => {
                     dispatchEvent={undefined}
                     isGroup={undefined}
                 >
-                    <div></div>
+                    {""}
                 </RandomizedLight>
             </AccumulativeShadows>
             <PerformanceMonitor onDecline={() => setDegraded(true)} />
@@ -335,7 +335,7 @@ function Lightformers({ positions = [2, 0, 2, 0, 2, 0, 2, 0] }) {
                 updateMorphTargets={undefined}
                 getVertexPosition={undefined}
             >
-                <div></div>
+                {""}
             </Lightformer>
             <group rotation={[0, 0.5, 0]}>
                 <group ref={group}>
@@ -424,7 +424,7 @@ function Lightformers({ positions = [2, 0, 2, 0, 2, 0, 2, 0] }) {
                             updateMorphTargets={undefined}
                             getVertexPosition={undefined}
                         >
-                            <div></div>
+                            {""}
                         </Lightformer>
                     ))}
                 </group>
@@ -512,7 +512,7 @@ function Lightformers({ positions = [2, 0, 2, 0, 2, 0, 2, 0] }) {
                 updateMorphTargets={undefined}
                 getVertexPosition={undefined}
             >
-                <div></div>
+                {""}
             </Lightformer>
             <Lightformer
                 rotation-y={Math.PI / 2}
@@ -596,7 +596,7 @@ function Lightformers({ positions = [2, 0, 2, 0, 2, 0, 2, 0] }) {
                 updateMorphTargets={undefined}
                 getVertexPosition={undefined}
             >
-                <div></div>
+                {""}
             </Lightformer>
             <Lightformer
                 rotation-y={-Math.PI / 2}
@@ -680,7 +680,7 @@ function Lightformers({ positions = [2, 0, 2, 0, 2, 0, 2, 0] }) {
                 updateMorphTargets={undefined}
                 getVertexPosition={undefined}
             >
-                <div></div>
+                {""}
             </Lightformer>
             <Float
                 speed={5}
@@ -867,7 +867,7 @@ function Lightformers({ positions = [2, 0, 2, 0, 2, 0, 2, 0] }) {
                     updateMorphTargets={undefined}
                     getVertexPosition={undefined}
                 >
-                    <div></div>
+                    {""}
                 </Lightformer>
             </Float>
         </>
