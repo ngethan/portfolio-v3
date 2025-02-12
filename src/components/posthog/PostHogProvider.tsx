@@ -2,7 +2,7 @@
 import posthog from "posthog-js";
 import { PostHogProvider as PHProvider } from "posthog-js/react";
 import { ReactNode, useEffect } from "react";
-import { PostHogPageView } from "./PageView";
+import SuspendedPostHogPageView from "./PageView";
 
 export function PostHogProvider({ children }: { children: ReactNode }) {
     useEffect(() => {
@@ -14,7 +14,7 @@ export function PostHogProvider({ children }: { children: ReactNode }) {
 
     return (
         <PHProvider client={posthog}>
-            <PostHogPageView />
+            <SuspendedPostHogPageView />
             {children}
         </PHProvider>
     );

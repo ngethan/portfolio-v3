@@ -1,5 +1,4 @@
 // app/PostHogPageView.jsx
-"use client";
 
 import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect, Suspense } from "react";
