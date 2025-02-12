@@ -53,7 +53,7 @@ const WorkAccordion = ({
             <DialogTrigger asChild>
                 <div
                     data-hover="true"
-                    className="w-full cursor-none pt-5 relative overflow-visible group transform transition-transform duration-200 hover:scale-105"
+                    className="w-full font-medium cursor-none pt-5 relative overflow-visible group transform transition-transform duration-200 hover:scale-105"
                     onMouseEnter={() => {
                         setHoveredId(company);
                     }}

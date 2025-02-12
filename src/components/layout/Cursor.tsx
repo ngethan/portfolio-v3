@@ -41,7 +41,7 @@ const Cursor = () => {
                 animate={{
                     width: isHovering ? expandedSize : defaultSize,
                     height: isHovering ? expandedSize : defaultSize,
-                    backgroundColor: isHovering ? "white" : "#fb7185",
+                    backgroundColor: isHovering ? "#ffffff" : "#fb7185",
                     opacity: isHovering ? 0.9 : 1,
                     mixBlendMode: isHovering ? "difference" : "normal",
                     transition: {
@@ -58,8 +58,8 @@ const Cursor = () => {
                         transition={{ duration: 0.2, ease: "easeOut" }}
                         className="font-bold flex gap-2 items-center"
                         style={{
-                            fontSize: `${Math.max(0.8, expandedSize * 0.008)}rem`, // Proportional font size
-                            whiteSpace: "nowrap", // Prevents wrapping
+                            fontSize: `${Math.max(0.8, expandedSize * 0.008)}rem`,
+                            whiteSpace: "nowrap",
                         }}
                     >
                         CLICK ME <LuMaximize2 style={{ fontSize: "1.2em" }} />

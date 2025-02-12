@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@million/lint": "^1.0.14",
     "@radix-ui/react-dialog": "^1.1.6",
     "@radix-ui/react-slot": "^1.1.2",
     "class-variance-authority": "^0.7.1",
@@ -16,6 +17,7 @@
     "framer-motion": "^12.4.2",
     "gsap": "^3.12.7",
     "hamburger-react": "^2.5.2",
+    "lenis": "^1.1.20",
     "lucide-react": "^0.475.0",
     "motion": "^12.4.2",
     "next": "15.1.7",

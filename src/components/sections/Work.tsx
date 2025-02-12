@@ -26,7 +26,7 @@ const Work = () => {
         <AccordionHoverProvider>
             <div className="bg-black text-white w-full pb-10">
                 <div className="mx-[1rem]">
-                    <div className="flex md:justify-between md:flex-row flex-col md:w-[80vw] lg:w-[70vw] w-[95vw]">
+                    <div className="flex md:justify-between md:flex-row flex-col md:w-[80vw] lg:w-[75vw] w-[95vw]">
                         <div className="md:py-0 py-6 text-md space-x-6 flex">
                             <p>2.</p> <p className="uppercase">Work</p>
                         </div>

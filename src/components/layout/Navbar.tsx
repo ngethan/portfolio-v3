@@ -1,53 +1,34 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { motion, useAnimation } from "framer-motion";
+import React, { useEffect, useMemo, useState } from "react";
 import { Spin as Hamburger } from "hamburger-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useInView } from "react-intersection-observer";
 import { Button } from "../ui/button";
+import { HiGlobeAmericas } from "react-icons/hi2";
 
 const Navbar = () => {
     const [nav, setNav] = useState(false);
+    const [time, setTime] = useState("");
     const handleClick = () => setNav(!nav);
     const router = useRouter();
     const pathname = usePathname();
 
-    const controls = useAnimation();
-    const [ref, inView] = useInView({ threshold: 0.3 });
+    const dateFormatter = useMemo(() => {
+        return new Intl.DateTimeFormat([], {
+            timeZone: "America/Chicago",
+            hour: "numeric",
+            minute: "numeric",
+            second: "numeric",
+        });
+    }, []);
+
     useEffect(() => {
-        if (inView) {
-            controls.start("visible");
-        }
-    }, [controls, inView]);
-
-    const list = {
-        visible: {
-            opacity: 1,
-            transition: {
-                delay: 0.1,
-                when: "beforeChildren",
-                staggerChildren: 0.05,
-            },
-        },
-        hidden: {
-            opacity: 0,
-            transition: {
-                when: "afterChildren",
-            },
-        },
-    };
-
-    const item = {
-        hidden: { y: -20, opacity: 0 },
-        visible: { y: 0, opacity: 1 },
-    };
-
-    const variants = {
-        open: { opacity: 1, x: 0 },
-        closed: { opacity: 0, x: "-100%" },
-    };
+        const interval = setInterval(() => setTime(dateFormatter.format(new Date())), 1000);
+        return () => {
+            clearInterval(interval);
+        };
+    }, [dateFormatter]);
 
     const handleViewSection = async (e: React.MouseEvent<HTMLElement>) => {
         const section = (e.target as HTMLElement).dataset.section;
@@ -64,82 +45,77 @@ const Navbar = () => {
     };
 
     return (
-        <motion.div
-            id="navbar"
-            className="fixed top-0 left-0 w-[100vw] bg-black text-white duration-300 z-50"
-            initial="hidden"
-            animate={controls}
-            variants={list}
-            ref={ref}
-        >
+        <div id="navbar" className="fixed top-0 opacity-0 left-0 w-[100vw] bg-black text-white duration-300 z-50">
             <div className="mx-8 py-4 flex items-center justify-between border-b border-white">
-                <motion.div
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    variants={item}
-                    className="flex items-center"
-                >
+                <div className="flex items-center">
                     <Link href="/">ETHAN NG</Link>
-                </motion.div>
-
+                </div>
+                <p className="font-medium text-md uppercase flex items-center gap-3 text-[14px] text-gray-300">
+                    <div className="animate-pulse bg-[#83E084] rounded-full w-3 h-3" />
+                    <span> Open to work</span>
+                </p>
+                <p className="font-medium flex text-md items-center gap-3 text-[14px] text-gray-300">
+                    <HiGlobeAmericas />
+                    <span> STL {time}</span>
+                </p>
                 <ul className="hidden items-center gap-4 text-[12px] md:flex">
-                    <motion.li variants={item}>
+                    <li>
                         <h1
-                            className="hover-animation-dark font-semibold duration-300 hover:text-primary-400"
+                            className="hover-animation-dark font-medium duration-300 hover:text-primary-400"
                             data-section="about"
                             onClick={handleViewSection}
                         >
                             ABOUT
                         </h1>
-                    </motion.li>
-                    <motion.li variants={item}>
+                    </li>
+                    <li>
                         <h1
-                            className="hover-animation-dark font-semibold duration-300 hover:text-primary-400"
+                            className="hover-animation-dark font-medium duration-300 hover:text-primary-400"
                             data-section="skills"
                             onClick={handleViewSection}
                         >
                             SKILLS
                         </h1>
-                    </motion.li>
-                    <motion.li variants={item}>
+                    </li>
+                    <li>
                         <h1
-                            className="hover-animation-dark font-semibold duration-300 hover:text-primary-400"
+                            className="hover-animation-dark font-medium duration-300 hover:text-primary-400"
                             data-section="work"
                             onClick={handleViewSection}
                         >
                             WORK
                         </h1>
-                    </motion.li>
-                    <motion.li variants={item}>
+                    </li>
+                    <li>
                         <h1
-                            className="hover-animation-dark font-semibold duration-300 hover:text-primary-400"
+                            className="hover-animation-dark font-medium duration-300 hover:text-primary-400"
                             data-section="writing"
                         >
                             <Link href="/Ethan%20Ng%20Resume.pdf" target="_blank">
                                 RESUME
                             </Link>
                         </h1>
-                    </motion.li>
-                    <motion.li variants={item}>
+                    </li>
+                    <li>
                         <Link
                             href="/photos"
                             target="_blank"
-                            className="hover-animation-dark font-semibold duration-300 hover:text-primary-400"
+                            className="hover-animation-dark font-medium duration-300 hover:text-primary-400"
                         >
                             PHOTOS
                         </Link>
-                    </motion.li>
-                    <motion.li variants={item}>
+                    </li>
+                    <li>
                         <Button
                             data-section="contact"
                             onClick={handleViewSection}
                             type="button"
                             aria-label="Contact"
-                            className="font-semibold"
+                            className="font-medium"
                         >
                             <span className="text-[12px]">CONTACT</span>
                         </Button>
-                    </motion.li>
+                    </li>
                 </ul>
 
                 <div className="z-50 md:hidden" onClick={handleClick}>
@@ -150,10 +126,7 @@ const Navbar = () => {
             <hr className="hidden md:inline w-full" />
 
             {nav && (
-                <motion.ul
-                    className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-gray-800 font-mono text-lg"
-                    variants={variants}
-                >
+                <ul className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-gray-800 font-mono text-lg">
                     <li className="fixed top-[15%]">
                         <p
                             className="hover-animation-dark py-6 text-4xl duration-300 hover:text-primary-400"
@@ -207,9 +180,9 @@ const Navbar = () => {
                             CONTACT
                         </p>
                     </li>
-                </motion.ul>
+                </ul>
             )}
-        </motion.div>
+        </div>
     );
 };
 
