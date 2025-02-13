@@ -2,10 +2,10 @@
 
 import React, { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "motion/react";
 import { HiOutlineWrenchScrewdriver } from "react-icons/hi2";
 import { VscSymbolInterface, VscSymbolVariable } from "react-icons/vsc";
-import { LuBolt, LuTriangleAlert, LuConstruction, LuCodeXml, LuArrowDown } from "react-icons/lu";
+import { LuBolt, LuTriangleAlert, LuConstruction, LuCodeXml, LuMouse } from "react-icons/lu";
 import Link from "next/link";
 
 const roles = ["engineer", "founder", "student", "designer"];
@@ -69,9 +69,14 @@ const Hero: React.FC = () => {
 
             <div className="absolute inset-0 flex flex-col items-center justify-center">
                 <div className="flex items-center space-x-20">
-                    <p className="uppercase mt-10">Hey I&apos;m</p>
-                    <h1 className="text-center text-[12vw] font-bold leading-none">ethan ng</h1>
-                    <div className="relative h-8 mt-10 w-20 text-left overflow-hidden">
+                    <p className="mt-10 text-2xl w-24">hey I&apos;m</p>
+                    <div className="relative float-right">
+                        <p className="text-[1.5vw] sm:mt-2 md:mt-3 lg:mt-5 -ml-1 absolute font-medium w-full text-right">
+                            伍义存
+                        </p>
+                        <h1 className="text-center text-[12vw] font-bold leading-none">ethan ng</h1>
+                    </div>
+                    <div className="relative h-8 mt-10 w-24 text-left overflow-hidden">
                         <AnimatePresence mode="wait">
                             <motion.span
                                 key={roles[roleIndex]}
@@ -80,7 +85,7 @@ const Hero: React.FC = () => {
                                 animate="animate"
                                 exit="exit"
                                 transition={{ duration: 0.2 }}
-                                className="absolute inset-0 text-xl text-primary-600 flex items-center"
+                                className="absolute inset-0 text-2xl text-primary-600 flex items-center"
                             >
                                 {roles[roleIndex]}
                             </motion.span>
@@ -91,10 +96,23 @@ const Hero: React.FC = () => {
 
             <div className="absolute bottom-0 left-0 right-0 flex justify-center pb-10">
                 <div className="flex justify-between w-full mx-10">
-                    <div className="flex gap-2 items-center w-[33%] justify-start">
-                        <LuArrowDown />
+                    <motion.div
+                        className="flex gap-2 items-center w-[33%] justify-start"
+                        animate={{
+                            y: ["0", "-15px"],
+                        }}
+                        transition={{
+                            repeat: Infinity,
+                            repeatType: "reverse",
+                            bounce: 0.25,
+                            duration: 0.5,
+                            yoyo: Infinity,
+                            ease: "easeOut",
+                        }}
+                    >
+                        <LuMouse />
                         <p className="uppercase font-medium">Scroll for more</p>
-                    </div>
+                    </motion.div>
                     <div className="flex flex-col gap-2 items-center w-[33%] justify-center">
                         <p className="uppercase font-medium font-mono">Delivering Exceptional Experiences</p>
                     </div>

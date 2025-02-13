@@ -76,7 +76,6 @@ export default function RootLayout({
                 <PostHogProvider>
                     <CursorProvider>{children}</CursorProvider>
                 </PostHogProvider>
-                nosc
             </body>
         </html>
     );

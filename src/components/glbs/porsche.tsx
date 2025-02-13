@@ -237,7 +237,14 @@ const Porsche = () => {
             <Environment frames={degraded ? 1 : Infinity} resolution={256} blur={1}>
                 <Lightformers />
             </Environment>
-            <OrbitControls enablePan={false} enableZoom={false} minPolarAngle={Math.PI / 2.2} maxPolarAngle={Math.PI / 2.2} />
+            <OrbitControls
+                autoRotate={true}
+                autoRotateSpeed={0.7}
+                enablePan={false}
+                enableZoom={false}
+                minPolarAngle={Math.PI / 2.2}
+                maxPolarAngle={Math.PI / 2.2}
+            />
         </Canvas>
     );
 };
@@ -253,10 +260,10 @@ function Lightformers({ positions = [2, 0, 2, 0, 2, 0, 2, 0] }) {
     return (
         <>
             <Lightformer
-                intensity={0.75}
+                intensity={2}
                 rotation-x={Math.PI / 2}
                 position={[0, 5, -9]}
-                scale={[10, 10, 1]}
+                scale={[10, 10, 10]}
                 key={undefined}
                 visible={undefined}
                 attach={undefined}

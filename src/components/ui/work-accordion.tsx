@@ -7,6 +7,8 @@ import Link from "next/link";
 import { BorderBeam } from "../magicui/border-beam";
 import { useAccordionHover } from "../sections/Work";
 import { HyperText } from "../magicui/hyper-text";
+import { motion, useAnimation } from "motion/react";
+import { useInView } from "react-intersection-observer";
 
 const WorkAccordion = ({
     company,
@@ -23,6 +25,22 @@ const WorkAccordion = ({
     tags: string[];
     url?: string;
 }) => {
+    const controls = useAnimation();
+    const [ref, inView] = useInView({ threshold: 0.3 });
+    useEffect(() => {
+        if (inView) {
+            controls.start("visible");
+        }
+    }, [controls, inView]);
+
+    const item = {
+        hidden: { y: -20, opacity: 0 },
+        visible: {
+            y: 0,
+            opacity: 1,
+        },
+    };
+
     const circleRef = useRef<HTMLDivElement | null>(null);
     const mouseX = useRef(0);
     const mouseY = useRef(0);
@@ -52,7 +70,8 @@ const WorkAccordion = ({
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <div
+                <motion.div
+                    ref={ref}
                     data-click-me="true"
                     className="w-full font-medium cursor-none pt-5 relative overflow-visible group transform transition-transform duration-200 hover:scale-105"
                     onMouseEnter={() => {
@@ -73,7 +92,7 @@ const WorkAccordion = ({
                         className="relative z-10 transition-opacity duration-200"
                         style={{ opacity: hoveredId && hoveredId !== company ? 0.6 : 1 }}
                     >
-                        <div className="flex justify-between mb-5">
+                        <motion.div variants={item} data-click-me="true" className="flex justify-between mb-5">
                             <HyperText
                                 animateOnHover={false}
                                 startOnView={true}
@@ -83,13 +102,15 @@ const WorkAccordion = ({
                             >
                                 {company}
                             </HyperText>
-                            <h3 data-click-me="true" className="text-[2rem] md:text-[1.3rem]">
+                            <motion.h3 variants={item} data-click-me="true" className="text-[2rem] md:text-[1.3rem]">
                                 {duration}
-                            </h3>
-                        </div>
-                        <hr data-click-me="true" className="bg-white" />
+                            </motion.h3>
+                        </motion.div>
+                        <motion.div variants={item}>
+                            <hr data-click-me="true" className="bg-white" />
+                        </motion.div>
                     </div>
-                </div>
+                </motion.div>
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>

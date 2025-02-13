@@ -1,11 +1,20 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useCursor } from "@/context/CursorContext";
 import { SpinningText } from "../magicui/spinning-text";
+import { Spotlight } from "../ui/spotlight";
+import { useInView } from "react-intersection-observer";
 
 const Contact = () => {
     const { setCopyState } = useCursor();
+
+    const [ref, inView] = useInView({ threshold: 0.5, triggerOnce: true });
+    const [showSpotlight, setShowSpotlight] = useState(false);
+
+    useEffect(() => {
+        setShowSpotlight(inView);
+    }, [inView]);
 
     return (
         <div className="bg-black text-white w-full mb-40" id="bio">
@@ -30,7 +39,9 @@ const Contact = () => {
 
                 <div className="flex w-full justify-center">
                     <div>
+                        {showSpotlight && <Spotlight className="-mt-[500px] -ml-[300px]" fill="white" />}
                         <p
+                            ref={ref}
                             data-copy="true"
                             className="cursor-pointer md:text-6xl text-3xl sm:text-4xl underline w-fit"
                             onClick={() => {

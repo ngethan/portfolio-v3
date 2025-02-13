@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import { motion, useMotionValue, useSpring } from "motion/react";
 import { LuMaximize2 } from "react-icons/lu";
 import { LuCopy } from "react-icons/lu";
 import { useCursor } from "@/context/CursorContext";

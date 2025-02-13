@@ -17,10 +17,10 @@ const Loading = () => {
             document.body.classList.remove("no-scroll");
         }, 4000);
 
-        // return () => {
-        //     document.documentElement.classList.remove("no-scroll");
-        //     document.body.classList.remove("no-scroll");
-        // };
+        return () => {
+            document.documentElement.classList.remove("no-scroll");
+            document.body.classList.remove("no-scroll");
+        };
     }, []);
 
     useEffect(() => {

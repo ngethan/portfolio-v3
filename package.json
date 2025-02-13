@@ -18,7 +18,6 @@
         "@types/three": "0.153.0",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
-        "framer-motion": "^12.4.2",
         "gsap": "^3.12.7",
         "hamburger-react": "^2.5.2",
         "lamina": "1.1.23",

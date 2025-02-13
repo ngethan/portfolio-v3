@@ -32,7 +32,7 @@ export default {
                 // black: "#1b1b1b",
                 // white: "#F4ECE1",
                 black: "#111111",
-                white: "#DAD6CA",
+                white: "#FBF0DA",
                 gray: {
                     "50": "#ffffff",
                     "100": "#ededed",
@@ -117,12 +117,23 @@ export default {
                         transform: "translateY(calc(-100% - var(--gap)))",
                     },
                 },
+                spotlight: {
+                    "0%": {
+                        opacity: "0",
+                        transform: "translate(-72%, -62%) scale(0.5)",
+                    },
+                    "100%": {
+                        opacity: "1",
+                        transform: "translate(-50%,-40%) scale(1)",
+                    },
+                },
             },
             animation: {
                 flicker: "flicker 3s linear infinite",
                 shimmer: "shimmer 1.3s linear infinite",
                 marquee: "marquee var(--duration) infinite linear",
                 "marquee-vertical": "marquee-vertical var(--duration) linear infinite",
+                spotlight: "spotlight 2s ease .75s 1 forwards",
             },
             borderRadius: {
                 lg: "var(--radius)",
