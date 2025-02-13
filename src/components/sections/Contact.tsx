@@ -43,7 +43,7 @@ const Contact = () => {
                         <p
                             ref={ref}
                             data-copy="true"
-                            className="cursor-pointer md:text-6xl text-3xl sm:text-4xl underline w-fit"
+                            className="cursor-pointer md:text-6xl text-3xl sm:text-4xl underline w-fit text-primary-300"
                             onClick={() => {
                                 navigator.clipboard.writeText("hello@ethans.site");
                                 setCopyState(true);

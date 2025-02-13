@@ -42,7 +42,7 @@ const About = () => {
 
     return (
         <motion.div
-            className="bg-black text-white w-full pb-20"
+            className="bg-black text-white w-full pb-20 about"
             id="bio"
             initial="hidden"
             animate={controls}
