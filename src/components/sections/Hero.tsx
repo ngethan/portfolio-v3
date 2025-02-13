@@ -8,7 +8,7 @@ import { VscSymbolInterface, VscSymbolVariable } from "react-icons/vsc";
 import { LuBolt, LuTriangleAlert, LuConstruction, LuCodeXml, LuMouse } from "react-icons/lu";
 import Link from "next/link";
 import Image from "next/image";
-import gsap from "gsap";
+// import gsap from "gsap";
 
 const roles = ["engineer", "founder", "student", "designer"];
 
@@ -71,15 +71,15 @@ const Hero = () => {
         { bottom: "12%", right: "1%", transform: "none", baseRotation: -5, size: 220 },
     ];
 
-    gsap.to(".about", {
-        scrollTrigger: {
-            trigger: ".hero",
-            start: "top top",
-            end: "bottom top",
-            scrub: true,
-        },
-        y: -window.innerHeight,
-    });
+    // gsap.to(".about", {
+    //     scrollTrigger: {
+    //         trigger: ".hero",
+    //         start: "top top",
+    //         end: "bottom top",
+    //         scrub: true,
+    //     },
+    //     y: -window.innerHeight,
+    // });
 
     return (
         <div className="relative h-screen bg-white text-black w-full hero" ref={ref}>

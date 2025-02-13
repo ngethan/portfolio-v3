@@ -4,6 +4,8 @@ import "./globals.css";
 import localFont from "next/font/local";
 import { CursorProvider } from "@/context/CursorContext";
 import { PostHogProvider } from "@/components/posthog/PostHogProvider";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/all";
 
 const neueMontreal = localFont({
     src: [
@@ -66,6 +68,8 @@ export default function RootLayout({
 }: Readonly<{
     children: React.ReactNode;
 }>) {
+    gsap.registerPlugin(ScrollTrigger);
+
     return (
         <html
             suppressHydrationWarning
