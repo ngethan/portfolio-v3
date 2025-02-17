@@ -8,7 +8,8 @@ import { VscSymbolInterface, VscSymbolVariable } from "react-icons/vsc";
 import { LuBolt, LuTriangleAlert, LuConstruction, LuCodeXml, LuMouse } from "react-icons/lu";
 import Link from "next/link";
 import Image from "next/image";
-// import gsap from "gsap";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/all";
 
 const roles = ["engineer", "founder", "student", "designer"];
 
@@ -71,18 +72,31 @@ const Hero = () => {
         { bottom: "12%", right: "1%", transform: "none", baseRotation: -5, size: 220 },
     ];
 
-    // gsap.to(".about", {
-    //     scrollTrigger: {
-    //         trigger: ".hero",
-    //         start: "top top",
-    //         end: "bottom top",
-    //         scrub: true,
-    //     },
-    //     y: -window.innerHeight,
-    // });
+    gsap.registerPlugin(ScrollTrigger);
+
+    useEffect(() => {
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: ".hero",
+                start: "top top",
+                end: "+=100%",
+                scrub: 1,
+                pin: true,
+            },
+        });
+
+        tl.to(".hero-item", {
+            opacity: 0,
+            duration: 1,
+        });
+
+        return () => {
+            tl.kill();
+        };
+    }, []);
 
     return (
-        <div className="relative h-screen bg-white text-black w-full hero" ref={ref}>
+        <div className="relative h-screen bg-white text-black w-full hero overflow-hidden" ref={ref}>
             <div className="absolute top-0 left-0 right-0 flex justify-center mt-2">
                 <motion.div className="flex font-mono justify-between w-[98%] hero-item">
                     <p className="uppercase flex gap-2 items-center">
@@ -146,27 +160,11 @@ const Hero = () => {
 
             <div className="absolute inset-0 flex flex-col items-center justify-center">
                 <div className="flex items-center gap-20">
-                    <p className="mt-10 text-2xl w-24 lowercase hero-item">Hey I&apos;m</p>
-                    <div className="relative">
+                    <div className="relative hero-name">
                         <p className="text-[1.5vw] sm:mt-2 md:mt-3 lg:mt-5 -ml-1 absolute font-medium w-full text-right">
                             伍义存
                         </p>
                         <h1 className="text-center text-[12vw] font-bold leading-none">ethan ng</h1>
-                    </div>
-                    <div className="relative h-8 mt-10 w-24 text-left overflow-hidden hero-item">
-                        <AnimatePresence mode="wait">
-                            <motion.span
-                                key={roles[roleIndex]}
-                                variants={textVariants}
-                                initial="initial"
-                                animate="animate"
-                                exit="exit"
-                                transition={{ duration: 0.2 }}
-                                className="absolute inset-0 text-2xl text-primary-600 flex items-center justify-end"
-                            >
-                                {roles[roleIndex]}
-                            </motion.span>
-                        </AnimatePresence>
                     </div>
                 </div>
             </div>
@@ -187,7 +185,21 @@ const Hero = () => {
                         <p className="uppercase font-medium">Scroll for more</p>
                     </motion.div>
                     <div className="flex flex-col gap-2 items-center w-[33%] justify-center">
-                        <p className="uppercase font-medium font-mono">Delivering Exceptional Experiences</p>
+                        <p className="uppercase font-medium font-mono">
+                            <AnimatePresence mode="wait">
+                                <motion.span
+                                    key={roles[roleIndex]}
+                                    variants={textVariants}
+                                    initial="initial"
+                                    animate="animate"
+                                    exit="exit"
+                                    transition={{ duration: 0.2 }}
+                                    className="inset-0 text-primary-600"
+                                >
+                                    {roles[roleIndex]}
+                                </motion.span>
+                            </AnimatePresence>
+                        </p>
                     </div>
                     <div className="w-[33%] flex justify-end">
                         <Link

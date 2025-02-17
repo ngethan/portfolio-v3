@@ -106,9 +106,18 @@ const WorkAccordion = ({
                                 {duration}
                             </motion.h3>
                         </motion.div>
-                        <motion.div variants={item}>
-                            <hr data-click-me="true" className="bg-white" />
-                        </motion.div>
+                        <div>
+                            <motion.hr
+                                data-click-me="true"
+                                className="bg-white"
+                                initial={{ scaleX: 0 }}
+                                whileInView={{ scaleX: 1 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 1, ease: "easeIn" }}
+                                style={{ originX: 0 }}
+                            />
+                            {/* <hr data-click-me="true" className="bg-white" /> */}
+                        </div>
                     </div>
                 </motion.div>
             </DialogTrigger>

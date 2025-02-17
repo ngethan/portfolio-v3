@@ -17,35 +17,45 @@ import Loading from "@/components/sections/Loading";
 
 export default function Home() {
     useEffect(() => {
-        const lenis = new Lenis();
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            smoothWheel: true,
+        });
 
-        const raf = (time: number) => {
+        function raf(time: number) {
             lenis.raf(time);
             requestAnimationFrame(raf);
-        };
+        }
 
         requestAnimationFrame(raf);
+
+        lenis.on("scroll", ScrollTrigger.update);
+
+        gsap.ticker.add((time) => {
+            lenis.raf(time * 1000);
+        });
 
         return () => {
             lenis.destroy();
         };
     }, []);
 
-    gsap.registerPlugin(ScrollTrigger);
-
     return (
         <>
             <Loading />
             <Cursor />
-            <Hero />
-            <Navbar />
-            <div className="mt-[80px]">
-                <About />
-                <Work />
-                <Projects />
-                <Skills />
-                <Contact />
-                <Footer />
+            <div className="relative">
+                <Hero />
+                <Navbar />
+                <div className="relative">
+                    <About />
+                    <Work />
+                    <Projects />
+                    <Skills />
+                    <Contact />
+                    <Footer />
+                </div>
             </div>
         </>
     );

@@ -6,6 +6,9 @@ import Porsche from "../glbs/porsche";
 import { SpinningText } from "../magicui/spinning-text";
 import { motion, useAnimation } from "motion/react";
 import { useInView } from "react-intersection-observer";
+import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
+
 const About = () => {
     const controls = useAnimation();
     const [ref, inView] = useInView({ threshold: 0.5 });
@@ -14,6 +17,38 @@ const About = () => {
             controls.start("visible");
         }
     }, [controls, inView]);
+
+    useEffect(() => {
+        ScrollTrigger.create({
+            trigger: "#bio",
+            start: "top bottom",
+            end: "top top",
+            snap: {
+                snapTo: 0,
+                duration: 0.8,
+                delay: 0,
+                ease: "power2.inOut",
+            },
+        });
+
+        gsap.fromTo(
+            "#bio",
+            {
+                opacity: 0,
+                y: 100,
+            },
+            {
+                opacity: 1,
+                y: 0,
+                scrollTrigger: {
+                    trigger: "",
+                    start: "top center",
+                    end: "top center",
+                    scrub: 1,
+                },
+            }
+        );
+    }, []);
 
     const list = {
         visible: {

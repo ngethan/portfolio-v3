@@ -39,7 +39,6 @@ const Contact = () => {
 
                 <div className="flex w-full justify-center">
                     <div>
-                        {showSpotlight && <Spotlight className="-mt-[500px] -ml-[300px]" fill="white" />}
                         <p
                             ref={ref}
                             data-copy="true"
@@ -50,6 +49,9 @@ const Contact = () => {
                                 setTimeout(() => setCopyState(false), 2000);
                             }}
                         >
+                            {showSpotlight && (
+                                <Spotlight className="-mt-[30vh] md:-mt-[40vh] -ml-[20vw] md:-ml-[10vw]" fill="white" />
+                            )}
                             hello@ethans.site
                         </p>
                         <p className="text-gray-300">PSST!! hover on me ;)</p>
