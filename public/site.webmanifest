@@ -1,0 +1,22 @@
+{
+  "name": "Ethan Ng",
+  "short_name": "Ethan Ng",
+  "description": "Ethan Ng builds polished software across recruiting, edtech, and AI.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0f0f0f",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
