@@ -13,9 +13,11 @@ const resolveRuntimeOrigin = () => {
 
 	if (
 		typeof globalThis !== "undefined" &&
-		(globalThis as any).location?.origin
+		(globalThis as typeof globalThis & { location?: { origin: string } })
+			.location?.origin
 	) {
-		return (globalThis as any).location.origin as string;
+		return (globalThis as typeof globalThis & { location: { origin: string } })
+			.location.origin;
 	}
 
 	return "";

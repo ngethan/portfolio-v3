@@ -63,9 +63,9 @@ function Press() {
 	return (
 		<Layout activeSection="press">
 			<div className="space-y-1">
-				{articles.map((article, index) => (
+				{articles.map((article) => (
 					<a
-						key={index}
+						key={article.url}
 						href={article.url}
 						target="_blank"
 						rel="noopener noreferrer"

@@ -11,9 +11,24 @@ const config = defineConfig({
       projects: ['./tsconfig.json'],
     }),
     tailwindcss(),
-    tanstackStart(),
+    tanstackStart({
+      prerender: {
+        enabled: true,
+        autoSubfolderIndex: true,
+        concurrency: 14,
+        crawlLinks: true,
+        retryCount: 2,
+        retryDelay: 1000,
+        onSuccess: ({ page }) => {
+          console.log(`Rendered ${page.path}!`)
+        },
+      },
+    }),
     viteReact(),
   ],
+  server: {
+    allowedHosts: ["ethans.site", "ethanng.dev"]
+  }
 })
 
 export default config

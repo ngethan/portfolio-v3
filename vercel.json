@@ -1,0 +1,14 @@
+{
+  "buildCommand": "pnpm build",
+  "installCommand": "pnpm install",
+  "routes": [
+    {
+      "src": "/assets/(.*)",
+      "dest": "/dist/client/assets/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/api/server"
+    }
+  ]
+}

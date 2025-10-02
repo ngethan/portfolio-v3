@@ -1,6 +1,11 @@
-import React, { ReactNode, useEffect, useLayoutEffect, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { motion } from "motion/react";
+import React, {
+	type ReactNode,
+	useEffect,
+	useLayoutEffect,
+	useState,
+} from "react";
 import { Shadow } from "./shadow";
 
 interface LayoutProps {

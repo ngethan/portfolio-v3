@@ -122,6 +122,7 @@ export function Shadow({
 			>
 				{animationEnabled && (
 					<svg style={{ position: "absolute" }} aria-label="Shadows">
+						<title>Decorative shadow effects</title>
 						<defs>
 							<filter id={id}>
 								<feTurbulence

@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Layout } from "../components/Layout";
 import { ArrowUpRight } from "lucide-react";
+import { Layout } from "../components/Layout";
 import { buildSeoTags } from "../site-config";
 
 const DESCRIPTION =
@@ -72,8 +72,8 @@ function Projects() {
 	return (
 		<Layout activeSection="projects">
 			<div className="space-y-4 text-muted-foreground">
-				{projects.map((project, index) => (
-					<div key={index} className="flex flex-col gap-1">
+				{projects.map((project) => (
+					<div key={project.name} className="flex flex-col gap-1">
 						<div className="flex items-center gap-2">
 							{project.url ? (
 								<a

@@ -1,18 +1,107 @@
-import { useState, useEffect, useRef } from "react";
-import { motion } from "motion/react";
 import { RotateCcw, X } from "lucide-react";
+import { motion } from "motion/react";
+import { useEffect, useRef, useState } from "react";
 
 const WORDS = [
-	"the", "be", "to", "of", "and", "a", "in", "that", "have", "it",
-	"for", "not", "on", "with", "he", "as", "you", "do", "at", "this",
-	"but", "his", "by", "from", "they", "we", "say", "her", "she", "or",
-	"an", "will", "my", "one", "all", "would", "there", "their", "what", "so",
-	"up", "out", "if", "about", "who", "get", "which", "go", "me", "when",
-	"make", "can", "like", "time", "no", "just", "him", "know", "take", "people",
-	"into", "year", "your", "good", "some", "could", "them", "see", "other", "than",
-	"then", "now", "look", "only", "come", "its", "over", "think", "also", "back",
-	"after", "use", "two", "how", "our", "work", "first", "well", "way", "even",
-	"new", "want", "because", "any", "these", "give", "day", "most", "us",
+	"the",
+	"be",
+	"to",
+	"of",
+	"and",
+	"a",
+	"in",
+	"that",
+	"have",
+	"it",
+	"for",
+	"not",
+	"on",
+	"with",
+	"he",
+	"as",
+	"you",
+	"do",
+	"at",
+	"this",
+	"but",
+	"his",
+	"by",
+	"from",
+	"they",
+	"we",
+	"say",
+	"her",
+	"she",
+	"or",
+	"an",
+	"will",
+	"my",
+	"one",
+	"all",
+	"would",
+	"there",
+	"their",
+	"what",
+	"so",
+	"up",
+	"out",
+	"if",
+	"about",
+	"who",
+	"get",
+	"which",
+	"go",
+	"me",
+	"when",
+	"make",
+	"can",
+	"like",
+	"time",
+	"no",
+	"just",
+	"him",
+	"know",
+	"take",
+	"people",
+	"into",
+	"year",
+	"your",
+	"good",
+	"some",
+	"could",
+	"them",
+	"see",
+	"other",
+	"than",
+	"then",
+	"now",
+	"look",
+	"only",
+	"come",
+	"its",
+	"over",
+	"think",
+	"also",
+	"back",
+	"after",
+	"use",
+	"two",
+	"how",
+	"our",
+	"work",
+	"first",
+	"well",
+	"way",
+	"even",
+	"new",
+	"want",
+	"because",
+	"any",
+	"these",
+	"give",
+	"day",
+	"most",
+	"us",
 ];
 
 interface TypingTestProps {
@@ -27,7 +116,9 @@ export function TypingTest({ onClose }: TypingTestProps) {
 	const [startTime, setStartTime] = useState<number | null>(null);
 	const [endTime, setEndTime] = useState<number | null>(null);
 	const [errors, setErrors] = useState(0);
-	const [charStates, setCharStates] = useState<("correct" | "incorrect" | "")[][]>([]);
+	const [charStates, setCharStates] = useState<
+		("correct" | "incorrect" | "")[][]
+	>([]);
 	const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
 	const inputRef = useRef<HTMLInputElement>(null);
 	const charRefs = useRef<(HTMLSpanElement | null)[][]>([]);
@@ -35,12 +126,15 @@ export function TypingTest({ onClose }: TypingTestProps) {
 	const WORD_COUNT = 50;
 
 	useEffect(() => {
-		const generatedWords = Array.from({ length: WORD_COUNT }, () =>
-			WORDS[Math.floor(Math.random() * WORDS.length)]
+		const generatedWords = Array.from(
+			{ length: WORD_COUNT },
+			() => WORDS[Math.floor(Math.random() * WORDS.length)],
 		);
 		setWords(generatedWords);
-		setCharStates(generatedWords.map(word => Array(word.length).fill("")));
-		charRefs.current = generatedWords.map(word => Array(word.length).fill(null));
+		setCharStates(generatedWords.map((word) => Array(word.length).fill("")));
+		charRefs.current = generatedWords.map((word) =>
+			Array(word.length).fill(null),
+		);
 
 		inputRef.current?.focus();
 	}, []);
@@ -48,17 +142,19 @@ export function TypingTest({ onClose }: TypingTestProps) {
 	useEffect(() => {
 		const updateCursorPosition = () => {
 			const currentWord = words[currentWordIndex];
-			let charRef;
+			let charRef: HTMLSpanElement | null | undefined;
 
 			if (currentCharIndex >= currentWord?.length) {
 				charRef = charRefs.current[currentWordIndex]?.[currentWord.length - 1];
 				if (charRef) {
 					const rect = charRef.getBoundingClientRect();
-					const containerRect = charRef.closest('.words-container')?.getBoundingClientRect();
+					const containerRect = charRef
+						.closest(".words-container")
+						?.getBoundingClientRect();
 					if (containerRect) {
 						setCursorPosition({
 							x: rect.right - containerRect.left,
-							y: rect.top - containerRect.top + (rect.height / 2) - 12,
+							y: rect.top - containerRect.top + rect.height / 2 - 12,
 						});
 					}
 				}
@@ -66,11 +162,13 @@ export function TypingTest({ onClose }: TypingTestProps) {
 				charRef = charRefs.current[currentWordIndex]?.[currentCharIndex];
 				if (charRef) {
 					const rect = charRef.getBoundingClientRect();
-					const containerRect = charRef.closest('.words-container')?.getBoundingClientRect();
+					const containerRect = charRef
+						.closest(".words-container")
+						?.getBoundingClientRect();
 					if (containerRect) {
 						setCursorPosition({
 							x: rect.left - containerRect.left,
-							y: rect.top - containerRect.top + (rect.height / 2) - 12,
+							y: rect.top - containerRect.top + rect.height / 2 - 12,
 						});
 					}
 				}
@@ -84,7 +182,7 @@ export function TypingTest({ onClose }: TypingTestProps) {
 	useEffect(() => {
 		const handleClickOutside = (e: MouseEvent) => {
 			const target = e.target as HTMLElement;
-			if (target.tagName === 'BUTTON' || target.closest('button')) return;
+			if (target.tagName === "BUTTON" || target.closest("button")) return;
 
 			if (inputRef.current && !inputRef.current.contains(target)) {
 				setTimeout(() => {
@@ -195,7 +293,9 @@ export function TypingTest({ onClose }: TypingTestProps) {
 			const wordStates = charStates[i];
 			const word = words[i];
 			if (wordStates && word) {
-				const allCorrect = word.split('').every((_, idx) => wordStates[idx] === "correct");
+				const allCorrect = word
+					.split("")
+					.every((_, idx) => wordStates[idx] === "correct");
 				if (allCorrect) {
 					correctWords++;
 				}
@@ -228,12 +328,15 @@ export function TypingTest({ onClose }: TypingTestProps) {
 	};
 
 	const restart = () => {
-		const generatedWords = Array.from({ length: WORD_COUNT }, () =>
-			WORDS[Math.floor(Math.random() * WORDS.length)]
+		const generatedWords = Array.from(
+			{ length: WORD_COUNT },
+			() => WORDS[Math.floor(Math.random() * WORDS.length)],
 		);
 		setWords(generatedWords);
-		setCharStates(generatedWords.map(word => Array(word.length).fill("")));
-		charRefs.current = generatedWords.map(word => Array(word.length).fill(null));
+		setCharStates(generatedWords.map((word) => Array(word.length).fill("")));
+		charRefs.current = generatedWords.map((word) =>
+			Array(word.length).fill(null),
+		);
 		setCurrentWordIndex(0);
 		setCurrentCharIndex(0);
 		setInput("");
@@ -274,13 +377,13 @@ export function TypingTest({ onClose }: TypingTestProps) {
 							/>
 
 							{words.map((word, wordIdx) => (
-								<div key={wordIdx} className="flex">
+								<div key={`word-${wordIdx}`} className="flex">
 									{word.split("").map((char, charIdx) => {
 										const state = charStates[wordIdx]?.[charIdx] || "";
 
 										return (
 											<span
-												key={charIdx}
+												key={`char-${wordIdx}-${charIdx}`}
 												ref={(el) => {
 													if (!charRefs.current[wordIdx]) {
 														charRefs.current[wordIdx] = [];
@@ -303,6 +406,7 @@ export function TypingTest({ onClose }: TypingTestProps) {
 
 						<div className="flex gap-6 pointer-events-auto relative z-10">
 							<button
+								type="button"
 								onMouseDown={(e) => {
 									e.preventDefault();
 									e.stopPropagation();
@@ -314,6 +418,7 @@ export function TypingTest({ onClose }: TypingTestProps) {
 								<RotateCcw className="w-4 h-4" />
 							</button>
 							<button
+								type="button"
 								onMouseDown={(e) => {
 									e.preventDefault();
 									e.stopPropagation();
@@ -332,14 +437,14 @@ export function TypingTest({ onClose }: TypingTestProps) {
 							value={input}
 							onChange={handleInput}
 							className="opacity-0 absolute -z-10"
-							autoFocus
 						/>
 					</>
 				) : (
 					<div className="space-y-8 pointer-events-auto">
 						<div className="space-y-4">
 							<div className="text-5xl font-bold text-foreground">
-								{calculateWPM()} <span className="text-xl text-muted-foreground">wpm</span>
+								{calculateWPM()}{" "}
+								<span className="text-xl text-muted-foreground">wpm</span>
 							</div>
 							<div className="text-2xl text-muted-foreground">
 								{calculateAccuracy()}% accuracy
@@ -348,6 +453,7 @@ export function TypingTest({ onClose }: TypingTestProps) {
 
 						<div className="flex gap-6">
 							<button
+								type="button"
 								onClick={restart}
 								className="text-foreground transition-colors cursor-pointer flex items-center gap-2"
 								title="try again"
@@ -355,6 +461,7 @@ export function TypingTest({ onClose }: TypingTestProps) {
 								<RotateCcw className="w-5 h-5" />
 							</button>
 							<button
+								type="button"
 								onClick={onClose}
 								className="text-muted-foreground hover:text-foreground transition-colors cursor-pointer flex items-center gap-2"
 								title="close"
