@@ -28,7 +28,7 @@ const config = defineConfig({
     }),
     viteReact(),
     nitro(
-      { config: { preset: 'node-server' } }
+      { config: { preset: 'vercel' } }
     )
     ],
   server: {
