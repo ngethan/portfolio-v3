@@ -19,10 +19,15 @@ export const Route = createFileRoute("/projects")({
 function Projects() {
 	const projects = [
 		{
-			name: "Somnia",
+			name: "Frick",
+			description: "iOS app that blocks distracting apps using NFC tags",
+			url: "https://github.com/ngethan/frick",
+		},
+		{
+			name: "Meet in the Middle",
 			description:
-				"Sleep-tracking app integrating Apple HealthKit with AI-powered insights",
-			url: "https://github.com/ngethan/somnia",
+				"Group hangout planner that finds optimal meetup spots based on everyone's location",
+			url: "https://github.com/ngethan/meet-in-the-middle",
 		},
 		{
 			name: "AI Camera Assistant",
@@ -37,20 +42,15 @@ function Projects() {
 			url: "https://github.com/ngethan/cnn",
 		},
 		{
-			name: "Frick",
-			description: "iOS app that blocks distracting apps using NFC tags",
-			url: "https://github.com/ngethan/frick",
-		},
-		{
-			name: "Meet in the Middle",
-			description:
-				"Group hangout planner that finds optimal meetup spots based on everyone's location",
-			url: "https://github.com/ngethan/meet-in-the-middle",
-		},
-		{
 			name: "Murmur",
 			description: "Mobile app that won Best UI Design at HackSLU 2025",
 			url: "https://github.com/ngethan/hackslu-2025",
+		},
+		{
+			name: "Somnia",
+			description:
+				"Sleep-tracking app integrating Apple HealthKit with AI-powered insights",
+			url: "https://github.com/ngethan/somnia",
 		},
 		{
 			name: "@connectalum/statsd-client",
