@@ -97,7 +97,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 			</head>
 			<body>
 				{children}
-				{/* {process.env.NODE_ENV === "development" && ( */}
+				{process.env.NODE_ENV === "development" && (
 					<TanStackDevtools
 						config={{
 							position: "bottom-left",
@@ -109,7 +109,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 							},
 						]}
 					/>
-				{/* )} */}
+				)}
 				<Scripts />
 			</body>
 		</html>
