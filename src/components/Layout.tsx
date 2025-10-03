@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
 import { motion } from "motion/react";
 import React, {
@@ -80,8 +81,8 @@ export function Layout({ children, activeSection }: LayoutProps) {
 				<nav className="w-full md:w-32 mb-8 md:mb-0 text-sm">
 					<ul className="flex md:flex-col gap-4 md:gap-0 md:space-y-2">
 						<li>
-							<a
-								href="/"
+							<Link
+								to="/"
 								className={`transition-colors duration-300 hover:text-foreground ${
 									activeSection === "about"
 										? "text-foreground"
@@ -89,11 +90,11 @@ export function Layout({ children, activeSection }: LayoutProps) {
 								}`}
 							>
 								About
-							</a>
+							</Link>
 						</li>
 						<li>
-							<a
-								href="/projects"
+							<Link
+								to="/projects"
 								className={`transition-colors duration-300 hover:text-foreground ${
 									activeSection === "projects"
 										? "text-foreground"
@@ -101,11 +102,11 @@ export function Layout({ children, activeSection }: LayoutProps) {
 								}`}
 							>
 								Projects
-							</a>
+							</Link>
 						</li>
 						<li>
-							<a
-								href="/press"
+							<Link
+								to="/press"
 								className={`transition-colors duration-300 hover:text-foreground ${
 									activeSection === "press"
 										? "text-foreground"
@@ -113,7 +114,7 @@ export function Layout({ children, activeSection }: LayoutProps) {
 								}`}
 							>
 								Press
-							</a>
+							</Link>
 						</li>
 						<li>
 							<a
