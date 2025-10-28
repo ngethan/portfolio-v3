@@ -17,7 +17,7 @@ interface LayoutProps {
 const MemoizedShadow = React.memo(() => (
 	<Shadow
 		color="rgba(128, 128, 128, 0.3)"
-		animation={{ scale: 50, speed: 60 }}
+		animation={{ scale: 50, speed: 80 }}
 		noise={{ opacity: 1, scale: 1.5 }}
 		sizing="fill"
 	/>
@@ -121,7 +121,7 @@ export function Layout({ children, activeSection }: LayoutProps) {
 								href="/Ethan_Ng_Resume.pdf"
 								target="_blank"
 								rel="noopener noreferrer"
-								className="flex items-center gap-1 text-muted-foreground transition-colors duration-300 hover:text-foreground"
+								className="flex items-center gap-1 text-muted-foreground hover:text-foreground"
 							>
 								<span>Resume</span>
 								<ArrowUpRight className="w-3 h-3" />
@@ -150,7 +150,7 @@ export function Layout({ children, activeSection }: LayoutProps) {
 						href="https://github.com/ngethan"
 						target="_blank"
 						rel="noopener noreferrer"
-						className="text-muted-foreground transition-colors duration-300 hover:text-foreground"
+						className="text-muted-foreground hover:text-foreground"
 					>
 						GitHub
 					</a>
@@ -158,7 +158,7 @@ export function Layout({ children, activeSection }: LayoutProps) {
 						href="https://linkedin.com/in/ethan--ng"
 						target="_blank"
 						rel="noopener noreferrer"
-						className="text-muted-foreground transition-colors duration-300 hover:text-foreground"
+						className="text-muted-foreground hover:text-foreground"
 					>
 						LinkedIn
 					</a>
@@ -166,7 +166,7 @@ export function Layout({ children, activeSection }: LayoutProps) {
 						href="https://instagram.com/ethn.ng"
 						target="_blank"
 						rel="noopener noreferrer"
-						className="text-muted-foreground transition-colors duration-300 hover:text-foreground"
+						className="text-muted-foreground hover:text-foreground"
 					>
 						Instagram
 					</a>
@@ -174,7 +174,7 @@ export function Layout({ children, activeSection }: LayoutProps) {
 						href="https://x.com/ethn_ng/"
 						target="_blank"
 						rel="noopener noreferrer"
-						className="text-muted-foreground transition-colors duration-300 hover:text-foreground"
+						className="text-muted-foreground hover:text-foreground"
 					>
 						X
 					</a>

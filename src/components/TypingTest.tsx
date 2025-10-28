@@ -352,7 +352,7 @@ export function TypingTest({ onClose }: TypingTestProps) {
 			animate={{ opacity: 1 }}
 			exit={{ opacity: 0 }}
 			transition={{ duration: 0.6, ease: "easeInOut" }}
-			className="fixed right-24 w-1/2 flex items-start text-muted-foreground pointer-events-auto"
+			className="fixed right-8 lg:right-24 w-[45%] lg:w-1/2 flex items-start text-muted-foreground pointer-events-auto hidden md:flex"
 			style={{
 				top: "6rem",
 				height: "calc(100vh - 12rem)",
@@ -362,7 +362,7 @@ export function TypingTest({ onClose }: TypingTestProps) {
 			<div className="w-full overflow-auto pointer-events-auto">
 				{!endTime ? (
 					<>
-						<div className="mb-8 flex flex-wrap gap-2 text-xl font-mono leading-relaxed words-container relative">
+						<div className="mb-8 flex flex-wrap gap-2 text-base md:text-xl font-mono leading-relaxed words-container relative">
 							<motion.div
 								className="absolute w-0.5 h-6 bg-foreground"
 								animate={{

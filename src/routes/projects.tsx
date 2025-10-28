@@ -80,7 +80,7 @@ function Projects() {
 									href={project.url}
 									target="_blank"
 									rel="noopener noreferrer"
-									className="text-foreground transition-colors duration-300 hover:text-foreground flex items-center gap-1"
+									className="flex items-center gap-1"
 								>
 									<span>{project.name}</span>
 									<ArrowUpRight className="w-3 h-3" />

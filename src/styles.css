@@ -18,6 +18,10 @@ code {
 		"Courier New", monospace;
 }
 
+a {
+	@apply text-foreground transition-colors duration-300 hover:text-foreground hover:underline;
+}
+
 :root {
 	--background: oklch(0.2476 0 0);
 	--foreground: oklch(0.9851 0 0);
