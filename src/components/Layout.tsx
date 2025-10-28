@@ -83,10 +83,10 @@ export function Layout({ children, activeSection }: LayoutProps) {
 						<li>
 							<Link
 								to="/"
-								className={`transition-colors duration-300 hover:text-foreground ${
+								className={`transition-colors duration-300 ${
 									activeSection === "about"
 										? "text-foreground"
-										: "text-muted-foreground"
+										: "text-muted-foreground hover:text-foreground"
 								}`}
 							>
 								About
@@ -95,10 +95,10 @@ export function Layout({ children, activeSection }: LayoutProps) {
 						<li>
 							<Link
 								to="/projects"
-								className={`transition-colors duration-300 hover:text-foreground ${
+								className={`transition-colors duration-300 ${
 									activeSection === "projects"
 										? "text-foreground"
-										: "text-muted-foreground"
+										: "text-muted-foreground hover:text-foreground"
 								}`}
 							>
 								Projects
@@ -107,10 +107,10 @@ export function Layout({ children, activeSection }: LayoutProps) {
 						<li>
 							<Link
 								to="/press"
-								className={`transition-colors duration-300 hover:text-foreground ${
+								className={`transition-colors duration-300 ${
 									activeSection === "press"
 										? "text-foreground"
-										: "text-muted-foreground"
+										: "text-muted-foreground hover:text-foreground"
 								}`}
 							>
 								Press
@@ -130,7 +130,7 @@ export function Layout({ children, activeSection }: LayoutProps) {
 					</ul>
 				</nav>
 
-				<main className="flex-1 w-full md:max-w-[360px] md:ml-12">
+				<main className="flex-1 w-full md:ml-12">
 					<motion.div
 						initial={{ opacity: 0, y: 3 }}
 						animate={{ opacity: 1, y: 0 }}

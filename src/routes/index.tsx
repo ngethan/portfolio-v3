@@ -29,9 +29,9 @@ function HoverPreview({
 				animate={{ opacity: 1, y: 0 }}
 				exit={{ opacity: 0, y: 20 }}
 				transition={{ duration: 0.4, ease: "easeInOut" }}
-				className="mt-8 w-full"
+				className="mt-8 md:-ml-12 w-full md:w-[calc(100%+3rem)] preview-content"
 			>
-				<div className="w-full">{content}</div>
+				{content}
 			</motion.div>
 		);
 	}
@@ -42,10 +42,11 @@ function HoverPreview({
 			animate={{ opacity: 1 }}
 			exit={{ opacity: 0 }}
 			transition={{ duration: 0.6, ease: "easeInOut" }}
-			className="fixed right-8 lg:right-24 w-[45%] lg:w-1/2 flex items-start hidden md:flex"
+			className="fixed right-8 2xl:right-24 items-start hidden md:flex preview-content"
 			style={{
 				top: "6rem",
 				height: "calc(100vh - 12rem)",
+				width: "clamp(400px, calc(100% - 700px), 45%)",
 			}}
 		>
 			<div className="w-full">{content}</div>
@@ -131,7 +132,12 @@ function App() {
 
 	useEffect(() => {
 		const checkMobile = () => {
-			setIsMobile(window.innerWidth < 768);
+			// Left content takes: 96px (nav) + 48px (ml-12) + 360px (max-width) = 504px
+			// Right content needs reasonable space (at least 400px)
+			// Add padding (48px each side = 96px)
+			// Total minimum: 504 + 400 + 96 = 1000px
+			// Use 1100px to be safe and prevent overlap
+			setIsMobile(window.innerWidth < 1100);
 		};
 		checkMobile();
 		window.addEventListener("resize", checkMobile);
@@ -147,7 +153,7 @@ function App() {
 
 		const handleClickOutside = (e: MouseEvent) => {
 			const target = e.target as HTMLElement;
-			if (pinnedPreview && target.closest(".blurred-content")) {
+			if (pinnedPreview && !target.closest(".preview-content")) {
 				setPinnedPreview(null);
 			}
 		};
@@ -160,106 +166,104 @@ function App() {
 		};
 	}, [pinnedPreview]);
 
-	const shouldBlur = (pinnedPreview || hoverPreview) && !isMobile;
+	const shouldBlur = pinnedPreview || hoverPreview;
 
 	return (
 		<>
-			<div
-				className="transition-all duration-600"
-				style={{
-					filter: shouldBlur ? "blur(1px)" : "none",
-					WebkitFilter: shouldBlur ? "blur(1px)" : "none",
-				}}
-			>
-				<Layout activeSection="about">
-					<div
-						className="space-y-5 text-muted-foreground"
-						style={{ lineHeight: "1.2em" }}
-					>
-						<p>
-							I'm currently building{" "}
-							<a
-								href="https://aligned.jobs"
-								target="_blank"
-								rel="noopener noreferrer"
-								onMouseEnter={() => !isMobile && setHoverPreview("aligned")}
-								onMouseLeave={() => !isMobile && setHoverPreview(null)}
-								onClick={(e) => handleLinkClick(e, "aligned")}
-							>
-								Aligned
-							</a>{" "}
-							- a holistic recruiting platform that informs better hires.
-						</p>
+			<Layout activeSection="about">
+				<div
+					className="space-y-5 text-muted-foreground md:max-w-[360px] transition-all duration-600"
+					style={{
+						lineHeight: "1.2em",
+						filter: shouldBlur ? "blur(1px)" : "none",
+						WebkitFilter: shouldBlur ? "blur(1px)" : "none",
+					}}
+				>
+					<p>
+						I'm currently building{" "}
+						<a
+							href="https://aligned.jobs"
+							target="_blank"
+							rel="noopener noreferrer"
+							onMouseEnter={() => !isMobile && setHoverPreview("aligned")}
+							onMouseLeave={() => !isMobile && setHoverPreview(null)}
+							onClick={(e) => handleLinkClick(e, "aligned")}
+						>
+							Aligned
+						</a>{" "}
+						- a holistic recruiting platform that informs better hires.
+					</p>
 
-						<p>
-							I previously cofounded{" "}
-							<a
-								href="https://connectalum.com"
-								target="_blank"
-								rel="noopener noreferrer"
-								onMouseEnter={() => !isMobile && setHoverPreview("connect")}
-								onMouseLeave={() => !isMobile && setHoverPreview(null)}
-								onClick={(e) => handleLinkClick(e, "connect")}
-							>
-								Connect
-							</a>
-							, an EdTech company serving 10,000+ students & making six figures
-							ARR. I'm also an incoming Software Engineering Intern at{" "}
-							<a href="https://ramp.com" target="_blank" rel="noreferrer">
-								Ramp
-							</a>{" "}
-							for Summer 2026.
-						</p>
+					<p>
+						I previously cofounded{" "}
+						<a
+							href="https://connectalum.com"
+							target="_blank"
+							rel="noopener noreferrer"
+							onMouseEnter={() => !isMobile && setHoverPreview("connect")}
+							onMouseLeave={() => !isMobile && setHoverPreview(null)}
+							onClick={(e) => handleLinkClick(e, "connect")}
+						>
+							Connect
+						</a>
+						, an EdTech company serving 10,000+ students & making six figures
+						ARR. I'm also an incoming Software Engineering Intern at{" "}
+						<a href="https://ramp.com" target="_blank" rel="noreferrer">
+							Ramp
+						</a>{" "}
+						for Summer 2026.
+					</p>
 
-						<p>
-							I'm a junior at{" "}
-							<a
-								href="https://washu.edu/"
-								target="_blank"
-								rel="noopener noreferrer"
-							>
-								Washington University
-							</a>{" "}
-							studying CS and finance. I was born and raised in New York, and
-							have jumped around STL, NY, and SF more recently.
-						</p>
+					<p>
+						I'm a junior at{" "}
+						<a
+							href="https://washu.edu/"
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							Washington University
+						</a>{" "}
+						studying CS and finance. I was born and raised in New York, and have
+						jumped around STL, NY, and SF more recently.
+					</p>
 
-						<p>
-							I love building all sorts of things—web/mobile apps, AI systems,
-							infrastructure, and more recently hardware. I work primarily with
-							TypeScript, React/Next.js, and React Native, but I'm comfortable
-							across the stack from Swift to Rust to cloud architecture.
-						</p>
+					<p>
+						I love building all sorts of things—web/mobile apps, AI systems,
+						infrastructure, and more recently hardware. I work primarily with
+						TypeScript, React/Next.js, and React Native, but I'm comfortable
+						across the stack from Swift to Rust to cloud architecture.
+					</p>
 
-						<p>
-							I like{" "}
-							<a
-								href="https://www.instagram.com/ethn.raw/"
-								target="_blank"
-								rel="noopener noreferrer"
-							>
-								photography
-							</a>
-							, type somewhat{" "}
-							<a
-								href="https://monkeytype.com/profile/ethan.ng"
-								className="cursor-pointer"
-								onMouseEnter={() => !isMobile && setHoverPreview("typing")}
-								onMouseLeave={() => !isMobile && setHoverPreview(null)}
-								onClick={(e) => handleLinkClick(e, "typing")}
-							>
-								fast
-							</a>
-							, and play tennis. You can reach me at{" "}
-							<a href="mailto:hi@ethans.site">
-								<code className="text-white hover:underline">
-									hey@ethans.site
-								</code>
-							</a>
-							.
-						</p>
-					</div>
-					{isMobile && activePreview && activePreview !== "typing" && (
+					<p>
+						I like{" "}
+						<a
+							href="https://www.instagram.com/ethn.raw/"
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							photography
+						</a>
+						, type somewhat{" "}
+						<a
+							href="https://monkeytype.com/profile/ethan.ng"
+							className="cursor-pointer"
+							onMouseEnter={() => !isMobile && setHoverPreview("typing")}
+							onMouseLeave={() => !isMobile && setHoverPreview(null)}
+							onClick={(e) => handleLinkClick(e, "typing")}
+						>
+							fast
+						</a>
+						, and play tennis. You can reach me at{" "}
+						<a href="mailto:hi@ethans.site">
+							<code className="text-white hover:underline">
+								hey@ethans.site
+							</code>
+						</a>
+						.
+					</p>
+				</div>
+				{isMobile && activePreview && activePreview !== "typing" && (
+					<div className="md:absolute md:left-0 md:right-0 mt-8 md:px-24 relative z-10">
 						<AnimatePresence mode="wait">
 							<HoverPreview
 								key={activePreview}
@@ -267,9 +271,9 @@ function App() {
 								isMobile={isMobile}
 							/>
 						</AnimatePresence>
-					)}
-				</Layout>
-			</div>
+					</div>
+				)}
+			</Layout>
 			{!isMobile && activePreview && (
 				<AnimatePresence mode="wait">
 					{activePreview === "typing" ? (

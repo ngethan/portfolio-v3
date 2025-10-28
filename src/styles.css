@@ -18,7 +18,7 @@ code {
 		"Courier New", monospace;
 }
 
-a {
+main a {
 	@apply text-foreground transition-colors duration-300 hover:text-foreground hover:underline;
 }
 
