@@ -42,7 +42,7 @@ function HoverPreview({
 			animate={{ opacity: 1 }}
 			exit={{ opacity: 0 }}
 			transition={{ duration: 0.6, ease: "easeInOut" }}
-			className="fixed right-8 2xl:right-24 items-start hidden md:flex preview-content"
+			className="fixed right-8 2xl:right-24 items-start hidden md:flex preview-content z-50"
 			style={{
 				top: "6rem",
 				height: "calc(100vh - 12rem)",

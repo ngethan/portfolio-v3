@@ -19,6 +19,12 @@ export const Route = createFileRoute("/projects")({
 function Projects() {
 	const projects = [
 		{
+			name: "VibeCheck",
+			description:
+				"CodeSignal for modern technical interviews—think Cursor and an assessment engine in the browser",
+			url: "https://github.com/ngethan/vibecheck",
+		},
+		{
 			name: "Frick",
 			description: "iOS app that blocks distracting apps using NFC tags",
 			url: "https://github.com/ngethan/frick",
