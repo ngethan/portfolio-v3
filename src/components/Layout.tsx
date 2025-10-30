@@ -11,7 +11,7 @@ import { Shadow } from "./shadow";
 
 interface LayoutProps {
 	children: ReactNode;
-	activeSection: "about" | "projects" | "press";
+	activeSection: "about" | "projects" | "press" | "media";
 }
 
 const MemoizedShadow = React.memo(() => (
@@ -114,6 +114,18 @@ export function Layout({ children, activeSection }: LayoutProps) {
 								}`}
 							>
 								Press
+							</Link>
+						</li>
+						<li>
+							<Link
+								to="/media"
+								className={`transition-colors duration-300 ${
+									activeSection === "media"
+										? "text-foreground"
+										: "text-muted-foreground hover:text-foreground"
+								}`}
+							>
+								Media
 							</Link>
 						</li>
 						<li>
