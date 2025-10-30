@@ -1,17 +1,19 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, CornerDownRight } from "lucide-react";
 import { motion } from "motion/react";
 import React, {
 	type ReactNode,
 	useEffect,
 	useLayoutEffect,
+	useRef,
 	useState,
 } from "react";
 import { Shadow } from "./shadow";
 
 interface LayoutProps {
 	children: ReactNode;
-	activeSection: "about" | "projects" | "press" | "media";
+	activeSection: "about" | "projects" | "press" | "media" | "blog";
+	blogTitle?: string;
 }
 
 const MemoizedShadow = React.memo(() => (
@@ -47,8 +49,10 @@ const getStlTime = () => {
 const useIsomorphicLayoutEffect =
 	typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
-export function Layout({ children, activeSection }: LayoutProps) {
+export function Layout({ children, activeSection, blogTitle }: LayoutProps) {
 	const [time, setTime] = useState(() => getStlTime());
+	const [isScrolled, setIsScrolled] = useState(false);
+	const mainRef = useRef<HTMLDivElement | null>(null);
 
 	useIsomorphicLayoutEffect(() => {
 		const updateTime = () => {
@@ -61,8 +65,26 @@ export function Layout({ children, activeSection }: LayoutProps) {
 		return () => window.clearInterval(interval);
 	}, []);
 
+	useEffect(() => {
+		const mainEl = mainRef.current;
+		if (!mainEl) {
+			return;
+		}
+
+		const handleScroll = () => {
+			setIsScrolled(mainEl.scrollTop > 0);
+		};
+
+		handleScroll();
+		mainEl.addEventListener("scroll", handleScroll);
+
+		return () => {
+			mainEl.removeEventListener("scroll", handleScroll);
+		};
+	}, []);
+
 	return (
-		<div className="min-h-screen bg-background text-muted-foreground flex flex-col relative">
+		<div className="h-screen bg-background text-muted-foreground flex flex-col relative overflow-hidden">
 			<div className="absolute inset-0 pointer-events-none overflow-hidden">
 				<MemoizedShadow />
 				<div
@@ -77,8 +99,8 @@ export function Layout({ children, activeSection }: LayoutProps) {
 			<code className="fixed top-6 right-6 md:top-12 md:right-24 text-sm text-muted-foreground hidden md:block z-20">
 				{time} STL
 			</code>
-			<div className="flex-1 flex flex-col md:flex-row pt-12 md:pt-24 pb-8 md:pb-16 px-6 md:px-24 relative z-10">
-				<nav className="w-full md:w-32 mb-8 md:mb-0 text-sm">
+			<div className="flex-1 flex flex-col md:flex-row py-12 md:pt-24 md:pb-12 px-6 md:px-24 relative z-10 min-h-0">
+				<nav className="w-full md:w-32 mb-8 md:mb-0 text-sm md:flex-shrink-0">
 					<ul className="flex md:flex-col gap-4 md:gap-0 md:space-y-2">
 						<li>
 							<Link
@@ -129,6 +151,28 @@ export function Layout({ children, activeSection }: LayoutProps) {
 							</Link>
 						</li>
 						<li>
+							<div className="flex flex-col gap-1">
+								<Link
+									to="/blog"
+									className={`transition-colors duration-300 ${
+										activeSection === "blog"
+											? "text-foreground"
+											: "text-muted-foreground hover:text-foreground"
+									}`}
+								>
+									Blog
+								</Link>
+								{blogTitle && (
+									<div className="hidden md:flex items-start gap-1.5 pl-1">
+										<CornerDownRight className="w-3 h-3 text-muted-foreground flex-shrink-0 mt-0.5" />
+										<span className="text-xs text-foreground leading-tight line-clamp-2">
+											{blogTitle}
+										</span>
+									</div>
+								)}
+							</div>
+						</li>
+						<li>
 							<a
 								href="/Ethan_Ng_Resume.pdf"
 								target="_blank"
@@ -142,19 +186,24 @@ export function Layout({ children, activeSection }: LayoutProps) {
 					</ul>
 				</nav>
 
-				<main className="flex-1 w-full md:ml-12">
-					<motion.div
-						initial={{ opacity: 0, y: 3 }}
-						animate={{ opacity: 1, y: 0 }}
-						exit={{ opacity: 0, y: -3 }}
-						transition={{ duration: 0.4, ease: "easeInOut" }}
-					>
-						{children}
-					</motion.div>
+				<main
+					ref={mainRef}
+					className={`flex-1 w-full md:ml-12 overflow-y-auto min-h-0 relative ${isScrolled ? "mask-fade-offset--scrolled" : "mask-fade-offset"}`}
+				>
+					<div className="pb-20">
+						<motion.div
+							initial={{ opacity: 0, y: 3 }}
+							animate={{ opacity: 1, y: 0 }}
+							exit={{ opacity: 0, y: -3 }}
+							transition={{ duration: 0.4, ease: "easeInOut" }}
+						>
+							{children}
+						</motion.div>
+					</div>
 				</main>
 			</div>
 
-			<footer className="pb-8 md:pb-16 px-6 md:px-24 flex flex-col md:flex-row gap-4 md:gap-0 md:justify-between md:items-center text-sm relative z-10">
+			<footer className="pb-8 md:pb-16 px-6 md:px-24 flex flex-col md:flex-row gap-4 md:gap-0 md:justify-between md:items-center text-sm relative z-10 md:flex-shrink-0">
 				<div className="text-muted-foreground">Made by Ethan Ng</div>
 				<code className="text-muted-foreground md:hidden">{time} STL</code>
 				<div className="flex gap-6 md:gap-10">

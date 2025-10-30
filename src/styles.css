@@ -3,6 +3,8 @@
 @import "./styles/font-faces.css";
 @import "./styles/font-utilities.css";
 
+@source "../node_modules/streamdown/dist/index.js";
+
 body {
 	@apply m-0;
 	font-family: "Neue Montreal", -apple-system, BlinkMacSystemFont, "Segoe UI",
@@ -18,8 +20,13 @@ code {
 		"Courier New", monospace;
 }
 
-main a {
+main a:not(.no-underline) {
 	@apply text-foreground transition-colors duration-300 hover:text-foreground hover:underline;
+}
+
+main a.no-underline {
+	@apply transition-colors duration-300;
+	text-decoration: none !important;
 }
 
 :root {
@@ -157,5 +164,53 @@ main a {
 	::selection {
 		background-color: white;
 		color: black;
+	}
+
+	/* Hide scrollbar */
+	::-webkit-scrollbar {
+		display: none;
+	}
+
+	/* Firefox scrollbar */
+	* {
+		scrollbar-width: none;
+	}
+
+	/* IE and Edge */
+	* {
+		-ms-overflow-style: none;
+	}
+
+	/* Fade mask for scrollable content with offset */
+	.mask-fade-offset {
+		mask-image: linear-gradient(
+			to bottom,
+			black 0px,
+			black calc(100% - 60px),
+			transparent 100%
+		);
+		-webkit-mask-image: linear-gradient(
+			to bottom,
+			black 0px,
+			black calc(100% - 60px),
+			transparent 100%
+		);
+	}
+
+	.mask-fade-offset--scrolled {
+		mask-image: linear-gradient(
+			to bottom,
+			transparent 0%,
+			black 60px,
+			black calc(100% - 60px),
+			transparent 100%
+		);
+		-webkit-mask-image: linear-gradient(
+			to bottom,
+			transparent 0%,
+			black 60px,
+			black calc(100% - 60px),
+			transparent 100%
+		);
 	}
 }
