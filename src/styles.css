@@ -42,6 +42,7 @@ main a.no-underline {
 	--secondary-foreground: oklch(0.9851 0 0);
 	--muted: oklch(0.2686 0 0);
 	--muted-foreground: oklch(0.7418 0.0129 286.0665);
+	--semi-foreground: oklch(0.85 0.008 286);
 	--accent: oklch(0.3211 0 0);
 	--accent-foreground: oklch(0.9851 0 0);
 	--destructive: oklch(0.6368 0.2078 25.3313);

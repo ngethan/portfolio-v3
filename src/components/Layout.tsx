@@ -12,8 +12,8 @@ import { Shadow } from "./shadow";
 
 interface LayoutProps {
 	children: ReactNode;
-	activeSection: "about" | "projects" | "press" | "media" | "blog";
-	blogTitle?: string;
+	activeSection: "about" | "projects" | "press" | "media" | "writing";
+	writingTitle?: string;
 }
 
 const MemoizedShadow = React.memo(() => (
@@ -49,7 +49,7 @@ const getStlTime = () => {
 const useIsomorphicLayoutEffect =
 	typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
-export function Layout({ children, activeSection, blogTitle }: LayoutProps) {
+export function Layout({ children, activeSection, writingTitle }: LayoutProps) {
 	const [time, setTime] = useState(() => getStlTime());
 	const [isScrolled, setIsScrolled] = useState(false);
 	const mainRef = useRef<HTMLDivElement | null>(null);
@@ -153,20 +153,20 @@ export function Layout({ children, activeSection, blogTitle }: LayoutProps) {
 						<li>
 							<div className="flex flex-col gap-1">
 								<Link
-									to="/blog"
+									to="/writing"
 									className={`transition-colors duration-300 ${
-										activeSection === "blog"
+										activeSection === "writing"
 											? "text-foreground"
 											: "text-muted-foreground hover:text-foreground"
 									}`}
 								>
-									Blog
+									Writing
 								</Link>
-								{blogTitle && (
+								{writingTitle && (
 									<div className="hidden md:flex items-start gap-1.5 pl-1">
 										<CornerDownRight className="w-3 h-3 text-muted-foreground flex-shrink-0 mt-0.5" />
 										<span className="text-xs text-foreground leading-tight line-clamp-2">
-											{blogTitle}
+											{writingTitle}
 										</span>
 									</div>
 								)}
