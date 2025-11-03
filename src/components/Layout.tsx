@@ -8,6 +8,7 @@ import React, {
 	useRef,
 	useState,
 } from "react";
+import { Toaster } from "sonner";
 import { Shadow } from "./shadow";
 
 interface LayoutProps {
@@ -241,6 +242,7 @@ export function Layout({ children, activeSection, writingTitle }: LayoutProps) {
 					</a>
 				</div>
 			</footer>
+			<Toaster position="bottom-center" />
 		</div>
 	);
 }

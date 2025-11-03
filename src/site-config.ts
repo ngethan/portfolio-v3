@@ -32,7 +32,7 @@ export const siteConfig = {
 		"Passionate builder and WashU CS & finance student obsessed with learning, exploring new tech, and turning ideas into reality.",
 	url: getBaseUrl(),
 	twitterHandle: "@ethn_ng",
-	defaultOgImagePath: "/android-chrome-512x512.png",
+	defaultOgImagePath: "/og.png",
 	locale: "en_US",
 };
 
@@ -152,6 +152,10 @@ export const buildSeoTags = ({
 			{
 				name: "twitter:creator",
 				content: siteConfig.twitterHandle,
+			},
+			{
+				name: "theme-color",
+				content: "#fff",
 			},
 		],
 		links: [
