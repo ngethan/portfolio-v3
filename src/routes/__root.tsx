@@ -6,6 +6,7 @@ import {
 	createRootRoute,
 } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
+import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import { AnimatePresence } from "motion/react";
 
@@ -100,6 +101,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 				{children}
 
 				<SpeedInsights />
+				<Analytics />
 				{process.env.NODE_ENV === "development" && (
 					<TanStackDevtools
 						config={{
