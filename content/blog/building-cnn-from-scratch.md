@@ -4,6 +4,7 @@ date: Dec 2024
 excerpt: Implementing a convolutional neural network from scratch in Python to classify handwritten digits from the MNIST dataset.
 tags: [Machine Learning, Deep Learning, Python]
 readTime: 8 min read
+ogImage: /writing/building-cnn-from-scratch/og.png
 ---
 
 I thought it'd be fun to do this so here we are.

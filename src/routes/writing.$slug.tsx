@@ -10,6 +10,7 @@ interface BlogFrontmatter {
 	excerpt: string;
 	tags: string[];
 	readTime: string;
+	ogImage?: string;
 }
 
 export const Route = createFileRoute("/writing/$slug")({
@@ -38,6 +39,7 @@ export const Route = createFileRoute("/writing/$slug")({
 				excerpt: attributes.excerpt,
 				tags: attributes.tags,
 				readTime: attributes.readTime,
+				ogImage: attributes.ogImage,
 				content: body,
 			},
 		};
@@ -47,6 +49,7 @@ export const Route = createFileRoute("/writing/$slug")({
 			title: `${loaderData?.post?.title || "Post"} | Ethan Ng`,
 			description: loaderData?.post?.excerpt || "Blog post",
 			path: `/writing/${loaderData?.post?.slug || ""}`,
+			imagePath: loaderData?.post?.ogImage,
 		});
 	},
 	component: BlogPost,

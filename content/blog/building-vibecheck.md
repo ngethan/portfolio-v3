@@ -4,9 +4,10 @@ date: Oct 2025
 excerpt: Building a coding interview platform in 36 hours that evaluates developers the way they actually work—with AI as their assistant.
 tags: [Hackathon, AI, Product]
 readTime: 8 min read
+ogImage: /writing/building-vibecheck/landing.png
 ---
 
-![VibeCheck Landing Page](https://ethans.site/writing/vibecheck/landing.png "VibeCheck Landing Page")
+![VibeCheck Landing Page](https://ethans.site/writing/building-vibecheck/landing.png "VibeCheck Landing Page")
 
 ## The Problem
 
@@ -82,7 +83,7 @@ This tests what actually matters:
 
 We built a fully-functional browser-based IDE with syntax highlighting, file management, a unix terminal, and live preview—everything a developer needs to build real features.
 
-![VibeCheck IDE Interface](https://ethans.site/writing/vibecheck/ide.png "The VibeCheck IDE in action")
+![VibeCheck IDE Interface](https://ethans.site/writing/building-vibecheck/ide.png "The VibeCheck IDE in action")
 
 ### AI-Powered Code Suggestions
 
@@ -124,7 +125,7 @@ const tools = {
 ```
 
 <div class="max-w-2xl mx-auto">
-  <img src="https://ethans.site/writing/vibecheck/ai-inline-editor.png" alt="AI suggesting file changes via diff viewer" class="rounded-lg" />
+  <img src="https://ethans.site/writing/building-vibecheck/ai-inline-editor.png" alt="AI suggesting file changes via diff viewer" class="rounded-lg" />
 </div>
 
 ### Evaluation System
@@ -139,7 +140,7 @@ Once candidates submit, they get graded across five dimensions:
 
 We feed the candidate's code, the original prompt, and evaluation criteria to Claude. By 2 AM Saturday, candidates were getting nuanced, multi-dimensional feedback that actually helped them improve.
 
-![Results Page](https://ethans.site/writing/vibecheck/results-page.png "Detailed evaluation results")
+![Results Page](https://ethans.site/writing/building-vibecheck/results-page.png "Detailed evaluation results")
 
 ---
 
@@ -274,8 +275,8 @@ Thanks to my teammates—Evan Yu, Luke Griggs, and Aaronkhan Hubhachen—for shi
 Thanks to Luke's brother for letting us crash at his apartment, [Incepto](https://incepto.house) for hosting me, Jared for opening up the warehouse when we needed space, and all the judges and organizers of Cal Hacks for creating an amazing event.
 
 <div class="grid grid-cols-2 gap-4 my-6">
-  <img src="https://ethans.site/writing/vibecheck/the-jarehouse.jpeg" alt="The Warehouse" style="width: 100%; max-height: 470px; object-fit: cover;" class="rounded-lg" />
-  <img src="https://ethans.site/writing/vibecheck/rats.png" alt="Rats" style="width: 100%; max-height: 470px; object-fit: cover;" class="rounded-lg" />
+  <img src="https://ethans.site/writing/building-vibecheck/the-jarehouse.jpeg" alt="The Warehouse" style="width: 100%; max-height: 470px; object-fit: cover;" class="rounded-lg" />
+  <img src="https://ethans.site/writing/building-vibecheck/rats.png" alt="Rats" style="width: 100%; max-height: 470px; object-fit: cover;" class="rounded-lg" />
 </div>
 
 ---
