@@ -96,12 +96,11 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 		<html lang="en">
 			<head>
 				<HeadContent />
+				<SpeedInsights />
+				<Analytics />
 			</head>
 			<body>
 				{children}
-
-				<SpeedInsights />
-				<Analytics />
 				{process.env.NODE_ENV === "development" && (
 					<TanStackDevtools
 						config={{
