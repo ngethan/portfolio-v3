@@ -33,6 +33,9 @@ const config = defineConfig({
     ],
   server: {
     allowedHosts: ["ethans.site", "ethanng.dev"]
+  },
+  ssr: {
+    noExternal: ['katex', 'streamdown']
   }
 })
 

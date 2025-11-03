@@ -1,4 +1,5 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
+import { Download } from "lucide-react";
 import { Streamdown } from "streamdown";
 import { Layout } from "../components/Layout";
 import { buildSeoTags } from "../site-config";
@@ -83,6 +84,32 @@ function BlogPost() {
 				<div className="prose prose-invert prose-neutral prose-sm max-w-none prose-headings:text-foreground prose-strong:text-foreground">
 					<Streamdown
 						components={{
+							img: (props: React.ImgHTMLAttributes<HTMLImageElement>) => (
+								<div
+									className="group relative my-4 inline-block"
+									data-streamdown="image-wrapper"
+								>
+									<img
+										{...props}
+										alt={props.alt || ""}
+										className="max-w-full rounded-lg"
+										data-streamdown="image"
+									/>
+									<button
+										className="absolute right-2 bottom-2 flex h-8 w-8 cursor-pointer items-center justify-center rounded-md border border-border bg-background/90 shadow-sm backdrop-blur-sm transition-all duration-200 hover:bg-background opacity-0 group-hover:opacity-100"
+										title="Download image"
+										type="button"
+									>
+										<Download className="w-4 h-4" />
+									</button>
+								</div>
+							),
+							hr: () => (
+								<hr
+									className="my-6 border-foreground/40"
+									data-streamdown="horizontal-rule"
+								/>
+							),
 							strong: ({ children }) => (
 								<strong
 									className="font-semibold"
