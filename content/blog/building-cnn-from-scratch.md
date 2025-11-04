@@ -1,5 +1,5 @@
 ---
-title: "Building a CNN from Scratch"
+title: "Building a Convolutional Neural Network from Scratch"
 date: Dec 2024
 excerpt: Implementing a convolutional neural network from scratch in Python to classify handwritten digits from the MNIST dataset.
 tags: [Machine Learning, Deep Learning, Python]
