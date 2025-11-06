@@ -180,18 +180,19 @@ function App() {
 					}}
 				>
 					<p>
-						I'm currently building{" "}
-						<a
-							href="https://aligned.jobs"
-							target="_blank"
-							rel="noopener noreferrer"
-							onMouseEnter={() => !isMobile && setHoverPreview("aligned")}
-							onMouseLeave={() => !isMobile && setHoverPreview(null)}
-							onClick={(e) => handleLinkClick(e, "aligned")}
-						>
-							Aligned
+						I'm an incoming Software Engineering Intern at{" "}
+						<a href="https://ramp.com" target="_blank" rel="noreferrer">
+							Ramp
 						</a>{" "}
-						- a holistic recruiting platform that informs better hires.
+						and{" "}
+						<a
+							href="https://www.8vc.com/fellowships"
+							target="_blank"
+							rel="noreferrer"
+						>
+							8VC fellow
+						</a>{" "}
+						for Summer 2026.
 					</p>
 
 					<p>
@@ -207,11 +208,7 @@ function App() {
 							Connect
 						</a>
 						, an EdTech company serving 10,000+ students & making six figures
-						ARR. I'm also an incoming Software Engineering Intern at{" "}
-						<a href="https://ramp.com" target="_blank" rel="noreferrer">
-							Ramp
-						</a>{" "}
-						for Summer 2026.
+						ARR.
 					</p>
 
 					<p>
@@ -230,8 +227,8 @@ function App() {
 					<p>
 						I love building all sorts of things—web/mobile apps, AI systems,
 						infrastructure, and more recently hardware. I work primarily with
-						TypeScript, React/Next.js, and React Native, but I'm comfortable
-						across the stack from Swift to Rust to cloud architecture.
+						TypeScript, React/Next.js, and React Native, but I've worked across
+						the stack from Swift to Rust to cloud architecture.
 					</p>
 
 					<p>
