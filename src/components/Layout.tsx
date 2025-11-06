@@ -189,7 +189,7 @@ export function Layout({ children, activeSection, writingTitle }: LayoutProps) {
 
 				<main
 					ref={mainRef}
-					className={`flex-1 w-full md:ml-12 overflow-y-auto min-h-0 relative ${isScrolled ? "mask-fade-offset--scrolled" : "mask-fade-offset"}`}
+					className={`flex-1 w-full md:ml-12 ${writingTitle ? "overflow-y-auto min-h-0 relative" : ""} ${writingTitle ? (isScrolled ? "mask-fade-offset--scrolled" : "mask-fade-offset") : ""}`}
 				>
 					<div className="pb-20">
 						<motion.div

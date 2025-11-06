@@ -1,5 +1,4 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
-import { ArrowRight } from "lucide-react";
 import { Layout } from "../components/Layout";
 import { buildSeoTags } from "../site-config";
 
@@ -94,7 +93,6 @@ function BlogIndex() {
 								<div className="flex items-baseline justify-between gap-4 flex-wrap">
 									<h2 className="text-lg md:text-xl font-medium text-foreground group-hover:text-foreground transition-colors flex items-center gap-2">
 										{post.title}
-										<ArrowRight className="w-4 h-4 opacity-0 -ml-2 group-hover:opacity-100 group-hover:ml-0 transition-all duration-300" />
 									</h2>
 									<time className="text-sm text-muted-foreground flex-shrink-0">
 										{post.date}
