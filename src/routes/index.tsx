@@ -29,7 +29,7 @@ function HoverPreview({
 				animate={{ opacity: 1, y: 0 }}
 				exit={{ opacity: 0, y: 20 }}
 				transition={{ duration: 0.4, ease: "easeInOut" }}
-				className="mt-8 md:-ml-12 w-full md:w-[calc(100%+3rem)] preview-content"
+				className="w-full preview-content"
 			>
 				{content}
 			</motion.div>
@@ -170,7 +170,22 @@ function App() {
 
 	return (
 		<>
-			<Layout activeSection="about">
+			<Layout
+				activeSection="about"
+				previewContent={
+					isMobile && activePreview && activePreview !== "typing" ? (
+						<div className="mt-8">
+							<AnimatePresence mode="wait">
+								<HoverPreview
+									key={activePreview}
+									content={previewContent}
+									isMobile={isMobile}
+								/>
+							</AnimatePresence>
+						</div>
+					) : undefined
+				}
+			>
 				<div
 					className="space-y-5 text-muted-foreground md:max-w-[360px] transition-all duration-600"
 					style={{
@@ -259,17 +274,6 @@ function App() {
 						.
 					</p>
 				</div>
-				{isMobile && activePreview && activePreview !== "typing" && (
-					<div className="md:absolute md:left-0 md:right-0 mt-8 md:px-24 relative z-10">
-						<AnimatePresence mode="wait">
-							<HoverPreview
-								key={activePreview}
-								content={previewContent}
-								isMobile={isMobile}
-							/>
-						</AnimatePresence>
-					</div>
-				)}
 			</Layout>
 			{!isMobile && activePreview && (
 				<AnimatePresence mode="wait">

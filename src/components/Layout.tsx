@@ -15,6 +15,7 @@ interface LayoutProps {
 	children: ReactNode;
 	activeSection: "about" | "projects" | "press" | "media" | "writing";
 	writingTitle?: string;
+	previewContent?: ReactNode;
 }
 
 const MemoizedShadow = React.memo(() => (
@@ -50,7 +51,12 @@ const getStlTime = () => {
 const useIsomorphicLayoutEffect =
 	typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
-export function Layout({ children, activeSection, writingTitle }: LayoutProps) {
+export function Layout({
+	children,
+	activeSection,
+	writingTitle,
+	previewContent,
+}: LayoutProps) {
 	const [time, setTime] = useState(() => getStlTime());
 	const [isScrolled, setIsScrolled] = useState(false);
 	const mainRef = useRef<HTMLDivElement | null>(null);
@@ -85,8 +91,8 @@ export function Layout({ children, activeSection, writingTitle }: LayoutProps) {
 	}, []);
 
 	return (
-		<div className="h-screen bg-background text-muted-foreground flex flex-col relative overflow-hidden">
-			<div className="absolute inset-0 pointer-events-none overflow-hidden">
+		<div className="min-h-screen bg-background text-muted-foreground flex flex-col relative">
+			<div className="fixed inset-0 pointer-events-none">
 				<MemoizedShadow />
 				<div
 					className="absolute inset-0"
@@ -101,7 +107,7 @@ export function Layout({ children, activeSection, writingTitle }: LayoutProps) {
 				{time} STL
 			</code>
 			<div className="flex-1 flex flex-col md:flex-row py-12 md:pt-24 md:pb-12 px-6 md:px-24 relative z-10 min-h-0">
-				<nav className="w-full md:w-32 mb-8 md:mb-0 text-sm md:flex-shrink-0">
+				<nav className="w-full md:w-32 mb-8 md:mb-0 text-sm md:flex-shrink-0 md:sticky md:top-24 md:self-start">
 					<ul className="flex md:flex-col gap-4 md:gap-0 md:space-y-2">
 						<li>
 							<Link
@@ -203,6 +209,12 @@ export function Layout({ children, activeSection, writingTitle }: LayoutProps) {
 					</div>
 				</main>
 			</div>
+
+			{previewContent && (
+				<div className="px-6 md:px-24 pb-12 -mt-20 relative z-10">
+					{previewContent}
+				</div>
+			)}
 
 			<footer className="pb-8 md:pb-16 px-6 md:px-24 flex flex-col md:flex-row gap-4 md:gap-0 md:justify-between md:items-center text-sm relative z-10 md:flex-shrink-0">
 				<div className="text-muted-foreground">Made by Ethan Ng</div>
