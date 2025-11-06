@@ -73,26 +73,28 @@ export function Layout({
 	}, []);
 
 	useEffect(() => {
+		if (!writingTitle) return;
+
 		const mainEl = mainRef.current;
-		if (!mainEl) {
-			return;
-		}
+		if (!mainEl) return;
 
 		const handleScroll = () => {
 			setIsScrolled(mainEl.scrollTop > 0);
 		};
 
 		handleScroll();
-		mainEl.addEventListener("scroll", handleScroll);
+		mainEl.addEventListener("scroll", handleScroll, { passive: true });
 
 		return () => {
 			mainEl.removeEventListener("scroll", handleScroll);
 		};
-	}, []);
+	}, [writingTitle]);
 
 	return (
-		<div className="min-h-screen bg-background text-muted-foreground flex flex-col relative">
-			<div className="fixed inset-0 pointer-events-none">
+		<div
+			className={`text-muted-foreground flex flex-col relative ${writingTitle ? "h-screen overflow-hidden" : "min-h-screen"}`}
+		>
+			<div className="bg-background fixed inset-0 pointer-events-none">
 				<MemoizedShadow />
 				<div
 					className="absolute inset-0"
