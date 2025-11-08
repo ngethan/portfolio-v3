@@ -135,7 +135,7 @@ export function Layout({
 								Projects
 							</Link>
 						</li>
-						<li>
+						{/* <li>
 							<Link
 								to="/press"
 								className={`transition-colors duration-300 ${
@@ -146,7 +146,7 @@ export function Layout({
 							>
 								Press
 							</Link>
-						</li>
+						</li> */}
 						<li>
 							<Link
 								to="/media"
