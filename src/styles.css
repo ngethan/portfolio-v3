@@ -146,6 +146,11 @@ main a.no-underline {
 	* {
 		@apply border-border outline-ring/50;
 	}
+
+	.transition-blur {
+		transition: filter 0.2s ease, -webkit-filter 0.2s ease;
+	}
+
 	body {
 		letter-spacing: var(--tracking-normal);
 		@apply bg-background text-foreground;
@@ -226,4 +231,18 @@ main a.no-underline {
 		white-space: nowrap;
 		border-width: 0;
 	}
+}
+
+.projects-list .project-item {
+	transition: filter 0.2s ease, opacity 0.2s ease;
+}
+
+.projects-list:has(.project-item:hover) .project-item:not(:hover) {
+	filter: blur(1px);
+	opacity: 0.5;
+}
+
+.projects-list .project-item:hover {
+	filter: none;
+	opacity: 1;
 }

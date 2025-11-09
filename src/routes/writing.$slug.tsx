@@ -82,7 +82,11 @@ function BlogPost() {
 	}
 
 	return (
-		<Layout activeSection="writing" writingTitle={post.title}>
+		<Layout
+			activeSection="writing"
+			writingTitle={post.title}
+			enableScrollFade={true}
+		>
 			<article className="space-y-6 max-w-5xl mx-auto">
 				<header className="space-y-2 border-b border-foreground/40 pb-4">
 					<h1 className="text-2xl md:text-3xl font-medium text-foreground">

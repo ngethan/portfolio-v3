@@ -184,16 +184,15 @@ export function TypingTest({ onClose }: TypingTestProps) {
 			const target = e.target as HTMLElement;
 			if (target.tagName === "BUTTON" || target.closest("button")) return;
 
-			if (inputRef.current && !inputRef.current.contains(target)) {
-				setTimeout(() => {
-					inputRef.current?.focus();
-				}, 0);
+			// Close if clicking outside the typing test
+			if (!target.closest(".typing-test-container")) {
+				onClose();
 			}
 		};
 
 		document.addEventListener("click", handleClickOutside);
 		return () => document.removeEventListener("click", handleClickOutside);
-	}, []);
+	}, [onClose]);
 
 	const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const value = e.target.value;
@@ -352,7 +351,7 @@ export function TypingTest({ onClose }: TypingTestProps) {
 			animate={{ opacity: 1 }}
 			exit={{ opacity: 0 }}
 			transition={{ duration: 0.6, ease: "easeInOut" }}
-			className="fixed right-8 lg:right-24 w-[45%] lg:w-1/2 flex items-start text-muted-foreground pointer-events-auto hidden md:flex"
+			className="typing-test-container fixed right-8 2xl:right-24 w-[clamp(400px,calc(100%-700px),45%)] flex items-start text-muted-foreground pointer-events-auto hidden md:flex"
 			style={{
 				top: "6rem",
 				height: "calc(100vh - 12rem)",
@@ -440,8 +439,8 @@ export function TypingTest({ onClose }: TypingTestProps) {
 						/>
 					</>
 				) : (
-					<div className="space-y-8 pointer-events-auto">
-						<div className="space-y-4">
+					<div className="flex-1 flex flex-col justify-center items-center space-y-8 pointer-events-auto">
+						<div className="text-center space-y-4">
 							<div className="text-5xl font-bold text-foreground">
 								{calculateWPM()}{" "}
 								<span className="text-xl text-muted-foreground">wpm</span>

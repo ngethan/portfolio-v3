@@ -41,7 +41,7 @@ function HoverPreview({
 			initial={{ opacity: 0 }}
 			animate={{ opacity: 1 }}
 			exit={{ opacity: 0 }}
-			transition={{ duration: 0.6, ease: "easeInOut" }}
+			transition={{ duration: 0.3, ease: "easeInOut" }}
 			className="fixed right-8 2xl:right-24 items-start hidden md:flex preview-content z-50"
 			style={{
 				top: "6rem",
@@ -187,7 +187,7 @@ function App() {
 				}
 			>
 				<div
-					className="space-y-5 text-muted-foreground md:max-w-[360px] transition-all duration-600"
+					className="space-y-5 text-muted-foreground md:max-w-[360px] transition-all duration-200 transition-blur"
 					style={{
 						lineHeight: "1.2em",
 						filter: shouldBlur ? "blur(1px)" : "none",

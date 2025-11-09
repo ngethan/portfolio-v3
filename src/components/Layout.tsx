@@ -16,6 +16,7 @@ interface LayoutProps {
 	activeSection: "about" | "projects" | "press" | "media" | "writing";
 	writingTitle?: string;
 	previewContent?: ReactNode;
+	enableScrollFade?: boolean;
 }
 
 const MemoizedShadow = React.memo(() => (
@@ -56,6 +57,7 @@ export function Layout({
 	activeSection,
 	writingTitle,
 	previewContent,
+	enableScrollFade = false,
 }: LayoutProps) {
 	const [time, setTime] = useState(() => getStlTime());
 	const [isScrolled, setIsScrolled] = useState(false);
@@ -73,7 +75,7 @@ export function Layout({
 	}, []);
 
 	useEffect(() => {
-		if (!writingTitle) return;
+		if (!enableScrollFade) return;
 
 		const mainEl = mainRef.current;
 		if (!mainEl) return;
@@ -88,11 +90,11 @@ export function Layout({
 		return () => {
 			mainEl.removeEventListener("scroll", handleScroll);
 		};
-	}, [writingTitle]);
+	}, [enableScrollFade]);
 
 	return (
 		<div
-			className={`text-muted-foreground flex flex-col relative ${writingTitle ? "h-screen overflow-hidden" : "min-h-screen"}`}
+			className={`text-muted-foreground flex flex-col relative ${enableScrollFade ? "h-screen overflow-hidden" : "min-h-screen"}`}
 		>
 			<div className="bg-background fixed inset-0 pointer-events-none">
 				<MemoizedShadow />
@@ -197,7 +199,7 @@ export function Layout({
 
 				<main
 					ref={mainRef}
-					className={`flex-1 w-full md:ml-12 ${writingTitle ? "overflow-y-auto min-h-0 relative" : ""} ${writingTitle ? (isScrolled ? "mask-fade-offset--scrolled" : "mask-fade-offset") : ""}`}
+					className={`flex-1 w-full md:ml-12 ${enableScrollFade ? "overflow-y-auto min-h-0 relative" : ""} ${enableScrollFade ? (isScrolled ? "mask-fade-offset--scrolled" : "mask-fade-offset") : ""}`}
 				>
 					<div className="pb-20">
 						<motion.div

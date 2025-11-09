@@ -41,6 +41,13 @@ function Media() {
 				"Square's origin story and solving problems no one else can copy.",
 		},
 		{
+			title: "Foundation",
+			author: "Isaac Asimov",
+			type: "book",
+			description:
+				"Sci-fi classic about the fall and rise of galactic civilizations. Fascinating exploration of psychohistory and large-scale problem solving.",
+		},
+		{
 			title: "The Anatomy of Ramp's Hyper-Growth | Karim Atiyeh Interview",
 			type: "video",
 			url: "https://www.youtube.com/watch?v=Rt7_Uk4yVnk",
@@ -76,6 +83,24 @@ function Media() {
 			type: "article",
 			url: "https://transformer-circuits.pub/2025/linebreaks/index.html",
 			description: `How do models perceive visual properties of text when their only "sensory" input is integers?`,
+		},
+		{
+			title: "Lex Fridman Podcast",
+			type: "podcast",
+			url: "https://lexfridman.com/podcast/",
+			description: "Deep conversations about AI, consciousness, and what it means to be human.",
+		},
+		{
+			title: "The Joe Rogan Experience",
+			type: "podcast",
+			url: "https://open.spotify.com/show/4rOoJ6Egrf8K2IrywzwOMk",
+			description: "Wide-ranging conversations with scientists, comedians, and thinkers.",
+		},
+		{
+			title: "Acquired",
+			type: "podcast",
+			url: "https://www.acquired.fm/",
+			description: "Deep dives into how companies build durable competitive advantages.",
 		},
 	];
 
@@ -121,7 +146,7 @@ function Media() {
 
 	return (
 		<Layout activeSection="media">
-			<div className="space-y-6 text-muted-foreground md:max-w-[360px]">
+			<div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
 				{groupedMedia.books.length > 0 && (
 					<div className="space-y-3">
 						<h2 className="text-foreground text-sm font-medium">Books</h2>
