@@ -85,7 +85,7 @@ export const Route = createRootRoute({
 
 function RootComponent() {
 	return (
-		<AnimatePresence mode="wait">
+		<AnimatePresence initial={false}>
 			<Outlet />
 		</AnimatePresence>
 	);
@@ -98,8 +98,44 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 				<HeadContent />
 				<SpeedInsights />
 				<Analytics />
+				<link
+					rel="preload"
+					as="image"
+					href="/shadow.avif"
+					fetchPriority="high"
+					type="image/avif"
+				/>
+				<link
+					rel="preload"
+					as="image"
+					href="/grain.avif"
+					fetchPriority="high"
+					type="image/avif"
+				/>
 			</head>
 			<body>
+				<script
+					// biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
+					dangerouslySetInnerHTML={{
+						__html: `
+							(function() {
+								var loadingScreen = document.createElement('div');
+								loadingScreen.id = 'loading-screen';
+								loadingScreen.style.cssText = 'position:fixed;inset:0;background-color:oklch(0.2476 0 0);background-image:radial-gradient(ellipse 80% 50% at 50% -20%, rgba(128, 128, 128, 0.25), transparent 70%);z-index:9999;transition:opacity 0.3s ease-out;pointer-events:none;';
+								document.body.appendChild(loadingScreen);
+
+								window.addEventListener('load', function() {
+									setTimeout(function() {
+										loadingScreen.style.opacity = '0';
+										setTimeout(function() {
+											loadingScreen.remove();
+										}, 300);
+									}, 100);
+								});
+							})();
+						`,
+					}}
+				/>
 				{children}
 				{process.env.NODE_ENV === "development" && (
 					<TanStackDevtools

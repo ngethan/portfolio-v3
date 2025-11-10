@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowUpRight, CornerDownRight } from "lucide-react";
+import { ArrowUpRight, Undo2 } from "lucide-react";
 import { motion } from "motion/react";
 import React, {
 	type ReactNode,
@@ -61,6 +61,7 @@ export function Layout({
 }: LayoutProps) {
 	const [time, setTime] = useState(() => getStlTime());
 	const [isScrolled, setIsScrolled] = useState(false);
+	const [scrollProgress, setScrollProgress] = useState(0);
 	const mainRef = useRef<HTMLDivElement | null>(null);
 
 	useIsomorphicLayoutEffect(() => {
@@ -82,6 +83,12 @@ export function Layout({
 
 		const handleScroll = () => {
 			setIsScrolled(mainEl.scrollTop > 0);
+
+			// Calculate scroll progress
+			const scrollTop = mainEl.scrollTop;
+			const scrollHeight = mainEl.scrollHeight - mainEl.clientHeight;
+			const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+			setScrollProgress(progress);
 		};
 
 		handleScroll();
@@ -98,103 +105,107 @@ export function Layout({
 		>
 			<div className="bg-background fixed inset-0 pointer-events-none">
 				<MemoizedShadow />
-				<div
-					className="absolute inset-0"
-					style={{
-						backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter2'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter2)'/%3E%3C/svg%3E")`,
-						opacity: 0.1,
-						mixBlendMode: "overlay",
-					}}
-				/>
 			</div>
-			<code className="fixed top-6 right-6 md:top-12 md:right-24 text-sm text-muted-foreground hidden md:block z-20">
-				{time} STL
-			</code>
+			{!writingTitle && (
+				<code className="fixed top-6 right-6 md:top-12 md:right-24 text-sm text-muted-foreground hidden md:block z-20">
+					{time} STL
+				</code>
+			)}
+			{writingTitle && (
+				<div className="hidden md:block fixed left-36 top-1/2 -translate-y-1/2 h-[30vh] w-0.5 bg-foreground/20 z-20">
+					<div
+						className="absolute top-0 left-0 w-full bg-white transition-all duration-150 ease-out"
+						style={{ height: `${scrollProgress}%` }}
+					/>
+				</div>
+			)}
 			<div className="flex-1 flex flex-col md:flex-row py-12 md:pt-24 md:pb-12 px-6 md:px-24 relative z-10 min-h-0">
 				<nav className="w-full md:w-32 mb-8 md:mb-0 text-sm md:flex-shrink-0 md:sticky md:top-24 md:self-start">
-					<ul className="flex md:flex-col gap-4 md:gap-0 md:space-y-2">
-						<li>
-							<Link
-								to="/"
-								className={`transition-colors duration-300 ${
-									activeSection === "about"
-										? "text-foreground"
-										: "text-muted-foreground hover:text-foreground"
-								}`}
-							>
-								About
-							</Link>
-						</li>
-						<li>
-							<Link
-								to="/projects"
-								className={`transition-colors duration-300 ${
-									activeSection === "projects"
-										? "text-foreground"
-										: "text-muted-foreground hover:text-foreground"
-								}`}
-							>
-								Projects
-							</Link>
-						</li>
-						{/* <li>
-							<Link
-								to="/press"
-								className={`transition-colors duration-300 ${
-									activeSection === "press"
-										? "text-foreground"
-										: "text-muted-foreground hover:text-foreground"
-								}`}
-							>
-								Press
-							</Link>
-						</li> */}
-						<li>
-							<Link
-								to="/media"
-								className={`transition-colors duration-300 ${
-									activeSection === "media"
-										? "text-foreground"
-										: "text-muted-foreground hover:text-foreground"
-								}`}
-							>
-								Media
-							</Link>
-						</li>
-						<li>
-							<div className="flex flex-col gap-1">
+					{writingTitle ? (
+						<Link
+							to="/writing"
+							className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors duration-300"
+						>
+							<Undo2 className="w-4 h-4" />
+							<span>Writing</span>
+						</Link>
+					) : (
+						<ul className="flex md:flex-col gap-4 md:gap-0 md:space-y-2">
+							<li>
 								<Link
-									to="/writing"
+									to="/"
 									className={`transition-colors duration-300 ${
-										activeSection === "writing"
+										activeSection === "about"
 											? "text-foreground"
 											: "text-muted-foreground hover:text-foreground"
 									}`}
 								>
-									Writing
+									About
 								</Link>
-								{writingTitle && (
-									<div className="hidden md:flex items-start gap-1.5 pl-1">
-										<CornerDownRight className="w-3 h-3 text-muted-foreground flex-shrink-0 mt-0.5" />
-										<span className="text-xs text-foreground leading-tight line-clamp-2">
-											{writingTitle}
-										</span>
-									</div>
-								)}
-							</div>
-						</li>
-						<li>
-							<a
-								href="/Ethan_Ng_Resume.pdf"
-								target="_blank"
-								rel="noopener noreferrer"
-								className="flex items-center gap-1 text-muted-foreground hover:text-foreground"
-							>
-								<span>Resume</span>
-								<ArrowUpRight className="w-3 h-3" />
-							</a>
-						</li>
-					</ul>
+							</li>
+							<li>
+								<Link
+									to="/projects"
+									className={`transition-colors duration-300 ${
+										activeSection === "projects"
+											? "text-foreground"
+											: "text-muted-foreground hover:text-foreground"
+									}`}
+								>
+									Projects
+								</Link>
+							</li>
+							{/* <li>
+								<Link
+									to="/press"
+									className={`transition-colors duration-300 ${
+										activeSection === "press"
+											? "text-foreground"
+											: "text-muted-foreground hover:text-foreground"
+									}`}
+								>
+									Press
+								</Link>
+							</li> */}
+							<li>
+								<Link
+									to="/media"
+									className={`transition-colors duration-300 ${
+										activeSection === "media"
+											? "text-foreground"
+											: "text-muted-foreground hover:text-foreground"
+									}`}
+								>
+									Media
+								</Link>
+							</li>
+							<li>
+								<div className="flex flex-col gap-1">
+									<Link
+										to="/writing"
+										className={`transition-colors duration-300 ${
+											activeSection === "writing"
+												? "text-foreground"
+												: "text-muted-foreground hover:text-foreground"
+										}`}
+									>
+										Writing
+									</Link>
+								</div>
+							</li>
+							<li>
+								<a
+									href="/Ethan_Ng_Resume.pdf"
+									target="_blank"
+									rel="noopener noreferrer"
+									className="flex items-center gap-1 text-muted-foreground hover:text-foreground"
+								>
+									<span>Resume</span>
+									<ArrowUpRight className="w-3 h-3" />
+								</a>
+							</li>
+						</ul>
+					)}
 				</nav>
 
 				<main
@@ -203,7 +214,7 @@ export function Layout({
 				>
 					<div className="pb-20">
 						<motion.div
-							initial={{ opacity: 0, y: 3 }}
+							initial={{ opacity: 1, y: 0 }}
 							animate={{ opacity: 1, y: 0 }}
 							exit={{ opacity: 0, y: -3 }}
 							transition={{ duration: 0.4, ease: "easeInOut" }}
@@ -220,44 +231,51 @@ export function Layout({
 				</div>
 			)}
 
-			<footer className="pb-8 md:pb-16 px-6 md:px-24 flex flex-col md:flex-row gap-4 md:gap-0 md:justify-between md:items-center text-sm relative z-10 md:flex-shrink-0">
-				<div className="text-muted-foreground">Made by Ethan Ng</div>
-				<code className="text-muted-foreground md:hidden">{time} STL</code>
-				<div className="flex gap-6 md:gap-10">
-					<a
-						href="https://github.com/ngethan"
-						target="_blank"
-						rel="noopener noreferrer"
-						className="text-muted-foreground hover:text-foreground"
-					>
-						GitHub
-					</a>
-					<a
-						href="https://linkedin.com/in/ethan--ng"
-						target="_blank"
-						rel="noopener noreferrer"
-						className="text-muted-foreground hover:text-foreground"
-					>
-						LinkedIn
-					</a>
-					<a
-						href="https://instagram.com/ethn.ng"
-						target="_blank"
-						rel="noopener noreferrer"
-						className="text-muted-foreground hover:text-foreground"
-					>
-						Instagram
-					</a>
-					<a
-						href="https://x.com/ethn_ng/"
-						target="_blank"
-						rel="noopener noreferrer"
-						className="text-muted-foreground hover:text-foreground"
-					>
-						X
-					</a>
+			{writingTitle ? (
+				<div className="pb-8 md:pb-16 px-6 md:px-24 relative z-10 md:absolute md:bottom-0 md:left-0">
+					<div className="text-muted-foreground text-sm md:w-32">Made by Ethan Ng</div>
 				</div>
-			</footer>
+			) : (
+				<footer className="pb-8 md:pb-16 px-6 md:px-24 flex flex-col md:flex-row gap-4 md:gap-0 md:justify-between md:items-center text-sm relative z-10 md:flex-shrink-0">
+					<div className="text-muted-foreground">Made by Ethan Ng</div>
+					<code className="text-muted-foreground md:hidden">{time} STL</code>
+					<div className="flex gap-6 md:gap-10">
+						<a
+							href="https://github.com/ngethan"
+							target="_blank"
+							rel="noopener noreferrer"
+							className="text-muted-foreground hover:text-foreground"
+						>
+							GitHub
+						</a>
+						<a
+							href="https://linkedin.com/in/ethan--ng"
+							target="_blank"
+							rel="noopener noreferrer"
+							className="text-muted-foreground hover:text-foreground"
+						>
+							LinkedIn
+						</a>
+						<a
+							href="https://instagram.com/ethn.ng"
+							target="_blank"
+							rel="noopener noreferrer"
+							className="text-muted-foreground hover:text-foreground"
+						>
+							Instagram
+						</a>
+						<a
+							href="https://x.com/ethn_ng/"
+							target="_blank"
+							rel="noopener noreferrer"
+							className="text-muted-foreground hover:text-foreground"
+						>
+							X
+						</a>
+					</div>
+				</footer>
+			)}
+
 			<Toaster position="bottom-center" />
 		</div>
 	);

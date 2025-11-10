@@ -21,8 +21,7 @@ export const Route = createFileRoute("/projects")({
 function HoverPreview({
 	content,
 	isMobile,
-	top,
-}: { content: React.ReactNode; isMobile: boolean; top?: number }) {
+}: { content: React.ReactNode; isMobile: boolean }) {
 	if (isMobile) {
 		return (
 			<motion.div
@@ -266,14 +265,6 @@ function Projects() {
 	const previewContent = activePreview
 		? PROJECT_PREVIEWS[activePreview as keyof typeof PROJECT_PREVIEWS]
 		: null;
-
-	const handleLinkClick = (e: React.MouseEvent, key: string) => {
-		if (isMobile) {
-			return;
-		}
-		e.preventDefault();
-		setPinnedPreview((prev) => (prev === key ? null : key));
-	};
 
 	const handleProjectHover = (key: string) => {
 		if (isMobile) return;

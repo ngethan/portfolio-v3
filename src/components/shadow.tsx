@@ -79,17 +79,44 @@ export function Shadow({
 		}
 
 		const hueRotateMotionValue = hueRotateMotionValueRef.current;
-		hueRotateMotionValue.set(0);
-
 		const duration = mapRange(animation.speed, 1, 100, 20, 2);
 
-		hueRotateAnimation.current = animate(hueRotateMotionValue, 360, {
+		// Restore animation state from sessionStorage
+		const savedState = sessionStorage.getItem('shadow-animation-state');
+		let startValue = 0;
+		let startTime = Date.now();
+
+		if (savedState) {
+			try {
+				const { value, timestamp } = JSON.parse(savedState);
+				const elapsed = (Date.now() - timestamp) / 1000; // seconds
+				const cycles = elapsed / duration;
+				startValue = (value + (cycles * 360)) % 360;
+			} catch (e) {
+				// Invalid state, start from 0
+			}
+		}
+
+		hueRotateMotionValue.set(startValue);
+
+		hueRotateAnimation.current = animate(hueRotateMotionValue, startValue + 360, {
 			duration,
 			repeat: Number.POSITIVE_INFINITY,
 			ease: "linear",
 			onUpdate: (value: number) => {
 				if (feColorMatrixRef.current) {
-					feColorMatrixRef.current.setAttribute("values", String(value));
+					const normalizedValue = value % 360;
+					feColorMatrixRef.current.setAttribute("values", String(normalizedValue));
+
+					// Periodically save state (every 100ms)
+					const now = Date.now();
+					if (now - startTime > 100) {
+						startTime = now;
+						sessionStorage.setItem('shadow-animation-state', JSON.stringify({
+							value: normalizedValue,
+							timestamp: now,
+						}));
+					}
 				}
 			},
 		});
@@ -118,6 +145,7 @@ export function Shadow({
 					position: "absolute",
 					inset: -displacementScale,
 					filter: animationEnabled ? `url(#${id}) blur(4px)` : "none",
+					opacity: 1,
 				}}
 			>
 				{animationEnabled && (
@@ -163,7 +191,7 @@ export function Shadow({
 				<div
 					style={{
 						backgroundColor: color,
-						maskImage: `url('https://framerusercontent.com/images/ceBGguIpUU8luwByxuQz79t7To.png')`,
+						maskImage: `url('/shadow.avif')`,
 						maskSize: sizing === "stretch" ? "100% 100%" : "cover",
 						maskRepeat: "no-repeat",
 						maskPosition: "center",
@@ -178,7 +206,7 @@ export function Shadow({
 					style={{
 						position: "absolute",
 						inset: 0,
-						backgroundImage: `url("https://framerusercontent.com/images/g0QcWrxr87K0ufOxIUFBakwYA8.png")`,
+						backgroundImage: `url("/grain.avif")`,
 						backgroundSize: noise.scale * 200,
 						backgroundRepeat: "repeat",
 						opacity: noise.opacity / 2,
