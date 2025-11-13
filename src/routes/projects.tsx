@@ -381,6 +381,7 @@ function Projects() {
 		<>
 			<Layout
 				activeSection="projects"
+				enableScrollFade={true}
 				previewContent={
 					isMobile && activePreview ? (
 						<div className="mt-8">
