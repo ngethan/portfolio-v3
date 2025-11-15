@@ -91,16 +91,16 @@ function Media() {
 			description: "Deep conversations about AI, consciousness, and what it means to be human.",
 		},
 		{
-			title: "The Joe Rogan Experience",
+			title: "How Did This Get Made?",
 			type: "podcast",
-			url: "https://open.spotify.com/show/4rOoJ6Egrf8K2IrywzwOMk",
-			description: "Wide-ranging conversations with scientists, comedians, and thinkers.",
+			url: "https://www.earwolf.com/show/how-did-this-get-made/",
+			description: "Hilarious deep dives into bad movies with Paul Scheer, June Diane Raphael, and Jason Mantzoukas.",
 		},
 		{
-			title: "Acquired",
+			title: "My First Million",
 			type: "podcast",
-			url: "https://www.acquired.fm/",
-			description: "Deep dives into how companies build durable competitive advantages.",
+			url: "https://www.mfmpod.com/",
+			description: "Brainstorming business ideas, discussing trends, and sharing entrepreneurial insights.",
 		},
 	];
 
