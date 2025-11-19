@@ -17,6 +17,7 @@ interface LayoutProps {
 	writingTitle?: string;
 	previewContent?: ReactNode;
 	enableScrollFade?: boolean;
+	tableOfContents?: ReactNode;
 }
 
 const MemoizedShadow = React.memo(() => (
@@ -58,10 +59,10 @@ export function Layout({
 	writingTitle,
 	previewContent,
 	enableScrollFade = false,
+	tableOfContents,
 }: LayoutProps) {
 	const [time, setTime] = useState(() => getStlTime());
 	const [isScrolled, setIsScrolled] = useState(false);
-	const [scrollProgress, setScrollProgress] = useState(0);
 	const mainRef = useRef<HTMLDivElement | null>(null);
 
 	useIsomorphicLayoutEffect(() => {
@@ -83,12 +84,6 @@ export function Layout({
 
 		const handleScroll = () => {
 			setIsScrolled(mainEl.scrollTop > 0);
-
-			// Calculate scroll progress
-			const scrollTop = mainEl.scrollTop;
-			const scrollHeight = mainEl.scrollHeight - mainEl.clientHeight;
-			const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
-			setScrollProgress(progress);
 		};
 
 		handleScroll();
@@ -111,14 +106,7 @@ export function Layout({
 					{time} STL
 				</code>
 			)}
-			{writingTitle && (
-				<div className="hidden md:block fixed left-36 top-1/2 -translate-y-1/2 h-[30vh] w-0.5 bg-foreground/20 z-20">
-					<div
-						className="absolute top-0 left-0 w-full bg-white transition-all duration-150 ease-out"
-						style={{ height: `${scrollProgress}%` }}
-					/>
-				</div>
-			)}
+			{tableOfContents}
 			<div className="flex-1 flex flex-col md:flex-row py-12 md:pt-24 md:pb-12 px-6 md:px-24 relative z-10 min-h-0">
 				<nav className="w-full md:w-32 mb-8 md:mb-0 text-sm md:flex-shrink-0 md:sticky md:top-24 md:self-start">
 					{writingTitle ? (

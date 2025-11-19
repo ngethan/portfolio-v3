@@ -1,10 +1,13 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
 import { ArrowLeft, Download, Link2 } from "lucide-react";
+import { useMemo } from "react";
 import { toast } from "sonner";
 import { Streamdown } from "streamdown";
 import { CustomToast } from "../components/CustomToast";
 import { Layout } from "../components/Layout";
+import { TableOfContents } from "../components/TableOfContents";
 import { buildSeoTags, siteConfig } from "../site-config";
+import { extractHeadings, generateSlug } from "../utils/markdown";
 
 interface BlogFrontmatter {
 	title: string;
@@ -60,6 +63,11 @@ export const Route = createFileRoute("/writing/$slug")({
 function BlogPost() {
 	const { post } = Route.useLoaderData();
 
+	const headings = useMemo(() => {
+		if (!post?.content) return [];
+		return extractHeadings(post.content);
+	}, [post?.content]);
+
 	const handleCopyLink = () => {
 		navigator.clipboard.writeText(`${siteConfig.url}/writing/${post?.slug}`);
 		toast.custom(() => <CustomToast message="Link copied to clipboard!" />);
@@ -86,6 +94,7 @@ function BlogPost() {
 			activeSection="writing"
 			writingTitle={post.title}
 			enableScrollFade={true}
+			tableOfContents={<TableOfContents headings={headings} />}
 		>
 			<article className="space-y-6 max-w-5xl mx-auto">
 				<header className="space-y-2 border-b border-foreground/40 pb-4">
@@ -176,22 +185,32 @@ function BlogPost() {
 									{children}
 								</strong>
 							),
-							h1: ({ children }) => (
-								<h1
-									className="mt-6 mb-2 font-semibold text-3xl text-foreground"
-									data-streamdown="heading-1"
-								>
-									{children}
-								</h1>
-							),
-							h2: ({ children }) => (
-								<h2
-									className="mt-6 mb-2 font-semibold text-2xl text-foreground"
-									data-streamdown="heading-2"
-								>
-									{children}
-								</h2>
-							),
+							h1: ({ children }) => {
+								const text = typeof children === "string" ? children : "";
+								const id = generateSlug(text);
+								return (
+									<h1
+										id={id}
+										className="mt-6 mb-2 font-semibold text-3xl text-foreground scroll-mt-24"
+										data-streamdown="heading-1"
+									>
+										{children}
+									</h1>
+								);
+							},
+							h2: ({ children }) => {
+								const text = typeof children === "string" ? children : "";
+								const id = generateSlug(text);
+								return (
+									<h2
+										id={id}
+										className="mt-6 mb-2 font-semibold text-2xl text-foreground scroll-mt-24"
+										data-streamdown="heading-2"
+									>
+										{children}
+									</h2>
+								);
+							},
 							h3: ({ children }) => (
 								<h3
 									className="mt-6 mb-2 font-semibold text-xl text-foreground"
