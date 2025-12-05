@@ -182,12 +182,19 @@ export function TypingTest({ onClose }: TypingTestProps) {
 	useEffect(() => {
 		const handleClickOutside = (e: MouseEvent) => {
 			const target = e.target as HTMLElement;
-			if (target.tagName === "BUTTON" || target.closest("button")) return;
+
+			// Don't close if clicking a button or inside a button
+			if (target.closest("button")) {
+				return;
+			}
+
+			// Don't close if clicking inside the typing test container
+			if (target.closest(".typing-test-container")) {
+				return;
+			}
 
 			// Close if clicking outside the typing test
-			if (!target.closest(".typing-test-container")) {
-				onClose();
-			}
+			onClose();
 		};
 
 		document.addEventListener("click", handleClickOutside);
@@ -351,11 +358,17 @@ export function TypingTest({ onClose }: TypingTestProps) {
 			animate={{ opacity: 1 }}
 			exit={{ opacity: 0 }}
 			transition={{ duration: 0.6, ease: "easeInOut" }}
-			className="typing-test-container fixed right-8 2xl:right-24 w-[clamp(400px,calc(100%-700px),45%)] flex items-start text-muted-foreground pointer-events-auto hidden md:flex"
+			className="typing-test-container preview-content fixed right-8 2xl:right-24 w-[clamp(400px,calc(100%-700px),45%)] flex items-start text-muted-foreground pointer-events-auto hidden md:flex"
 			style={{
 				top: "6rem",
 				height: "calc(100vh - 12rem)",
 				lineHeight: "1.2em",
+			}}
+			onClick={(e) => {
+				const target = e.target as HTMLElement;
+				if (!target.closest("button")) {
+					inputRef.current?.focus();
+				}
 			}}
 		>
 			<div className="w-full overflow-auto pointer-events-auto">
@@ -406,7 +419,7 @@ export function TypingTest({ onClose }: TypingTestProps) {
 						<div className="flex gap-6 pointer-events-auto relative z-10">
 							<button
 								type="button"
-								onMouseDown={(e) => {
+								onClick={(e) => {
 									e.preventDefault();
 									e.stopPropagation();
 									restart();
@@ -418,7 +431,7 @@ export function TypingTest({ onClose }: TypingTestProps) {
 							</button>
 							<button
 								type="button"
-								onMouseDown={(e) => {
+								onClick={(e) => {
 									e.preventDefault();
 									e.stopPropagation();
 									onClose();
@@ -435,6 +448,12 @@ export function TypingTest({ onClose }: TypingTestProps) {
 							type="text"
 							value={input}
 							onChange={handleInput}
+							onBlur={() => {
+								// Refocus immediately if test is not complete
+								if (!endTime) {
+									setTimeout(() => inputRef.current?.focus(), 0);
+								}
+							}}
 							className="opacity-0 absolute -z-10"
 						/>
 					</>

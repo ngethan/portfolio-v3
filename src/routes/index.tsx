@@ -77,6 +77,132 @@ const PREVIEW_CONTENT = {
 			</p>
 		</div>
 	),
+	"8vc": (
+		<div
+			className="space-y-4 text-muted-foreground"
+			style={{ lineHeight: "1.2em" }}
+		>
+			<p>
+				I was selected as an{" "}
+				<a
+					href="https://www.8vc.com/fellowships"
+					target="_blank"
+					className="text-white hover:underline"
+					rel="noreferrer"
+				>
+					8VC fellow
+				</a>{" "}
+				to work alongside world-class founders and engineers on challenging
+				technical problems this summer.
+				<br />
+				<br />
+				I'm super excited to gain more exposure to the VC world, meet fellows at
+				other portfolio companies, and build a support network that will help me
+				as I work toward founding something in the future.
+			</p>
+			<img
+				src="/assets/8vc-landing.png"
+				alt="8VC Fellowship"
+				className="w-full rounded-md"
+			/>
+		</div>
+	),
+	ramp: (
+		<div
+			className="space-y-4 text-muted-foreground"
+			style={{ lineHeight: "1.2em" }}
+		>
+			<p>
+				I'm joining{" "}
+				<a
+					href="https://ramp.com"
+					target="_blank"
+					className="text-white hover:underline"
+					rel="noreferrer"
+				>
+					Ramp
+				</a>{" "}
+				as a Software Engineering Intern in Summer 2026. They're building a
+				financial platform for businesses that combines corporate cards, expense
+				management, and bill payments.
+				<br />
+				<br />
+				Ramp's engineering culture and approach to building product really stuck
+				out to me. It's such a talent dense team and I'm excited to learn from
+				them from both an engineering and product perspective.
+			</p>
+			<img
+				src="/assets/ramp-landing.png"
+				alt="Ramp platform"
+				className="w-full rounded-md"
+			/>
+		</div>
+	),
+	washu: (
+		<div
+			className="space-y-4 text-muted-foreground"
+			style={{ lineHeight: "1.2em" }}
+		>
+			<p>
+				I'm a junior at{" "}
+				<a
+					href="https://washu.edu/"
+					target="_blank"
+					className="text-white hover:underline"
+					rel="noreferrer"
+				>
+					Washington University
+				</a>{" "}
+				studying CS and finance. WashU has been an incredible place to grow and
+				I've been fortunate enough to meet lifelong friends and make some great
+				memories here.
+				<br />
+				<br />
+				I've also spent a ton of time at the entrepreneurship center,{" "}
+				<a
+					href="https://skandalaris.wustl.edu/blog/2024/11/20/washu-startups-shine-skandalaris-center-awards-50000-at-the-innovation-entrepreneurship-awards/"
+					target="_blank"
+					className="text-white hover:underline"
+					rel="noreferrer"
+				>
+					winning their venture competition
+				</a>{" "}
+				and getting to learn from some incredible entrepreneurs. I've worked at{" "}
+				<a
+					href="https://techden.wustl.edu/devstac-2/"
+					target="_blank"
+					className="text-white hover:underline"
+					rel="noreferrer"
+				>
+					DevSTAC
+				</a>{" "}
+				(WashU's premier student-led tech consulting firm), won{" "}
+				<a
+					href="https://hackwashu.com/"
+					target="_blank"
+					className="text-white hover:underline"
+					rel="noreferrer"
+				>
+					HackWashU
+				</a>{" "}
+				and helped organize it in following years, worked on the{" "}
+				<a
+					href="https://washurobotics.com/"
+					target="_blank"
+					className="text-white hover:underline"
+					rel="noreferrer"
+				>
+					WashU Robotics Rover team
+				</a>
+				, and probably much more that's not immediately coming to mind.
+			</p>
+			<img
+				src="/assets/washu.png"
+				alt="Washington University"
+				className="w-full rounded-md"
+			/>
+		</div>
+	),
 	connect: (
 		<div
 			className="space-y-4 text-muted-foreground"
@@ -102,7 +228,7 @@ const PREVIEW_CONTENT = {
 				educators understand their students.
 			</p>
 			<img
-				src="/connect.png"
+				src="/assets/connect-landing.png"
 				alt="Connect platform"
 				className="w-full rounded-md"
 			/>
@@ -196,14 +322,24 @@ function App() {
 				>
 					<p>
 						I'm an incoming Software Engineering Intern at{" "}
-						<a href="https://ramp.com" target="_blank" rel="noreferrer">
+						<a
+							href="https://ramp.com"
+							target="_blank"
+							rel="noopener noreferrer"
+							onMouseEnter={() => !isMobile && setHoverPreview("ramp")}
+							onMouseLeave={() => !isMobile && setHoverPreview(null)}
+							onClick={(e) => handleLinkClick(e, "ramp")}
+						>
 							Ramp
 						</a>{" "}
 						and{" "}
 						<a
 							href="https://www.8vc.com/fellowships"
 							target="_blank"
-							rel="noreferrer"
+							rel="noopener noreferrer"
+							onMouseEnter={() => !isMobile && setHoverPreview("8vc")}
+							onMouseLeave={() => !isMobile && setHoverPreview(null)}
+							onClick={(e) => handleLinkClick(e, "8vc")}
 						>
 							8VC fellow
 						</a>{" "}
@@ -232,6 +368,9 @@ function App() {
 							href="https://washu.edu/"
 							target="_blank"
 							rel="noopener noreferrer"
+							onMouseEnter={() => !isMobile && setHoverPreview("washu")}
+							onMouseLeave={() => !isMobile && setHoverPreview(null)}
+							onClick={(e) => handleLinkClick(e, "washu")}
 						>
 							Washington University
 						</a>{" "}
@@ -255,13 +394,15 @@ function App() {
 						>
 							photography
 						</a>
-						, type somewhat{" "}
+						, type kinda{" "}
 						<a
 							href="https://monkeytype.com/profile/ethan.ng"
 							className="cursor-pointer"
-							onMouseEnter={() => !isMobile && setHoverPreview("typing")}
-							onMouseLeave={() => !isMobile && setHoverPreview(null)}
-							onClick={(e) => handleLinkClick(e, "typing")}
+							// onMouseEnter={() => !isMobile && setHoverPreview("typing")}
+							// onMouseLeave={() => !isMobile && setHoverPreview(null)}
+							// onClick={(e) => handleLinkClick(e, "typing")}
+							rel="noopener noreferrer"
+							target="_blank"
 						>
 							fast
 						</a>
