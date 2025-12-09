@@ -1,4 +1,6 @@
-# Ethan Ng Portfolio
+# Ethan Ng's Portfolio
+
+![Ethan Ng's Portfolio](public/og.png)
 
 The third iteration of my personal website.
 
