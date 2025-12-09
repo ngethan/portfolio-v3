@@ -221,11 +221,11 @@ export function Layout({
 
 			{writingTitle ? (
 				<div className="pb-8 md:pb-16 px-6 md:px-24 relative z-10 md:absolute md:bottom-0 md:left-0">
-					<div className="text-muted-foreground text-sm md:w-32">Made by Ethan Ng</div>
+					<a href="https://github.com/ngethan/portfolio-v3" target="_blank" rel="noopener noreferrer" className="text-muted-foreground text-sm md:w-32 hover:text-foreground transition-colors">Made by Ethan Ng</a>
 				</div>
 			) : (
 				<footer className="pb-8 md:pb-16 px-6 md:px-24 flex flex-col md:flex-row gap-4 md:gap-0 md:justify-between md:items-center text-sm relative z-10 md:flex-shrink-0">
-					<div className="text-muted-foreground">Made by Ethan Ng</div>
+					<a href="https://github.com/ngethan/portfolio-v3" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors">Made by Ethan Ng</a>
 					<code className="text-muted-foreground md:hidden">{time} STL</code>
 					<div className="flex gap-6 md:gap-10">
 						<a
