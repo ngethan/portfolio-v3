@@ -35,7 +35,7 @@ const config = defineConfig({
     allowedHosts: ["ethans.site", "ethanng.dev"]
   },
   ssr: {
-    noExternal: ['katex', 'streamdown']
+    noExternal: ['katex', 'streamdown', '@trpc/server', '@trpc/client', '@trpc/tanstack-react-query']
   }
 })
 
