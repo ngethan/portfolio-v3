@@ -39,6 +39,8 @@ export type Context = Awaited<ReturnType<typeof createContext>>;
 
 const t = initTRPC.context<Context>().create({
 	transformer: superjson,
+	isServer: true,
+	allowOutsideOfServer: true,
 	errorFormatter: ({ shape, error }) => ({
 		...shape,
 		data: {
