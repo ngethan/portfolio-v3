@@ -39,8 +39,6 @@ export type Context = Awaited<ReturnType<typeof createContext>>;
 
 const t = initTRPC.context<Context>().create({
 	transformer: superjson,
-	isServer: true,
-	allowOutsideOfServer: true,
 	errorFormatter: ({ shape, error }) => ({
 		...shape,
 		data: {
@@ -48,6 +46,15 @@ const t = initTRPC.context<Context>().create({
 			zodError: error.cause instanceof ZodError ? error.cause.flatten() : null,
 		},
 	}),
+	sse: {
+		ping: {
+			enabled: true,
+			intervalMs: 2000,
+		},
+		client: {
+			reconnectAfterInactivityMs: 3000,
+		},
+	},
 });
 
 export const createTRPCRouter = t.router;
