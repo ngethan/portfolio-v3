@@ -63,43 +63,12 @@
 	src: url("/fonts/NeueMontreal-BoldItalic.otf") format("opentype");
 }
 
-/* RM Mono Font Family */
+/* Geist Mono Font Family (Variable Font) */
 @font-face {
-	font-family: "RM Mono";
+	font-family: "Geist Mono";
 	font-style: normal;
-	font-weight: 300;
+	font-weight: 100 900;
 	font-display: swap;
-	src: url("/fonts/RMMono-Light.woff2") format("woff2");
-}
-
-@font-face {
-	font-family: "RM Mono";
-	font-style: normal;
-	font-weight: 400;
-	font-display: swap;
-	src: url("/fonts/RMMono-Regular.woff2") format("woff2");
-}
-
-@font-face {
-	font-family: "RM Mono";
-	font-style: normal;
-	font-weight: 600;
-	font-display: swap;
-	src: url("/fonts/RMMono-SemiBold.woff2") format("woff2");
-}
-
-@font-face {
-	font-family: "RM Mono";
-	font-style: normal;
-	font-weight: 700;
-	font-display: swap;
-	src: url("/fonts/RMMono-Bold.woff2") format("woff2");
-}
-
-@font-face {
-	font-family: "RM Mono";
-	font-style: normal;
-	font-weight: 900;
-	font-display: swap;
-	src: url("/fonts/RMMono-Black.woff2") format("woff2");
+	src: url("geist/dist/fonts/geist-mono/GeistMono-Variable.woff2")
+		format("woff2");
 }

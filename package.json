@@ -23,6 +23,7 @@
     "@vercel/analytics": "^1.5.0",
     "@vercel/speed-insights": "^1.2.0",
     "front-matter": "^4.0.2",
+    "geist": "^1.5.1",
     "lucide-react": "^0.544.0",
     "motion": "^12.23.22",
     "nitro": "npm:nitro-nightly",

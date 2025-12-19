@@ -16,7 +16,7 @@ body {
 }
 
 code {
-	font-family: "RM Mono", source-code-pro, Menlo, Monaco, Consolas,
+	font-family: "Geist Mono", source-code-pro, Menlo, Monaco, Consolas,
 		"Courier New", monospace;
 }
 
@@ -64,7 +64,7 @@ main a.no-underline {
 	--sidebar-border: oklch(0.2739 0.0055 286.0326);
 	--sidebar-ring: oklch(0.5635 0.2408 260.8178);
 	--font-sans: Geist;
-	--font-serif: serif;
+	--font-serif: "Playfair Display", serif;
 	--font-mono: Geist Mono;
 	--radius: 0.5rem;
 	--shadow-2xs: 0px 4px 12px -2px hsl(0 0% 0% / 0.1);
