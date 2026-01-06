@@ -43,22 +43,31 @@ export const Route = createFileRoute("/writing/")({
 			},
 		);
 
-		// Sort posts by date (newest first)
-		// Parse dates like "Oct 2025" or "Dec 2024" in a Safari-compatible way
 		const parseDate = (dateStr: string): Date => {
 			const months: { [key: string]: number } = {
-				Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5,
-				Jul: 6, Aug: 7, Sep: 8, Oct: 9, Nov: 10, Dec: 11
+				Jan: 0,
+				Feb: 1,
+				Mar: 2,
+				Apr: 3,
+				May: 4,
+				Jun: 5,
+				Jul: 6,
+				Aug: 7,
+				Sep: 8,
+				Oct: 9,
+				Nov: 10,
+				Dec: 11,
 			};
+
 			const parts = dateStr.split(" ");
 			if (parts.length === 2) {
 				const month = months[parts[0]];
-				const year = parseInt(parts[1], 10);
-				if (month !== undefined && !isNaN(year)) {
+				const year = Number.parseInt(parts[1], 10);
+				if (month !== undefined && !Number.isNaN(year)) {
 					return new Date(year, month, 1);
 				}
 			}
-			// Fallback to native parsing
+
 			return new Date(dateStr);
 		};
 
