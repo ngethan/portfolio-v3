@@ -37,7 +37,7 @@ export const Route = createRootRoute({
 				},
 				{
 					name: "theme-color",
-					content: "#212121",
+					content: "#000000",
 				},
 				{
 					name: "apple-mobile-web-app-status-bar-style",
@@ -106,7 +106,7 @@ function RootComponent() {
 
 function RootDocument({ children }: { children: React.ReactNode }) {
 	return (
-		<html lang="en">
+		<html lang="en" style={{ backgroundColor: '#000000' }}>
 			<head>
 				<HeadContent />
 				<SpeedInsights />
