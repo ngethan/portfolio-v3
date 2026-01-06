@@ -153,10 +153,6 @@ export const buildSeoTags = ({
 				name: "twitter:creator",
 				content: siteConfig.twitterHandle,
 			},
-			{
-				name: "theme-color",
-				content: "#fff",
-			},
 		],
 		links: [
 			{
