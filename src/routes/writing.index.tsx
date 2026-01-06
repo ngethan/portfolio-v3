@@ -43,10 +43,37 @@ export const Route = createFileRoute("/writing/")({
 			},
 		);
 
-		// Sort posts by date (newest first)
+		const parseDate = (dateStr: string): Date => {
+			const months: { [key: string]: number } = {
+				Jan: 0,
+				Feb: 1,
+				Mar: 2,
+				Apr: 3,
+				May: 4,
+				Jun: 5,
+				Jul: 6,
+				Aug: 7,
+				Sep: 8,
+				Oct: 9,
+				Nov: 10,
+				Dec: 11,
+			};
+
+			const parts = dateStr.split(" ");
+			if (parts.length === 2) {
+				const month = months[parts[0]];
+				const year = Number.parseInt(parts[1], 10);
+				if (month !== undefined && !Number.isNaN(year)) {
+					return new Date(year, month, 1);
+				}
+			}
+
+			return new Date(dateStr);
+		};
+
 		const sortedPosts = posts.sort((a, b) => {
-			const dateA = new Date(a.date);
-			const dateB = new Date(b.date);
+			const dateA = parseDate(a.date);
+			const dateB = parseDate(b.date);
 			return dateB.getTime() - dateA.getTime();
 		});
 
@@ -89,8 +116,8 @@ function BlogIndex() {
 							params={{ slug: post.slug }}
 							className="block group no-underline"
 						>
-							<article className="space-y-3 py-4 border-b border-foreground/40 transition-all duration-300 group-hover:border-foreground/70">
-								<div className="flex items-baseline justify-between gap-4 flex-wrap">
+							<article className="space-y-1 py-4 border-b border-foreground/40 transition-all duration-300 group-hover:border-foreground/70">
+								<div className="flex items-baseline justify-between gap-1 md:gap-4 flex-wrap">
 									<h2 className="text-lg md:text-xl font-medium text-foreground group-hover:text-foreground transition-colors flex items-center gap-2">
 										{post.title}
 									</h2>
@@ -103,21 +130,19 @@ function BlogIndex() {
 									{post.excerpt}
 								</p>
 
-								<div className="flex items-center gap-4 text-xs text-muted-foreground">
+								<div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground mt-2">
 									<span>{post.readTime}</span>
 									{post.tags && post.tags.length > 0 && (
 										<>
 											<span>·</span>
-											<div className="flex gap-2">
-												{post.tags.map((tag: string) => (
-													<span
-														key={tag}
-														className="px-2 py-1 rounded bg-muted/30 text-muted-foreground"
-													>
-														{tag}
-													</span>
-												))}
-											</div>
+											{post.tags.map((tag: string) => (
+												<span
+													key={tag}
+													className="px-2 py-0.5 rounded bg-[rgba(255,255,255,0.08)] text-muted-foreground"
+												>
+													{tag}
+												</span>
+											))}
 										</>
 									)}
 								</div>
