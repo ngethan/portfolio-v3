@@ -98,7 +98,7 @@ export function Layout({
 		<div
 			className={`text-muted-foreground flex flex-col relative ${enableScrollFade ? "h-screen overflow-hidden" : "min-h-screen"}`}
 		>
-			<div className="bg-background fixed inset-0 pointer-events-none">
+			<div className="bg-background fixed inset-0 pointer-events-none" style={{ backgroundColor: '#212121' }}>
 				<MemoizedShadow />
 			</div>
 			{!writingTitle && (
