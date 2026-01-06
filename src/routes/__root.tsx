@@ -108,17 +108,6 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 	return (
 		<html lang="en" style={{ backgroundColor: '#212121' }}>
 			<head>
-				<style
-					// biome-ignore lint/security/noDangerouslySetInnerHtml: critical for preventing white flash
-					dangerouslySetInnerHTML={{
-						__html: `
-							html, body {
-								background-color: #212121 !important;
-								background: #212121 !important;
-							}
-						`,
-					}}
-				/>
 				<HeadContent />
 				<SpeedInsights />
 				<Analytics />
