@@ -106,7 +106,7 @@ function RootComponent() {
 
 function RootDocument({ children }: { children: React.ReactNode }) {
 	return (
-		<html lang="en">
+		<html lang="en" style={{ backgroundColor: '#212121' }}>
 			<head>
 				<HeadContent />
 				<SpeedInsights />
@@ -126,7 +126,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 					type="image/avif"
 				/>
 			</head>
-			<body>
+			<body style={{ backgroundColor: '#212121' }}>
 				<script
 					// biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
 					dangerouslySetInnerHTML={{
