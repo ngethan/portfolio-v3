@@ -37,7 +37,7 @@ export const Route = createRootRoute({
 				},
 				{
 					name: "theme-color",
-					content: "#000000",
+					content: "#212121",
 				},
 				{
 					name: "apple-mobile-web-app-status-bar-style",
@@ -106,8 +106,19 @@ function RootComponent() {
 
 function RootDocument({ children }: { children: React.ReactNode }) {
 	return (
-		<html lang="en" style={{ backgroundColor: '#000000' }}>
+		<html lang="en" style={{ backgroundColor: '#212121' }}>
 			<head>
+				<style
+					// biome-ignore lint/security/noDangerouslySetInnerHtml: critical for preventing white flash
+					dangerouslySetInnerHTML={{
+						__html: `
+							html, body {
+								background-color: #212121 !important;
+								background: #212121 !important;
+							}
+						`,
+					}}
+				/>
 				<HeadContent />
 				<SpeedInsights />
 				<Analytics />
@@ -126,7 +137,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 					type="image/avif"
 				/>
 			</head>
-			<body>
+			<body style={{ backgroundColor: '#212121' }}>
 				<script
 					// biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
 					dangerouslySetInnerHTML={{
