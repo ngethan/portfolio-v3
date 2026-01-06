@@ -38,10 +38,20 @@ export const Route = createRootRoute({
 				{
 					name: "theme-color",
 					content: "#0f0f0f",
+					media: "(prefers-color-scheme: dark)",
+				},
+				{
+					name: "theme-color",
+					content: "#0f0f0f",
+					media: "(prefers-color-scheme: light)",
 				},
 				{
 					name: "apple-mobile-web-app-capable",
 					content: "yes",
+				},
+				{
+					name: "apple-mobile-web-app-status-bar-style",
+					content: "black-translucent",
 				},
 			],
 			links: [
