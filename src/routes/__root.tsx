@@ -28,7 +28,7 @@ export const Route = createRootRoute({
 				},
 				{
 					name: "viewport",
-					content: "width=device-width, initial-scale=1",
+					content: "width=device-width, initial-scale=1, viewport-fit=cover",
 				},
 				...baseSeo.meta,
 				{
@@ -37,17 +37,7 @@ export const Route = createRootRoute({
 				},
 				{
 					name: "theme-color",
-					content: "#0f0f0f",
-					media: "(prefers-color-scheme: dark)",
-				},
-				{
-					name: "theme-color",
-					content: "#0f0f0f",
-					media: "(prefers-color-scheme: light)",
-				},
-				{
-					name: "apple-mobile-web-app-capable",
-					content: "yes",
+					content: "#212121",
 				},
 				{
 					name: "apple-mobile-web-app-status-bar-style",
