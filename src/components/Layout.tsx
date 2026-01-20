@@ -96,7 +96,7 @@ export function Layout({
 
 	return (
 		<div
-			className={`text-muted-foreground flex flex-col relative ${enableScrollFade ? "h-screen overflow-hidden" : "min-h-screen"}`}
+			className={`text-muted-foreground flex flex-col relative ${enableScrollFade ? "h-dvh overflow-hidden" : "min-h-dvh"}`}
 		>
 			<div className="bg-background fixed inset-0 pointer-events-none" style={{ backgroundColor: '#212121' }}>
 				<MemoizedShadow />
@@ -220,7 +220,10 @@ export function Layout({
 			)}
 
 			{writingTitle ? (
-				<div className="pb-8 md:pb-16 px-6 md:px-24 relative z-10 md:absolute md:bottom-0 md:left-0">
+				<div
+					className="md:pb-16 px-6 md:px-24 relative z-10 md:absolute md:bottom-0 md:left-0"
+					style={{ paddingBottom: "calc(2rem + env(safe-area-inset-bottom, 0px))" }}
+				>
 					<a
 						href="https://github.com/ngethan/portfolio-v3"
 						target="_blank"
@@ -231,7 +234,10 @@ export function Layout({
 					</a>
 				</div>
 			) : (
-				<footer className="pb-8 md:pb-16 px-6 md:px-24 flex flex-col md:flex-row gap-4 md:gap-0 md:justify-between md:items-center text-sm relative z-10 md:flex-shrink-0">
+				<footer
+					className="md:pb-16 px-6 md:px-24 flex flex-col md:flex-row gap-4 md:gap-0 md:justify-between md:items-center text-sm relative z-10 md:flex-shrink-0"
+					style={{ paddingBottom: "calc(2rem + env(safe-area-inset-bottom, 0px))" }}
+				>
 					<a
 						href="https://github.com/ngethan/portfolio-v3"
 						target="_blank"

@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useState } from "react";
 import { Layout } from "../components/Layout";
+import { MobileModal } from "../components/MobileModal";
 import { TypingTest } from "../components/TypingTest";
 import { buildSeoTags } from "../site-config";
 
@@ -18,24 +19,7 @@ export const Route = createFileRoute("/")({
 	component: App,
 });
 
-function HoverPreview({
-	content,
-	isMobile,
-}: { content: React.ReactNode; isMobile: boolean }) {
-	if (isMobile) {
-		return (
-			<motion.div
-				initial={{ opacity: 0, y: 20 }}
-				animate={{ opacity: 1, y: 0 }}
-				exit={{ opacity: 0, y: 20 }}
-				transition={{ duration: 0.4, ease: "easeInOut" }}
-				className="w-full preview-content"
-			>
-				{content}
-			</motion.div>
-		);
-	}
-
+function HoverPreview({ content }: { content: React.ReactNode }) {
 	return (
 		<motion.div
 			initial={{ opacity: 0 }}
@@ -296,22 +280,7 @@ function App() {
 
 	return (
 		<>
-			<Layout
-				activeSection="about"
-				previewContent={
-					isMobile && activePreview && activePreview !== "typing" ? (
-						<div className="mt-8">
-							<AnimatePresence mode="wait">
-								<HoverPreview
-									key={activePreview}
-									content={previewContent}
-									isMobile={isMobile}
-								/>
-							</AnimatePresence>
-						</div>
-					) : undefined
-				}
-			>
+			<Layout activeSection="about">
 				<div
 					className="space-y-5 text-muted-foreground md:max-w-[360px] transition-all duration-200 transition-blur"
 					style={{
@@ -421,13 +390,14 @@ function App() {
 					{activePreview === "typing" ? (
 						<TypingTest key="typing" onClose={() => setPinnedPreview(null)} />
 					) : (
-						<HoverPreview
-							key={activePreview}
-							content={previewContent}
-							isMobile={isMobile}
-						/>
+						<HoverPreview key={activePreview} content={previewContent} />
 					)}
 				</AnimatePresence>
+			)}
+			{isMobile && activePreview && activePreview !== "typing" && (
+				<MobileModal isOpen={true} onClose={() => setPinnedPreview(null)}>
+					{previewContent}
+				</MobileModal>
 			)}
 		</>
 	);

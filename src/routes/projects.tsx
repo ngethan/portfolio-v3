@@ -18,24 +18,7 @@ export const Route = createFileRoute("/projects")({
 	component: Projects,
 });
 
-function HoverPreview({
-	content,
-	isMobile,
-}: { content: React.ReactNode; isMobile: boolean }) {
-	if (isMobile) {
-		return (
-			<motion.div
-				initial={{ opacity: 0, y: 20 }}
-				animate={{ opacity: 1, y: 0 }}
-				exit={{ opacity: 0, y: 20 }}
-				transition={{ duration: 0.4, ease: "easeInOut" }}
-				className="w-full preview-content"
-			>
-				{content}
-			</motion.div>
-		);
-	}
-
+function HoverPreview({ content }: { content: React.ReactNode }) {
 	return (
 		<motion.div
 			initial={{ opacity: 0, y: -10 }}
@@ -379,23 +362,7 @@ function Projects() {
 
 	return (
 		<>
-			<Layout
-				activeSection="projects"
-				enableScrollFade={true}
-				previewContent={
-					isMobile && activePreview ? (
-						<div className="mt-8">
-							<AnimatePresence mode="wait">
-								<HoverPreview
-									key={activePreview}
-									content={previewContent}
-									isMobile={isMobile}
-								/>
-							</AnimatePresence>
-						</div>
-					) : undefined
-				}
-			>
+			<Layout activeSection="projects" enableScrollFade={true}>
 				<div
 					className="projects-list text-muted-foreground md:max-w-[360px] transition-all duration-200 transition-blur"
 					style={{
@@ -432,11 +399,7 @@ function Projects() {
 			</Layout>
 			{!isMobile && activePreview && (
 				<AnimatePresence mode="wait">
-					<HoverPreview
-						key={activePreview}
-						content={previewContent}
-						isMobile={isMobile}
-					/>
+					<HoverPreview key={activePreview} content={previewContent} />
 				</AnimatePresence>
 			)}
 		</>
