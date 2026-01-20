@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Image } from "@unpic/react";
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useState } from "react";
 import { Layout } from "../components/Layout";
@@ -84,10 +85,11 @@ const PREVIEW_CONTENT = {
 				other portfolio companies, and build a support network that will help me
 				as I work toward founding something in the future.
 			</p>
-			<img
+			<Image
 				src="/assets/8vc-landing.png"
 				alt="8VC Fellowship"
-				className="w-full rounded-md"
+				layout="fullWidth"
+				className="rounded-md"
 			/>
 		</div>
 	),
@@ -115,10 +117,11 @@ const PREVIEW_CONTENT = {
 				out to me. It's such a talent dense team and I'm excited to learn from
 				them from both an engineering and product perspective.
 			</p>
-			<img
+			<Image
 				src="/assets/ramp-landing.png"
 				alt="Ramp platform"
-				className="w-full rounded-md"
+				layout="fullWidth"
+				className="rounded-md"
 			/>
 		</div>
 	),
@@ -180,10 +183,11 @@ const PREVIEW_CONTENT = {
 				</a>
 				, and probably much more that's not immediately coming to mind.
 			</p>
-			<img
+			<Image
 				src="/assets/washu.png"
 				alt="Washington University"
-				className="w-full rounded-md"
+				layout="fullWidth"
+				className="rounded-md"
 			/>
 		</div>
 	),
@@ -211,10 +215,11 @@ const PREVIEW_CONTENT = {
 				tracking, policy and grant updates, and gamified tools that help
 				educators understand their students.
 			</p>
-			<img
+			<Image
 				src="/assets/connect-landing.png"
 				alt="Connect platform"
-				className="w-full rounded-md"
+				layout="fullWidth"
+				className="rounded-md"
 			/>
 		</div>
 	),

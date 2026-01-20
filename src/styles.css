@@ -2,6 +2,7 @@
 
 @import "./styles/font-faces.css";
 @import "./styles/font-utilities.css";
+@import "@fontsource-variable/playfair-display";
 
 @source "../node_modules/streamdown/dist/index.js";
 
@@ -64,7 +65,7 @@ main a.no-underline {
 	--sidebar-border: oklch(0.2739 0.0055 286.0326);
 	--sidebar-ring: oklch(0.5635 0.2408 260.8178);
 	--font-sans: Geist;
-	--font-serif: "Playfair Display", serif;
+	--font-serif: "Playfair Display Variable", serif;
 	--font-mono: Geist Mono;
 	--radius: 0.5rem;
 	--shadow-2xs: 0px 4px 12px -2px hsl(0 0% 0% / 0.1);
@@ -222,16 +223,18 @@ main a.no-underline {
 	}
 }
 
-.projects-list .project-item {
-	transition: filter 0.2s ease, opacity 0.2s ease;
-}
+@media (hover: hover) {
+	.projects-list .project-item {
+		transition: filter 0.2s ease, opacity 0.2s ease;
+	}
 
-.projects-list:has(.project-item:hover) .project-item:not(:hover) {
-	filter: blur(1px);
-	opacity: 0.5;
-}
+	.projects-list:has(.project-item:hover) .project-item:not(:hover) {
+		filter: blur(1px);
+		opacity: 0.5;
+	}
 
-.projects-list .project-item:hover {
-	filter: none;
-	opacity: 1;
+	.projects-list .project-item:hover {
+		filter: none;
+		opacity: 1;
+	}
 }

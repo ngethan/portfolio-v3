@@ -4,7 +4,7 @@
 	font-style: normal;
 	font-weight: 300;
 	font-display: swap;
-	src: url("/fonts/NeueMontreal-Light.otf") format("opentype");
+	src: url("/fonts/NeueMontreal-Light.woff2") format("woff2");
 }
 
 @font-face {
@@ -12,7 +12,7 @@
 	font-style: italic;
 	font-weight: 300;
 	font-display: swap;
-	src: url("/fonts/NeueMontreal-LightItalic.otf") format("opentype");
+	src: url("/fonts/NeueMontreal-LightItalic.woff2") format("woff2");
 }
 
 @font-face {
@@ -20,7 +20,7 @@
 	font-style: normal;
 	font-weight: 400;
 	font-display: swap;
-	src: url("/fonts/NeueMontreal-Regular.otf") format("opentype");
+	src: url("/fonts/NeueMontreal-Regular.woff2") format("woff2");
 }
 
 @font-face {
@@ -28,7 +28,7 @@
 	font-style: italic;
 	font-weight: 400;
 	font-display: swap;
-	src: url("/fonts/NeueMontreal-Italic.otf") format("opentype");
+	src: url("/fonts/NeueMontreal-Italic.woff2") format("woff2");
 }
 
 @font-face {
@@ -36,7 +36,7 @@
 	font-style: normal;
 	font-weight: 500;
 	font-display: swap;
-	src: url("/fonts/NeueMontreal-Medium.otf") format("opentype");
+	src: url("/fonts/NeueMontreal-Medium.woff2") format("woff2");
 }
 
 @font-face {
@@ -44,7 +44,7 @@
 	font-style: italic;
 	font-weight: 500;
 	font-display: swap;
-	src: url("/fonts/NeueMontreal-MediumItalic.otf") format("opentype");
+	src: url("/fonts/NeueMontreal-MediumItalic.woff2") format("woff2");
 }
 
 @font-face {
@@ -52,7 +52,7 @@
 	font-style: normal;
 	font-weight: 700;
 	font-display: swap;
-	src: url("/fonts/NeueMontreal-Bold.otf") format("opentype");
+	src: url("/fonts/NeueMontreal-Bold.woff2") format("woff2");
 }
 
 @font-face {
@@ -60,7 +60,7 @@
 	font-style: italic;
 	font-weight: 700;
 	font-display: swap;
-	src: url("/fonts/NeueMontreal-BoldItalic.otf") format("opentype");
+	src: url("/fonts/NeueMontreal-BoldItalic.woff2") format("woff2");
 }
 
 /* Geist Mono Font Family (Variable Font) */
