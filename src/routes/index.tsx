@@ -223,6 +223,35 @@ const PREVIEW_CONTENT = {
 			/>
 		</div>
 	),
+	chelsea: (
+		<div
+			className="space-y-4 text-muted-foreground"
+			style={{ lineHeight: "1.2em" }}
+		>
+			<p>
+				<a
+					href="https://chelseacommons.co"
+					target="_blank"
+					className="text-white hover:underline"
+					rel="noreferrer"
+				>
+					Chelsea Commons
+				</a>{" "}
+				is a summer community for ambitious interns in NYC.
+				<br />
+				<br />
+				Built by 12 interns living together in Manhattan. If you're a founder,
+				builder, or someone driven to grow alongside amazing people—you belong
+				here.
+			</p>
+			<Image
+				src="/assets/chelseacommons-landing.png"
+				alt="Chelsea Commons"
+				layout="fullWidth"
+				className="rounded-md"
+			/>
+		</div>
+	),
 };
 
 function App() {
@@ -317,7 +346,18 @@ function App() {
 						>
 							8VC fellow
 						</a>{" "}
-						for Summer 2026.
+						for Summer 2026. I'm also building{" "}
+						<a
+							href="https://chelseacommons.co"
+							target="_blank"
+							rel="noopener noreferrer"
+							onMouseEnter={() => !isMobile && setHoverPreview("chelsea")}
+							onMouseLeave={() => !isMobile && setHoverPreview(null)}
+							onClick={(e) => handleLinkClick(e, "chelsea")}
+						>
+							Chelsea Commons
+						</a>
+						, a community for builders in NY.
 					</p>
 
 					<p>
