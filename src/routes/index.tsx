@@ -245,7 +245,7 @@ const PREVIEW_CONTENT = {
 				here.
 			</p>
 			<Image
-				src="/assets/chelseacommons-landing.png"
+				src="/assets/chelseacommons-asset.png"
 				alt="Chelsea Commons"
 				layout="fullWidth"
 				className="rounded-md"
