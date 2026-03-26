@@ -183,12 +183,10 @@ export function Layout({
 							</li>
 							<li>
 								<a
-									href="/Ethan_Ng_Resume.pdf"
-									target="_blank"
-									rel="noopener noreferrer"
+									href="mailto:hey@ethans.site"
 									className="flex items-center gap-1 text-muted-foreground hover:text-foreground"
 								>
-									<span>Resume</span>
+									<span>Contact</span>
 									<ArrowUpRight className="w-3 h-3" />
 								</a>
 							</li>
