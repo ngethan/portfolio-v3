@@ -101,12 +101,9 @@ function BlogIndex() {
 	return (
 		<Layout activeSection="writing">
 			<div className="space-y-12">
-				<div className="space-y-2">
-					<h1 className="text-foreground text-3xl">Writing</h1>
-					<p className="text-muted-foreground">
-						Thoughts on building, technology, and design.
-					</p>
-				</div>
+				<p className="font-mono text-muted-foreground" style={{ lineHeight: "1.4em" }}>
+					some thoughts on building, technology, and design. please bug me to write more.
+				</p>
 
 				<div className="space-y-8">
 					{posts.map((post) => (

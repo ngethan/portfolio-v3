@@ -1,13 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowUpRight, Undo2 } from "lucide-react";
 import { motion } from "motion/react";
-import React, {
-	type ReactNode,
-	useEffect,
-	useLayoutEffect,
-	useRef,
-	useState,
-} from "react";
+import React, { type ReactNode, useRef } from "react";
 import { Toaster } from "sonner";
 import { Shadow } from "./shadow";
 
@@ -29,258 +23,163 @@ const MemoizedShadow = React.memo(() => (
 	/>
 ));
 
-const stlTimeFormatter = new Intl.DateTimeFormat("en-US", {
-	timeZone: "America/Chicago",
-	hour: "2-digit",
-	minute: "2-digit",
-	second: "2-digit",
-	hour12: false,
-});
+let hasAnimatedShell = false;
 
-const getStlTime = () => {
-	try {
-		return stlTimeFormatter.format(new Date());
-	} catch {
-		return new Date().toLocaleTimeString("en-US", {
-			hour: "2-digit",
-			minute: "2-digit",
-			second: "2-digit",
-			hour12: false,
-		});
-	}
-};
+function FadeIn({
+	children,
+	delay = 0,
+	className,
+	skip,
+}: { children: ReactNode; delay?: number; className?: string; skip?: boolean }) {
+	if (skip) return <div className={className}>{children}</div>;
+	return (
+		<motion.div
+			className={className}
+			initial={{ opacity: 0, y: 12 }}
+			animate={{ opacity: 1, y: 0 }}
+			transition={{ duration: 0.2, delay, ease: "easeOut" as const }}
+		>
+			{children}
+		</motion.div>
+	);
+}
 
-const useIsomorphicLayoutEffect =
-	typeof window !== "undefined" ? useLayoutEffect : useEffect;
+const NAV_ITEMS = [
+	{ to: "/", label: "about", section: "about" },
+	{ to: "/projects", label: "projects", section: "projects" },
+	{ to: "/media", label: "media", section: "media" },
+	{ to: "/writing", label: "writing", section: "writing" },
+] as const;
+
+const SOCIALS = [
+	{ href: "https://github.com/ngethan", label: "github", handle: "@ngethan" },
+	{ href: "https://linkedin.com/in/ethan--ng", label: "linkedin", handle: "@ethan--ng" },
+	{ href: "https://instagram.com/ethn.ng", label: "instagram", handle: "@ethn.ng" },
+	{ href: "https://x.com/ethn_ng/", label: "x", handle: "@ethn_ng" },
+];
 
 export function Layout({
 	children,
 	activeSection,
 	writingTitle,
 	previewContent,
-	enableScrollFade = false,
-	tableOfContents,
 }: LayoutProps) {
-	const [time, setTime] = useState(() => getStlTime());
-	const [isScrolled, setIsScrolled] = useState(false);
-	const mainRef = useRef<HTMLDivElement | null>(null);
-
-	useIsomorphicLayoutEffect(() => {
-		const updateTime = () => {
-			setTime(getStlTime());
-		};
-
-		updateTime();
-		const interval = window.setInterval(updateTime, 1000);
-
-		return () => window.clearInterval(interval);
-	}, []);
-
-	useEffect(() => {
-		if (!enableScrollFade) return;
-
-		const mainEl = mainRef.current;
-		if (!mainEl) return;
-
-		const handleScroll = () => {
-			setIsScrolled(mainEl.scrollTop > 0);
-		};
-
-		handleScroll();
-		mainEl.addEventListener("scroll", handleScroll, { passive: true });
-
-		return () => {
-			mainEl.removeEventListener("scroll", handleScroll);
-		};
-	}, [enableScrollFade]);
+	const skipShell = useRef(hasAnimatedShell);
+	hasAnimatedShell = true;
 
 	return (
-		<div
-			className={`text-muted-foreground flex flex-col relative ${enableScrollFade ? "h-dvh overflow-hidden" : "min-h-dvh"}`}
-		>
-			<div className="bg-background fixed inset-0 pointer-events-none" style={{ backgroundColor: '#212121' }}>
+		<div className="text-muted-foreground relative min-h-dvh md:h-dvh md:overflow-hidden">
+			<div
+				className="bg-background fixed inset-0 pointer-events-none"
+				style={{ backgroundColor: "#212121" }}
+			>
 				<MemoizedShadow />
 			</div>
-			{!writingTitle && (
-				<code className="fixed top-6 right-6 md:top-12 md:right-24 text-sm text-muted-foreground hidden md:block z-20">
-					{time} STL
-				</code>
-			)}
-			{tableOfContents}
-			<div className="flex-1 flex flex-col md:flex-row py-12 md:pt-24 md:pb-12 px-6 md:px-24 relative z-10 min-h-0">
-				<nav className="w-full md:w-32 mb-8 md:mb-0 text-sm md:flex-shrink-0 md:sticky md:top-24 md:self-start">
-					{writingTitle ? (
-						<Link
-							to="/writing"
-							className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors duration-300"
-						>
-							<Undo2 className="w-4 h-4" />
-							<span>Writing</span>
-						</Link>
-					) : (
-						<ul className="flex md:flex-col gap-4 md:gap-0 md:space-y-2">
-							<li>
-								<Link
-									to="/"
-									className={`transition-colors duration-300 ${
-										activeSection === "about"
-											? "text-foreground"
-											: "text-muted-foreground hover:text-foreground"
-									}`}
-								>
-									About
-								</Link>
-							</li>
-							<li>
-								<Link
-									to="/projects"
-									className={`transition-colors duration-300 ${
-										activeSection === "projects"
-											? "text-foreground"
-											: "text-muted-foreground hover:text-foreground"
-									}`}
-								>
-									Projects
-								</Link>
-							</li>
-							{/* <li>
-								<Link
-									to="/press"
-									className={`transition-colors duration-300 ${
-										activeSection === "press"
-											? "text-foreground"
-											: "text-muted-foreground hover:text-foreground"
-									}`}
-								>
-									Press
-								</Link>
-							</li> */}
-							<li>
-								<Link
-									to="/media"
-									className={`transition-colors duration-300 ${
-										activeSection === "media"
-											? "text-foreground"
-											: "text-muted-foreground hover:text-foreground"
-									}`}
-								>
-									Media
-								</Link>
-							</li>
-							<li>
-								<div className="flex flex-col gap-1">
+
+			<div className="relative z-10 flex flex-col md:flex-row h-full">
+				{/* Left column */}
+				<div
+					className={`flex flex-col ${previewContent ? "md:w-1/2" : "w-full"} ${previewContent ? "border-r border-white/20" : ""}`}
+				>
+					{/* Header */}
+					<div className="p-6 pb-0">
+						<FadeIn skip={skipShell.current}>
+							<h1
+								className="text-foreground text-3xl select-none mb-3"
+								style={{ fontFamily: "'Rubik Glitch', cursive" }}
+							>
+								ETHAN NG
+							</h1>
+						</FadeIn>
+						<nav className="flex items-center gap-4 text-sm flex-wrap">
+							{writingTitle ? (
+								<FadeIn delay={0.1} skip={skipShell.current}>
 									<Link
 										to="/writing"
-										className={`transition-colors duration-300 ${
-											activeSection === "writing"
-												? "text-foreground"
-												: "text-muted-foreground hover:text-foreground"
-										}`}
+										className="flex items-center gap-2 font-mono text-muted-foreground hover:text-foreground transition-colors duration-300"
 									>
-										Writing
+										<Undo2 className="w-4 h-4" />
+										<span>writing</span>
 									</Link>
-								</div>
-							</li>
-							<li>
-								<a
-									href="mailto:hey@ethans.site"
-									className="flex items-center gap-1 text-muted-foreground hover:text-foreground"
-								>
-									<span>Contact</span>
-									<ArrowUpRight className="w-3 h-3" />
-								</a>
-							</li>
-						</ul>
-					)}
-				</nav>
-
-				<main
-					ref={mainRef}
-					className={`flex-1 w-full md:ml-12 ${enableScrollFade ? "overflow-y-auto min-h-0 relative" : ""} ${enableScrollFade ? (isScrolled ? "mask-fade-offset--scrolled" : "mask-fade-offset") : ""}`}
-				>
-					<div className="pb-20">
-						<motion.div
-							initial={{ opacity: 1, y: 0 }}
-							animate={{ opacity: 1, y: 0 }}
-							exit={{ opacity: 0, y: -3 }}
-							transition={{ duration: 0.4, ease: "easeInOut" }}
-						>
-							{children}
-						</motion.div>
+								</FadeIn>
+							) : (
+								<>
+									{NAV_ITEMS.map((item, i) => (
+										<FadeIn key={item.section} delay={0.1 + i * 0.05} skip={skipShell.current}>
+											<Link
+												to={item.to}
+												className={`font-mono transition-colors duration-300 ${
+													activeSection === item.section
+														? "text-foreground"
+														: "text-muted-foreground hover:text-foreground"
+												}`}
+											>
+												{item.label}
+											</Link>
+										</FadeIn>
+									))}
+									<FadeIn delay={0.1 + NAV_ITEMS.length * 0.05} skip={skipShell.current}>
+										<a
+											href="mailto:hey@ethans.site"
+											className="inline-flex items-center gap-1 font-mono text-muted-foreground hover:text-foreground transition-colors duration-300"
+										>
+											<span>contact</span>
+											<ArrowUpRight className="w-3 h-3" />
+										</a>
+									</FadeIn>
+								</>
+							)}
+						</nav>
+						<hr className="border-white/20 mt-6 -mx-6" />
 					</div>
-				</main>
+
+					{/* Main content */}
+					<main className="flex-1 overflow-y-auto p-6">
+						{children}
+
+						{previewContent && (
+							<div className="md:hidden mt-10">
+								<hr className="border-white/20 -mx-6 mb-10" />
+								{previewContent}
+							</div>
+						)}
+					</main>
+
+					{/* Footer */}
+					<div className="p-6 pt-0">
+						<hr className="border-white/20 mb-6 -mx-6" />
+						<div className="flex items-center gap-4 text-sm font-mono flex-wrap">
+							{SOCIALS.map((s, i) => (
+								<FadeIn key={s.label} delay={0.5 + i * 0.05} skip={skipShell.current}>
+									<a
+										href={s.href}
+										target="_blank"
+										rel="noopener noreferrer"
+										className="text-muted-foreground"
+									>
+										{s.label}/<span className="text-foreground">{s.handle}</span>
+									</a>
+								</FadeIn>
+							))}
+						</div>
+						<FadeIn delay={0.75} skip={skipShell.current}>
+							<p
+								className="text-xs text-muted-foreground select-none mt-3"
+								style={{ fontFamily: "'Rubik Glitch', cursive" }}
+							>
+								MADE WITH ❤️ ETHAN NG
+							</p>
+						</FadeIn>
+					</div>
+				</div>
+
+				{/* Right column */}
+				{previewContent && (
+					<div className="hidden md:block md:w-1/2 overflow-y-auto p-6">
+						{previewContent}
+					</div>
+				)}
 			</div>
-
-			{previewContent && (
-				<div className="px-6 md:px-24 pb-12 -mt-20 relative z-10">
-					{previewContent}
-				</div>
-			)}
-
-			{writingTitle ? (
-				<div
-					className="md:pb-16 px-6 md:px-24 relative z-10 md:absolute md:bottom-0 md:left-0"
-					style={{ paddingBottom: "calc(2rem + env(safe-area-inset-bottom, 0px))" }}
-				>
-					<a
-						href="https://github.com/ngethan/portfolio-v3"
-						target="_blank"
-						rel="noopener noreferrer"
-						className="text-muted-foreground text-sm md:w-32 hover:text-foreground"
-					>
-						Made by Ethan Ng
-					</a>
-				</div>
-			) : (
-				<footer
-					className="md:pb-16 px-6 md:px-24 flex flex-col md:flex-row gap-4 md:gap-0 md:justify-between md:items-center text-sm relative z-10 md:flex-shrink-0"
-					style={{ paddingBottom: "calc(2rem + env(safe-area-inset-bottom, 0px))" }}
-				>
-					<a
-						href="https://github.com/ngethan/portfolio-v3"
-						target="_blank"
-						rel="noopener noreferrer"
-						className="text-muted-foreground hover:text-foreground"
-					>
-						Made by Ethan Ng
-					</a>
-					<code className="text-muted-foreground md:hidden">{time} STL</code>
-					<div className="flex gap-6 md:gap-10">
-						<a
-							href="https://github.com/ngethan"
-							target="_blank"
-							rel="noopener noreferrer"
-							className="text-muted-foreground hover:text-foreground"
-						>
-							GitHub
-						</a>
-						<a
-							href="https://linkedin.com/in/ethan--ng"
-							target="_blank"
-							rel="noopener noreferrer"
-							className="text-muted-foreground hover:text-foreground"
-						>
-							LinkedIn
-						</a>
-						<a
-							href="https://instagram.com/ethn.ng"
-							target="_blank"
-							rel="noopener noreferrer"
-							className="text-muted-foreground hover:text-foreground"
-						>
-							Instagram
-						</a>
-						<a
-							href="https://x.com/ethn_ng/"
-							target="_blank"
-							rel="noopener noreferrer"
-							className="text-muted-foreground hover:text-foreground"
-						>
-							X
-						</a>
-					</div>
-				</footer>
-			)}
 
 			<Toaster position="bottom-center" />
 		</div>
