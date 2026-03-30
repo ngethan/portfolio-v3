@@ -9,7 +9,7 @@ const DESCRIPTION =
 export const Route = createFileRoute("/media")({
 	head: () =>
 		buildSeoTags({
-			title: "Media | Ethan Ng",
+			title: "MEDIA | ETHAN NG",
 			description: DESCRIPTION,
 			path: "/media",
 		}),
@@ -122,9 +122,9 @@ function Media() {
 						href={item.url}
 						target="_blank"
 						rel="noopener noreferrer"
-						className="inline"
+						className="inline no-underline"
 					>
-						<span className="text-foreground">{item.title}</span>
+						<span className="link-text">{item.title}</span>
 						<ArrowUpRight className="w-3 h-3 inline ml-1" />
 					</a>
 				) : (
@@ -152,7 +152,7 @@ function Media() {
 			<div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
 				{groupedMedia.books.length > 0 && (
 					<div className="space-y-3">
-						<h2 className="text-foreground text-sm font-medium">Books</h2>
+						<h2 className="text-foreground text-sm font-medium font-mono">Books</h2>
 						<div className="space-y-3">
 							{groupedMedia.books.map(renderMediaItem)}
 						</div>
@@ -161,7 +161,7 @@ function Media() {
 
 				{groupedMedia.articles.length > 0 && (
 					<div className="space-y-3">
-						<h2 className="text-foreground text-sm font-medium">Papers</h2>
+						<h2 className="text-foreground text-sm font-medium font-mono">Papers</h2>
 						<div className="space-y-3">
 							{groupedMedia.articles.map(renderMediaItem)}
 						</div>
@@ -170,7 +170,7 @@ function Media() {
 
 				{groupedMedia.podcasts.length > 0 && (
 					<div className="space-y-3">
-						<h2 className="text-foreground text-sm font-medium">Podcasts</h2>
+						<h2 className="text-foreground text-sm font-medium font-mono">Podcasts</h2>
 						<div className="space-y-3">
 							{groupedMedia.podcasts.map(renderMediaItem)}
 						</div>
@@ -179,7 +179,7 @@ function Media() {
 
 				{groupedMedia.videos.length > 0 && (
 					<div className="space-y-3">
-						<h2 className="text-foreground text-sm font-medium">Videos</h2>
+						<h2 className="text-foreground text-sm font-medium font-mono">Videos</h2>
 						<div className="space-y-3">
 							{groupedMedia.videos.map(renderMediaItem)}
 						</div>

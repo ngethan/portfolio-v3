@@ -26,8 +26,8 @@ const resolveRuntimeOrigin = () => {
 const getBaseUrl = () => rawSiteUrl ?? resolveRuntimeOrigin() ?? "";
 
 export const siteConfig = {
-	name: "Ethan Ng",
-	shortName: "Ethan Ng",
+	name: "ETHAN NG",
+	shortName: "ETHAN NG",
 	description:
 		"Passionate builder and WashU CS & finance student obsessed with learning, exploring new tech, and turning ideas into reality.",
 	url: getBaseUrl(),

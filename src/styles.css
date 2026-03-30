@@ -22,12 +22,34 @@ code {
 }
 
 main a:not(.no-underline) {
-	@apply text-foreground transition-colors duration-300 hover:text-foreground hover:underline;
+	@apply transition-none;
+	color: oklch(0.9 0.01 286);
+	text-decoration: underline;
+	text-decoration-color: oklch(0.45 0.008 286);
+	text-underline-offset: 3px;
+}
+
+main a:not(.no-underline):hover {
+	@apply text-foreground;
+	text-decoration-color: oklch(0.55 0.008 286);
 }
 
 main a.no-underline {
-	@apply transition-colors duration-300;
+	@apply transition-none;
 	text-decoration: none !important;
+}
+
+main a.no-underline .link-text {
+	text-decoration: underline;
+	text-decoration-color: oklch(0.45 0.008 286);
+	text-underline-offset: 3px;
+	color: oklch(0.9 0.01 286);
+	@apply transition-none;
+}
+
+main a.no-underline:hover .link-text {
+	@apply text-foreground;
+	text-decoration-color: oklch(0.55 0.008 286);
 }
 
 :root {
@@ -44,6 +66,7 @@ main a.no-underline {
 	--muted: oklch(0.2686 0 0);
 	--muted-foreground: oklch(0.7418 0.0129 286.0665);
 	--semi-foreground: oklch(0.85 0.008 286);
+	--dim: oklch(0.55 0.008 286);
 	--accent: oklch(0.3211 0 0);
 	--accent-foreground: oklch(0.9851 0 0);
 	--destructive: oklch(0.6368 0.2078 25.3313);
@@ -66,7 +89,7 @@ main a.no-underline {
 	--sidebar-ring: oklch(0.5635 0.2408 260.8178);
 	--font-sans: Geist;
 	--font-serif: "Playfair Display Variable", serif;
-	--font-mono: Geist Mono;
+	--font-mono: "GT Pressura Mono", Geist Mono;
 	--radius: 0.5rem;
 	--shadow-2xs: 0px 4px 12px -2px hsl(0 0% 0% / 0.1);
 	--shadow-xs: 0px 4px 12px -2px hsl(0 0% 0% / 0.1);
@@ -96,6 +119,7 @@ main a.no-underline {
 	--color-secondary-foreground: var(--secondary-foreground);
 	--color-muted: var(--muted);
 	--color-muted-foreground: var(--muted-foreground);
+	--color-dim: var(--dim);
 	--color-accent: var(--accent);
 	--color-accent-foreground: var(--accent-foreground);
 	--color-destructive: var(--destructive);
@@ -222,6 +246,12 @@ main a.no-underline {
 		border-width: 0;
 	}
 }
+
+.preview-card {
+	position: relative;
+	overflow: hidden;
+}
+
 
 @media (hover: hover) {
 	.projects-list .project-item {

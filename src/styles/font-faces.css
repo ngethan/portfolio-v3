@@ -72,3 +72,21 @@
 	src: url("geist/dist/fonts/geist-mono/GeistMono-Variable.woff2")
 		format("woff2");
 }
+
+/* Rubik Glitch */
+@font-face {
+	font-family: "Rubik Glitch";
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url("/fonts/RubikGlitch-Regular.woff2") format("woff2");
+}
+
+/* GT Pressura Mono */
+@font-face {
+	font-family: "GT Pressura Mono";
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url("/fonts/GT-Pressura-Mono-Regular.woff2") format("woff2");
+}

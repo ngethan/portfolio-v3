@@ -6,7 +6,7 @@ import { buildSeoTags } from "../site-config";
 export const Route = createFileRoute("/$")({
 	head: () =>
 		buildSeoTags({
-			title: "404 - Page Not Found | Ethan Ng",
+			title: "404 | ETHAN NG",
 			description: "The page you're looking for doesn't exist.",
 			path: "/404",
 		}),

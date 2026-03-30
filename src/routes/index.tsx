@@ -1,233 +1,138 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Image } from "@unpic/react";
-import { AnimatePresence, motion } from "motion/react";
-import { useEffect, useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { motion } from "motion/react";
+import type { ReactNode } from "react";
+import { useState } from "react";
 import { Layout } from "../components/Layout";
-import { MobileModal } from "../components/MobileModal";
-import { TypingTest } from "../components/TypingTest";
-import { buildSeoTags } from "../site-config";
+import { buildSeoTags, siteConfig } from "../site-config";
 
-const DESCRIPTION =
-	"Passionate builder and WashU CS + finance student obsessed with learning, shipping side projects, and turning ideas into reality through technology.";
+function FadeIn({
+	children,
+	delay = 0,
+}: { children: ReactNode; delay?: number }) {
+	return (
+		<motion.div
+			initial={{ opacity: 0, y: 12 }}
+			animate={{ opacity: 1, y: 0 }}
+			transition={{ duration: 0.2, delay, ease: "easeOut" as const }}
+		>
+			{children}
+		</motion.div>
+	);
+}
+
+function BeepBoop({ delay = 0 }: { delay?: number }) {
+	return (
+		<motion.p
+			className="font-mono text-dim text-sm absolute"
+			initial={{ opacity: 1 }}
+			animate={{ opacity: 0 }}
+			transition={{ duration: 0.15, delay, ease: "easeOut" as const }}
+		>
+			beep boop...
+		</motion.p>
+	);
+}
 
 export const Route = createFileRoute("/")({
 	head: () =>
 		buildSeoTags({
-			title: "Ethan Ng",
-			description: DESCRIPTION,
+			title: siteConfig.name,
+			description: siteConfig.description,
 			path: "/",
 		}),
 	component: App,
 });
 
-function HoverPreview({ content }: { content: React.ReactNode }) {
-	return (
-		<motion.div
-			initial={{ opacity: 0 }}
-			animate={{ opacity: 1 }}
-			exit={{ opacity: 0 }}
-			transition={{ duration: 0.3, ease: "easeInOut" }}
-			className="fixed right-8 2xl:right-24 items-start hidden md:flex preview-content z-50"
-			style={{
-				top: "6rem",
-				height: "calc(100vh - 12rem)",
-				width: "clamp(400px, calc(100% - 700px), 45%)",
-			}}
-		>
-			<div className="w-full">{content}</div>
-		</motion.div>
-	);
+interface PreviewImage {
+	src: string;
+	alt: string;
+	caption?: string;
 }
 
-const PREVIEW_CONTENT = {
-	aligned: (
-		<div
-			className="space-y-4 text-muted-foreground"
-			style={{ lineHeight: "1.2em" }}
-		>
+interface PreviewItem {
+	key: string;
+	images: PreviewImage[];
+	description: React.ReactNode;
+}
+
+const PREVIEW_ITEMS: PreviewItem[] = [
+	{
+		key: "photography",
+		images: [
+			{
+				src: "/assets/photography/1.webp",
+				alt: "California sunset",
+				caption: "A rather serene California sunset",
+			},
+			{
+				src: "/assets/photography/2.webp",
+				alt: "Iceland golden hour",
+				caption: "Shades of Iceland's golden hour",
+			},
+			{
+				src: "/assets/photography/3.webp",
+				alt: "Jiufen Old Street",
+				caption: "九份老街, New Taipei City",
+			},
+			{
+				src: "/assets/photography/4.webp",
+				alt: "Utah mountain",
+				caption: "Some mountain in Utah",
+			},
+			{
+				src: "/assets/photography/5.webp",
+				alt: "Sacré-Cœur",
+				caption: "The Basilique du Sacré-Cœur de Montmartre",
+			},
+			{
+				src: "/assets/photography/6.webp",
+				alt: "Clothing rack in Japan",
+				caption: "A clothing rack I came across in Japan",
+			},
+			{
+				src: "/assets/photography/7.webp",
+				alt: "Houses near WashU",
+				caption: "Some houses near WashU",
+			},
+			{
+				src: "/assets/photography/8.webp",
+				alt: "Street performer",
+				caption: "yo how is he doing that?!",
+			},
+			{
+				src: "/assets/photography/9.webp",
+				alt: "Keyboard",
+				caption: "Performative shot of this keyboard I built",
+			},
+		],
+		description: (
 			<p>
-				I'm tackling the $200B recruiting market, where AI resume scanners
-				reject strong candidates and forces applicants to apply to 100s of jobs
-				without a single interview. We're replacing it with a system that values
-				holistic profiles. I've lived the hiring challenges of growth-stage
-				startups and have been building matching algorithms for years.
-			</p>
-			<p>
-				You can learn more at{" "}
-				<a href="https://aligned.jobs" target="_blank" rel="noreferrer">
-					aligned.jobs
-				</a>{" "}
-				and <a href="mailto:hi@ethans.site">reach out</a> if you're interested
-				in chatting.
-			</p>
-		</div>
-	),
-	"8vc": (
-		<div
-			className="space-y-4 text-muted-foreground"
-			style={{ lineHeight: "1.2em" }}
-		>
-			<p>
-				I was selected as an{" "}
+				Some shots from travels and everyday life, all shot on my Fujifilm
+				X100V. More on{" "}
 				<a
-					href="https://www.8vc.com/fellowships"
+					href="https://www.instagram.com/ethn.raw/"
 					target="_blank"
 					className="text-white hover:underline"
 					rel="noreferrer"
 				>
-					8VC fellow
-				</a>{" "}
-				to work alongside world-class founders and engineers on challenging
-				technical problems this summer.
-				<br />
-				<br />
-				I'm super excited to gain more exposure to the VC world, meet fellows at
-				other portfolio companies, and build a support network that will help me
-				as I work toward founding something in the future.
-			</p>
-			<Image
-				src="/assets/8vc-landing.png"
-				alt="8VC Fellowship"
-				layout="fullWidth"
-				className="rounded-md"
-			/>
-		</div>
-	),
-	ramp: (
-		<div
-			className="space-y-4 text-muted-foreground"
-			style={{ lineHeight: "1.2em" }}
-		>
-			<p>
-				I'm joining{" "}
-				<a
-					href="https://ramp.com"
-					target="_blank"
-					className="text-white hover:underline"
-					rel="noreferrer"
-				>
-					Ramp
-				</a>{" "}
-				as a Software Engineering Intern in Summer 2026. They're building a
-				financial platform for businesses that combines corporate cards, expense
-				management, and bill payments.
-				<br />
-				<br />
-				Ramp's engineering culture and approach to building product really stuck
-				out to me. It's such a talent dense team and I'm excited to learn from
-				them from both an engineering and product perspective.
-			</p>
-			<Image
-				src="/assets/ramp-landing.png"
-				alt="Ramp platform"
-				layout="fullWidth"
-				className="rounded-md"
-			/>
-		</div>
-	),
-	washu: (
-		<div
-			className="space-y-4 text-muted-foreground"
-			style={{ lineHeight: "1.2em" }}
-		>
-			<p>
-				I'm a junior at{" "}
-				<a
-					href="https://washu.edu/"
-					target="_blank"
-					className="text-white hover:underline"
-					rel="noreferrer"
-				>
-					Washington University
-				</a>{" "}
-				studying CS and finance. WashU has been an incredible place to grow and
-				I've been fortunate enough to meet lifelong friends and make some great
-				memories here.
-				<br />
-				<br />
-				I've also spent a ton of time at the entrepreneurship center,{" "}
-				<a
-					href="https://skandalaris.wustl.edu/blog/2024/11/20/washu-startups-shine-skandalaris-center-awards-50000-at-the-innovation-entrepreneurship-awards/"
-					target="_blank"
-					className="text-white hover:underline"
-					rel="noreferrer"
-				>
-					winning their venture competition
-				</a>{" "}
-				and getting to learn from some incredible entrepreneurs. I've worked at{" "}
-				<a
-					href="https://techden.wustl.edu/devstac-2/"
-					target="_blank"
-					className="text-white hover:underline"
-					rel="noreferrer"
-				>
-					DevSTAC
-				</a>{" "}
-				(WashU's premier student-led tech consulting firm), won{" "}
-				<a
-					href="https://hackwashu.com/"
-					target="_blank"
-					className="text-white hover:underline"
-					rel="noreferrer"
-				>
-					HackWashU
-				</a>{" "}
-				and helped organize it in following years, worked on the{" "}
-				<a
-					href="https://washurobotics.com/"
-					target="_blank"
-					className="text-white hover:underline"
-					rel="noreferrer"
-				>
-					WashU Robotics Rover team
+					@ethn.raw
 				</a>
-				, and probably much more that's not immediately coming to mind.
+				.
 			</p>
-			<Image
-				src="/assets/washu.png"
-				alt="Washington University"
-				layout="fullWidth"
-				className="rounded-md"
-			/>
-		</div>
-	),
-	connect: (
-		<div
-			className="space-y-4 text-muted-foreground"
-			style={{ lineHeight: "1.2em" }}
-		>
-			<p>
-				<a
-					href="https://connectalum.com"
-					target="_blank"
-					className="text-white hover:underline"
-					rel="noreferrer"
-				>
-					Connect
-				</a>{" "}
-				is an EdTech platform I cofounded it with 2 of my friends in my freshman
-				year of college. We scaled it from 0 to 250k ARR in the first year and
-				have grown to serve over 10,000 students across multiple school
-				districts and universities.
-				<br />
-				<br />
-				Connect provides an alumni mentorship network, real-time hall-pass
-				tracking, policy and grant updates, and gamified tools that help
-				educators understand their students.
-			</p>
-			<Image
-				src="/assets/connect-landing.png"
-				alt="Connect platform"
-				layout="fullWidth"
-				className="rounded-md"
-			/>
-		</div>
-	),
-	chelsea: (
-		<div
-			className="space-y-4 text-muted-foreground"
-			style={{ lineHeight: "1.2em" }}
-		>
+		),
+	},
+	{
+		key: "chelsea",
+		images: [
+			{
+				src: "/assets/chelseacommons-asset.png",
+				alt: "Chelsea Commons",
+				caption: "Chelsea Commons — NYC",
+			},
+		],
+		description: (
 			<p>
 				<a
 					href="https://chelseacommons.co"
@@ -237,170 +142,282 @@ const PREVIEW_CONTENT = {
 				>
 					Chelsea Commons
 				</a>{" "}
-				is a summer community for ambitious interns in NYC.
-				<br />
-				<br />
-				Built by 12 interns living together in Manhattan. If you're a founder,
-				builder, or someone driven to grow alongside amazing people—you belong
-				here.
+				is a summer community for ambitious interns in NYC. Built by 12 interns
+				living together in Manhattan.
 			</p>
-			<Image
-				src="/assets/chelseacommons-asset.png"
-				alt="Chelsea Commons"
-				layout="fullWidth"
-				className="rounded-md"
-			/>
-		</div>
-	),
-};
+		),
+	},
+	{
+		key: "connect",
+		images: [
+			{
+				src: "/assets/connect-landing.png",
+				alt: "Connect platform",
+				caption: "Connect — EdTech platform",
+			},
+		],
+		description: (
+			<p>
+				<a
+					href="https://connectalum.com"
+					target="_blank"
+					className="text-white hover:underline"
+					rel="noreferrer"
+				>
+					Connect
+				</a>{" "}
+				is an EdTech platform I cofounded in my freshman year. We scaled it from
+				0 to 250k ARR in the first year, now serving over 10,000 students across
+				multiple school districts and universities.
+			</p>
+		),
+	},
+	{
+		key: "washu",
+		images: [
+			{
+				src: "/assets/washu.png",
+				alt: "Washington University",
+				caption: "Washington University in St. Louis",
+			},
+		],
+		description: (
+			<p>
+				Junior at{" "}
+				<a
+					href="https://washu.edu/"
+					target="_blank"
+					className="text-white hover:underline"
+					rel="noreferrer"
+				>
+					Washington University
+				</a>{" "}
+				studying CS and finance. Won the Skandalaris venture competition, worked
+				at DevSTAC, won HackWashU, and worked on the WashU Robotics Rover team.
+			</p>
+		),
+	},
+	{
+		key: "typing",
+		images: [
+			{
+				src: "/assets/monkeytype-record.png",
+				alt: "Monkeytype record",
+				caption:
+					"Not to flex but... here's my current Monkeytype 15 second record",
+			},
+		],
+		description: null,
+	},
+	{
+		key: "350z",
+		images: [
+			{
+				src: "/assets/350z.png",
+				alt: "Nissan 350Z",
+				caption: "My wonderful 6-speed 2004 Nissan 350Z",
+			},
+		],
+		description: null,
+	},
+];
 
-function App() {
-	const [hoverPreview, setHoverPreview] = useState<string | null>(null);
-	const [pinnedPreview, setPinnedPreview] = useState<string | null>(null);
-	const [isMobile, setIsMobile] = useState(false);
-
-	const activePreview = pinnedPreview || hoverPreview;
-	const previewContent = activePreview
-		? PREVIEW_CONTENT[activePreview as keyof typeof PREVIEW_CONTENT]
-		: null;
-
-	const handleLinkClick = (e: React.MouseEvent, key: string) => {
-		e.preventDefault();
-		// On mobile, redirect to MonkeyType profile instead of opening typing test
-		if (isMobile && key === "typing") {
-			window.open("https://monkeytype.com/profile/ethan.ng", "_blank");
-			return;
-		}
-		setPinnedPreview((prev) => (prev === key ? null : key));
-	};
-
-	useEffect(() => {
-		const checkMobile = () => {
-			// Left content takes: 96px (nav) + 48px (ml-12) + 360px (max-width) = 504px
-			// Right content needs reasonable space (at least 400px)
-			// Add padding (48px each side = 96px)
-			// Total minimum: 504 + 400 + 96 = 1000px
-			// Use 1100px to be safe and prevent overlap
-			setIsMobile(window.innerWidth < 1100);
-		};
-		checkMobile();
-		window.addEventListener("resize", checkMobile);
-		return () => window.removeEventListener("resize", checkMobile);
-	}, []);
-
-	useEffect(() => {
-		const handleEscape = (e: KeyboardEvent) => {
-			if (e.key === "Escape" && pinnedPreview) {
-				setPinnedPreview(null);
-			}
-		};
-
-		const handleClickOutside = (e: MouseEvent) => {
-			const target = e.target as HTMLElement;
-			if (pinnedPreview && !target.closest(".preview-content")) {
-				setPinnedPreview(null);
-			}
-		};
-
-		document.addEventListener("keydown", handleEscape);
-		document.addEventListener("click", handleClickOutside);
-		return () => {
-			document.removeEventListener("keydown", handleEscape);
-			document.removeEventListener("click", handleClickOutside);
-		};
-	}, [pinnedPreview]);
-
-	const shouldBlur = pinnedPreview || hoverPreview;
+function ImageCarousel({ images }: { images: PreviewImage[] }) {
+	const [index, setIndex] = useState(0);
+	const current = images[index];
+	const total = images.length;
 
 	return (
-		<>
-			<Layout activeSection="about">
-				<div
-					className="space-y-5 text-muted-foreground md:max-w-[360px] transition-all duration-200 transition-blur"
-					style={{
-						lineHeight: "1.2em",
-						filter: shouldBlur ? "blur(1px)" : "none",
-						WebkitFilter: shouldBlur ? "blur(1px)" : "none",
-					}}
+		<div>
+			<div className="preview-card relative">
+				{images.map((img, i) => (
+					<div key={img.src} className={i === index ? "block" : "hidden"}>
+						<Image src={img.src} alt={img.alt} layout="fullWidth" />
+					</div>
+				))}
+			</div>
+			<div className="flex items-center justify-between mt-2">
+				<span
+					className="text-xs font-mono"
+					style={{ color: "oklch(0.9 0.01 286)", lineHeight: "1.2em" }}
 				>
+					{current.caption}
+				</span>
+				{total > 1 && (
+					<div className="flex items-center gap-2 text-xs text-muted-foreground font-mono flex-shrink-0 ml-4">
+						<button
+							type="button"
+							onClick={() => setIndex((i) => (i - 1 + total) % total)}
+							className="hover:text-foreground"
+						>
+							<ChevronLeft className="w-3 h-3" />
+						</button>
+						<span>
+							{index + 1}/{total}
+						</span>
+						<button
+							type="button"
+							onClick={() => setIndex((i) => (i + 1) % total)}
+							className="hover:text-foreground"
+						>
+							<ChevronRight className="w-3 h-3" />
+						</button>
+					</div>
+				)}
+			</div>
+		</div>
+	);
+}
+
+function PreviewCard({ item }: { item: PreviewItem }) {
+	return (
+		<div id={`preview-${item.key}`} className="space-y-3">
+			<ImageCarousel images={item.images} />
+			<div
+				className="text-sm text-muted-foreground"
+				style={{ lineHeight: "1.2em" }}
+			>
+				{item.description}
+			</div>
+		</div>
+	);
+}
+
+function PreviewGallery() {
+	return (
+		<div className="relative space-y-10">
+			<BeepBoop delay={0.5} />
+			{PREVIEW_ITEMS.map((item, i) => (
+				<FadeIn key={item.key} delay={0.6 + i * 0.1}>
+					<PreviewCard item={item} />
+				</FadeIn>
+			))}
+		</div>
+	);
+}
+
+function App() {
+	return (
+		<Layout activeSection="about" previewContent={<PreviewGallery />}>
+			<div
+				className="relative space-y-10 text-muted-foreground font-mono"
+				style={{ lineHeight: "1.5em" }}
+			>
+				<BeepBoop delay={0.1} />
+				<FadeIn delay={0.15}>
 					<p>
 						I'm an incoming Software Engineering Intern at{" "}
 						<a
 							href="https://ramp.com"
 							target="_blank"
 							rel="noopener noreferrer"
-							onMouseEnter={() => !isMobile && setHoverPreview("ramp")}
-							onMouseLeave={() => !isMobile && setHoverPreview(null)}
-							onClick={(e) => handleLinkClick(e, "ramp")}
+							className="whitespace-nowrap no-underline"
 						>
-							Ramp
+							<img
+								src="/assets/logos/ramp-logo.png"
+								alt="Ramp"
+								className="inline h-4 w-4 object-contain align-text-bottom"
+							/>{" "}
+							<span className="link-text">Ramp</span>
 						</a>{" "}
 						and{" "}
 						<a
 							href="https://www.8vc.com/fellowships"
 							target="_blank"
 							rel="noopener noreferrer"
-							onMouseEnter={() => !isMobile && setHoverPreview("8vc")}
-							onMouseLeave={() => !isMobile && setHoverPreview(null)}
-							onClick={(e) => handleLinkClick(e, "8vc")}
+							className="whitespace-nowrap no-underline"
 						>
-							8VC fellow
+							<img
+								src="/assets/logos/8vc-logo.png"
+								alt="8VC"
+								className="inline h-4 w-4 object-contain align-text-bottom"
+							/>{" "}
+							<span className="link-text">8VC fellow</span>
 						</a>{" "}
 						for Summer 2026. I'm also building{" "}
 						<a
 							href="https://chelseacommons.co"
 							target="_blank"
 							rel="noopener noreferrer"
-							onMouseEnter={() => !isMobile && setHoverPreview("chelsea")}
-							onMouseLeave={() => !isMobile && setHoverPreview(null)}
-							onClick={(e) => handleLinkClick(e, "chelsea")}
+							className="whitespace-nowrap no-underline"
 						>
-							Chelsea Commons
+							<img
+								src="/assets/logos/cc-logo.png"
+								alt="Chelsea Commons"
+								className="inline h-4 w-4 object-contain align-text-bottom"
+							/>{" "}
+							<span className="link-text">Chelsea Commons</span>
 						</a>
 						, a community for builders in NY.
 					</p>
+				</FadeIn>
 
+				<FadeIn delay={0.25}>
 					<p>
 						I previously cofounded{" "}
 						<a
 							href="https://connectalum.com"
 							target="_blank"
 							rel="noopener noreferrer"
-							onMouseEnter={() => !isMobile && setHoverPreview("connect")}
-							onMouseLeave={() => !isMobile && setHoverPreview(null)}
-							onClick={(e) => handleLinkClick(e, "connect")}
+							className="whitespace-nowrap no-underline"
 						>
-							Connect
+							<img
+								src="/assets/logos/connectalum-logo.png"
+								alt="Connect"
+								className="inline h-4 w-4 object-contain align-text-bottom"
+							/>{" "}
+							<span className="link-text">Connect</span>
 						</a>
-						, an EdTech company serving 10,000+ students & making six figures
-						ARR.
+						, an EdTech company serving 10,000+ students.
 					</p>
+				</FadeIn>
 
+				<FadeIn delay={0.35}>
 					<p>
 						I'm a junior at{" "}
 						<a
 							href="https://washu.edu/"
 							target="_blank"
 							rel="noopener noreferrer"
-							onMouseEnter={() => !isMobile && setHoverPreview("washu")}
-							onMouseLeave={() => !isMobile && setHoverPreview(null)}
-							onClick={(e) => handleLinkClick(e, "washu")}
+							className="whitespace-nowrap no-underline"
 						>
-							Washington University
+							<img
+								src="/assets/logos/washu-logo.png"
+								alt="WashU"
+								className="inline h-4 w-4 object-contain align-text-bottom"
+							/>{" "}
+							<span className="link-text">Washington University</span>
 						</a>{" "}
-						studying CS and finance. I was born and raised in New York, and have
-						jumped around STL, NY, and SF more recently.
+						studying CS and finance. Currently on exchange at{" "}
+						<a
+							href="https://hkust.edu.hk/"
+							target="_blank"
+							rel="noopener noreferrer"
+							className="whitespace-nowrap no-underline"
+						>
+							<img
+								src="/assets/logos/hkust-logo.png"
+								alt="HKUST"
+								className="inline h-4 w-4 object-contain align-text-bottom"
+							/>{" "}
+							<span className="link-text">HKUST</span>
+						</a>
+						.
 					</p>
+				</FadeIn>
 
+				<FadeIn delay={0.45}>
 					<p>
 						I love building all sorts of things—web/mobile apps, AI systems,
 						infrastructure, and more recently hardware. I work primarily with
 						TypeScript, React/Next.js, and React Native, but I've worked across
 						the stack from Swift to Rust to cloud architecture.
 					</p>
+				</FadeIn>
 
+				<FadeIn delay={0.55}>
 					<p>
-						I like{" "}
+						Outside of work I like{" "}
 						<a
 							href="https://www.instagram.com/ethn.raw/"
 							target="_blank"
@@ -408,42 +425,28 @@ function App() {
 						>
 							photography
 						</a>
-						, type kinda{" "}
+						, play piano, love cars, and type kinda{" "}
 						<a
 							href="https://monkeytype.com/profile/ethan.ng"
-							className="cursor-pointer"
-							// onMouseEnter={() => !isMobile && setHoverPreview("typing")}
-							// onMouseLeave={() => !isMobile && setHoverPreview(null)}
-							// onClick={(e) => handleLinkClick(e, "typing")}
-							rel="noopener noreferrer"
 							target="_blank"
+							rel="noopener noreferrer"
 						>
 							fast
 						</a>
-						, and play tennis. You can reach me at{" "}
+						. Recently been playing a lot of Mahjong, tennis, and badminton.
+					</p>
+				</FadeIn>
+
+				<FadeIn delay={0.65}>
+					<p>
+						You can reach me at{" "}
 						<a href="mailto:hey@ethans.site">
-							<code className="text-white hover:underline">
-								hey@ethans.site
-							</code>
+							<code>hey@ethans.site</code>
 						</a>
 						.
 					</p>
-				</div>
-			</Layout>
-			{!isMobile && activePreview && (
-				<AnimatePresence mode="wait">
-					{activePreview === "typing" ? (
-						<TypingTest key="typing" onClose={() => setPinnedPreview(null)} />
-					) : (
-						<HoverPreview key={activePreview} content={previewContent} />
-					)}
-				</AnimatePresence>
-			)}
-			{isMobile && activePreview && activePreview !== "typing" && (
-				<MobileModal isOpen={true} onClose={() => setPinnedPreview(null)}>
-					{previewContent}
-				</MobileModal>
-			)}
-		</>
+				</FadeIn>
+			</div>
+		</Layout>
 	);
 }
