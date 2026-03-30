@@ -69,9 +69,9 @@ function Press() {
 						href={article.url}
 						target="_blank"
 						rel="noopener noreferrer"
-						className="flex items-center gap-2 !text-muted-foreground hover:text-foreground group"
+						className="flex items-center gap-2 group no-underline"
 					>
-						<span>{article.title}</span>
+						<span className="link-text">{article.title}</span>
 						<ArrowUpRight className="w-3 h-3" />
 					</a>
 				))}

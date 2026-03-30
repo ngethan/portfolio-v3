@@ -100,50 +100,40 @@ function BlogIndex() {
 
 	return (
 		<Layout activeSection="writing">
-			<div className="space-y-12">
-				<p className="font-mono text-muted-foreground" style={{ lineHeight: "1.4em" }}>
-					some thoughts on building, technology, and design. please bug me to write more.
+			<div className="space-y-6 font-mono">
+				<p className="text-muted-foreground text-sm" style={{ lineHeight: "1.5em" }}>
+					thoughts on building, technology, and design. bug me to write more.
 				</p>
 
-				<div className="space-y-8">
+				<div className="divide-y divide-white/10">
 					{posts.map((post) => (
 						<Link
 							key={post.slug}
 							to="/writing/$slug"
 							params={{ slug: post.slug }}
-							className="block group no-underline"
+							className="block no-underline group py-5 first:pt-0"
 						>
-							<article className="space-y-1 py-4 border-b border-foreground/40 transition-all duration-300 group-hover:border-foreground/70">
-								<div className="flex items-baseline justify-between gap-1 md:gap-4 flex-wrap">
-									<h2 className="text-lg md:text-xl font-medium text-foreground group-hover:text-foreground transition-colors flex items-center gap-2">
-										{post.title}
-									</h2>
-									<time className="text-sm text-muted-foreground flex-shrink-0">
-										{post.date}
-									</time>
+							<div className="space-y-2">
+								<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-4">
+									<span className="text-foreground">{post.title}</span>
+									<span className="text-xs text-dim flex-shrink-0">{post.date} · {post.readTime}</span>
 								</div>
-
 								<p className="text-sm text-muted-foreground leading-relaxed">
 									{post.excerpt}
 								</p>
-
-								<div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground mt-2">
-									<span>{post.readTime}</span>
-									{post.tags && post.tags.length > 0 && (
-										<>
-											<span>·</span>
-											{post.tags.map((tag: string) => (
-												<span
-													key={tag}
-													className="px-2 py-0.5 rounded bg-[rgba(255,255,255,0.08)] text-muted-foreground"
-												>
-													{tag}
-												</span>
-											))}
-										</>
-									)}
-								</div>
-							</article>
+								{post.tags && post.tags.length > 0 && (
+									<div className="flex gap-2 flex-wrap pt-0.5">
+										{post.tags.map((tag: string) => (
+											<span
+												key={tag}
+												className="px-2 py-0.5 text-xs text-dim border border-white/10 rounded"
+											>
+												{tag}
+											</span>
+										))}
+									</div>
+								)}
+							</div>
 						</Link>
 					))}
 				</div>

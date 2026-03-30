@@ -22,12 +22,34 @@ code {
 }
 
 main a:not(.no-underline) {
-	@apply text-foreground transition-colors duration-300 hover:text-foreground hover:underline;
+	@apply transition-none;
+	color: oklch(0.9 0.01 286);
+	text-decoration: underline;
+	text-decoration-color: oklch(0.45 0.008 286);
+	text-underline-offset: 3px;
+}
+
+main a:not(.no-underline):hover {
+	@apply text-foreground;
+	text-decoration-color: oklch(0.55 0.008 286);
 }
 
 main a.no-underline {
-	@apply transition-colors duration-300;
+	@apply transition-none;
 	text-decoration: none !important;
+}
+
+main a.no-underline .link-text {
+	text-decoration: underline;
+	text-decoration-color: oklch(0.45 0.008 286);
+	text-underline-offset: 3px;
+	color: oklch(0.9 0.01 286);
+	@apply transition-none;
+}
+
+main a.no-underline:hover .link-text {
+	@apply text-foreground;
+	text-decoration-color: oklch(0.55 0.008 286);
 }
 
 :root {

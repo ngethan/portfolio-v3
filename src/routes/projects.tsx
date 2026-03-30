@@ -97,9 +97,9 @@ function Projects() {
 									href={project.url}
 									target="_blank"
 									rel="noopener noreferrer"
-									className="flex items-center gap-1 text-foreground hover:underline"
+									className="flex items-center gap-1 text-foreground no-underline"
 								>
-									<span>{project.name}</span>
+									<span className="link-text">{project.name}</span>
 									<ArrowUpRight className="w-3 h-3" />
 								</a>
 							) : (

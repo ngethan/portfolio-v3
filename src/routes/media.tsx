@@ -122,9 +122,9 @@ function Media() {
 						href={item.url}
 						target="_blank"
 						rel="noopener noreferrer"
-						className="inline"
+						className="inline no-underline"
 					>
-						<span className="text-foreground">{item.title}</span>
+						<span className="link-text">{item.title}</span>
 						<ArrowUpRight className="w-3 h-3 inline ml-1" />
 					</a>
 				) : (

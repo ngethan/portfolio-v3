@@ -1,5 +1,5 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
-import { ArrowLeft, Download, Link2 } from "lucide-react";
+import { Download, Link2 } from "lucide-react";
 import { useMemo } from "react";
 import { toast } from "sonner";
 import { Streamdown } from "streamdown";
@@ -96,7 +96,7 @@ function BlogPost() {
 			enableScrollFade={true}
 			tableOfContents={<TableOfContents headings={headings} />}
 		>
-			<article className="space-y-6 max-w-5xl mx-auto">
+			<article className="space-y-6 max-w-5xl mx-auto md:mt-8">
 				<header className="space-y-2 border-b border-foreground/40 pb-4">
 					<h1 className="text-2xl md:text-3xl font-medium text-foreground">
 						{post.title}
@@ -250,15 +250,7 @@ function BlogPost() {
 				</div>
 
 				{/* Share utilities */}
-				<footer className="border-t border-foreground/40 pt-6 mt-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-					<Link
-						to="/writing"
-						className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
-					>
-						<ArrowLeft className="w-4 h-4" />
-						Back to writing
-					</Link>
-
+				<footer className="border-t border-foreground/40 pt-6 mt-8 flex items-center justify-end gap-4">
 					<div className="flex items-center gap-2">
 						<span className="text-sm text-muted-foreground mr-2">Share:</span>
 						<a

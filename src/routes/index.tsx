@@ -310,42 +310,42 @@ function App() {
 						href="https://ramp.com"
 						target="_blank"
 						rel="noopener noreferrer"
-						className="whitespace-nowrap"
+						className="whitespace-nowrap no-underline"
 					>
 						<img
 							src="/assets/logos/ramp-logo.png"
 							alt="Ramp"
 							className="inline h-4 w-4 object-contain align-text-bottom"
 						/>{" "}
-						Ramp
+						<span className="link-text">Ramp</span>
 					</a>{" "}
 					and{" "}
 					<a
 						href="https://www.8vc.com/fellowships"
 						target="_blank"
 						rel="noopener noreferrer"
-						className="whitespace-nowrap"
+						className="whitespace-nowrap no-underline"
 					>
 						<img
 							src="/assets/logos/8vc-logo.png"
 							alt="8VC"
 							className="inline h-4 w-4 object-contain align-text-bottom"
 						/>{" "}
-						8VC fellow
+						<span className="link-text">8VC fellow</span>
 					</a>{" "}
 					for Summer 2026. I'm also building{" "}
 					<a
 						href="https://chelseacommons.co"
 						target="_blank"
 						rel="noopener noreferrer"
-						className="whitespace-nowrap"
+						className="whitespace-nowrap no-underline"
 					>
 						<img
 							src="/assets/logos/cc-logo.png"
 							alt="Chelsea Commons"
 							className="inline h-4 w-4 object-contain align-text-bottom"
 						/>{" "}
-						Chelsea Commons
+						<span className="link-text">Chelsea Commons</span>
 					</a>
 					, a community for builders in NY.
 				</p></FadeIn>
@@ -356,16 +356,16 @@ function App() {
 						href="https://connectalum.com"
 						target="_blank"
 						rel="noopener noreferrer"
-						className="whitespace-nowrap"
+						className="whitespace-nowrap no-underline"
 					>
 						<img
 							src="/assets/logos/connectalum-logo.png"
 							alt="Connect"
 							className="inline h-4 w-4 object-contain align-text-bottom"
 						/>{" "}
-						Connect
+						<span className="link-text">Connect</span>
 					</a>
-					, an EdTech company serving 10,000+ students & making six figures ARR.
+					, an EdTech company serving 10,000+ students.
 				</p></FadeIn>
 
 				<FadeIn delay={0.35}><p>
@@ -374,28 +374,28 @@ function App() {
 						href="https://washu.edu/"
 						target="_blank"
 						rel="noopener noreferrer"
-						className="whitespace-nowrap"
+						className="whitespace-nowrap no-underline"
 					>
 						<img
 							src="/assets/logos/washu-logo.png"
 							alt="WashU"
 							className="inline h-4 w-4 object-contain align-text-bottom"
 						/>{" "}
-						Washington University
+						<span className="link-text">Washington University</span>
 					</a>{" "}
 					studying CS and finance. Currently on exchange at{" "}
 					<a
 						href="https://hkust.edu.hk/"
 						target="_blank"
 						rel="noopener noreferrer"
-						className="whitespace-nowrap"
+						className="whitespace-nowrap no-underline"
 					>
 						<img
 							src="/assets/logos/hkust-logo.png"
 							alt="HKUST"
 							className="inline h-4 w-4 object-contain align-text-bottom"
 						/>{" "}
-						HKUST
+						<span className="link-text">HKUST</span>
 					</a>{" "}
 					.
 				</p></FadeIn>
@@ -430,7 +430,7 @@ function App() {
 				<FadeIn delay={0.65}><p>
 					You can reach me at{" "}
 					<a href="mailto:hey@ethans.site">
-						<code className="text-white hover:underline">hey@ethans.site</code>
+						<code>hey@ethans.site</code>
 					</a>
 					.
 				</p></FadeIn>
