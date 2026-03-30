@@ -100,6 +100,13 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 				<Analytics />
 				<link
 					rel="preload"
+					as="font"
+					href="/fonts/RubikGlitch-Regular.woff2"
+					type="font/woff2"
+					crossOrigin="anonymous"
+				/>
+				<link
+					rel="preload"
 					as="image"
 					href="/shadow.avif"
 					fetchPriority="high"
