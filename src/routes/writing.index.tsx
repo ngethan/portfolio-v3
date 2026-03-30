@@ -15,7 +15,7 @@ interface BlogFrontmatter {
 export const Route = createFileRoute("/writing/")({
 	head: () =>
 		buildSeoTags({
-			title: "Writing | Ethan Ng",
+			title: "WRITING | ETHAN NG",
 			description: DESCRIPTION,
 			path: "/writing",
 		}),
@@ -101,7 +101,10 @@ function BlogIndex() {
 	return (
 		<Layout activeSection="writing">
 			<div className="space-y-6 font-mono">
-				<p className="text-muted-foreground text-sm" style={{ lineHeight: "1.5em" }}>
+				<p
+					className="text-muted-foreground text-sm"
+					style={{ lineHeight: "1.5em" }}
+				>
 					thoughts on building, technology, and design. bug me to write more.
 				</p>
 
@@ -116,7 +119,9 @@ function BlogIndex() {
 							<div className="space-y-2">
 								<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-4">
 									<span className="text-foreground">{post.title}</span>
-									<span className="text-xs text-dim flex-shrink-0">{post.date} · {post.readTime}</span>
+									<span className="text-xs text-dim flex-shrink-0">
+										{post.date} · {post.readTime}
+									</span>
 								</div>
 								<p className="text-sm text-muted-foreground leading-relaxed">
 									{post.excerpt}

@@ -5,9 +5,12 @@ import { motion } from "motion/react";
 import type { ReactNode } from "react";
 import { useState } from "react";
 import { Layout } from "../components/Layout";
-import { buildSeoTags } from "../site-config";
+import { buildSeoTags, siteConfig } from "../site-config";
 
-function FadeIn({ children, delay = 0 }: { children: ReactNode; delay?: number }) {
+function FadeIn({
+	children,
+	delay = 0,
+}: { children: ReactNode; delay?: number }) {
 	return (
 		<motion.div
 			initial={{ opacity: 0, y: 12 }}
@@ -32,14 +35,11 @@ function BeepBoop({ delay = 0 }: { delay?: number }) {
 	);
 }
 
-const DESCRIPTION =
-	"Passionate builder and WashU CS + finance student obsessed with learning, shipping side projects, and turning ideas into reality through technology.";
-
 export const Route = createFileRoute("/")({
 	head: () =>
 		buildSeoTags({
-			title: "Ethan Ng",
-			description: DESCRIPTION,
+			title: siteConfig.name,
+			description: siteConfig.description,
 			path: "/",
 		}),
 	component: App,
@@ -238,8 +238,8 @@ function ImageCarousel({ images }: { images: PreviewImage[] }) {
 			</div>
 			<div className="flex items-center justify-between mt-2">
 				<span
-					className="text-xs text-muted-foreground font-mono"
-					style={{ lineHeight: "1.2em" }}
+					className="text-xs font-mono"
+					style={{ color: "oklch(0.9 0.01 286)", lineHeight: "1.2em" }}
 				>
 					{current.caption}
 				</span>
@@ -304,136 +304,148 @@ function App() {
 				style={{ lineHeight: "1.5em" }}
 			>
 				<BeepBoop delay={0.1} />
-				<FadeIn delay={0.15}><p>
-					I'm an incoming Software Engineering Intern at{" "}
-					<a
-						href="https://ramp.com"
-						target="_blank"
-						rel="noopener noreferrer"
-						className="whitespace-nowrap no-underline"
-					>
-						<img
-							src="/assets/logos/ramp-logo.png"
-							alt="Ramp"
-							className="inline h-4 w-4 object-contain align-text-bottom"
-						/>{" "}
-						<span className="link-text">Ramp</span>
-					</a>{" "}
-					and{" "}
-					<a
-						href="https://www.8vc.com/fellowships"
-						target="_blank"
-						rel="noopener noreferrer"
-						className="whitespace-nowrap no-underline"
-					>
-						<img
-							src="/assets/logos/8vc-logo.png"
-							alt="8VC"
-							className="inline h-4 w-4 object-contain align-text-bottom"
-						/>{" "}
-						<span className="link-text">8VC fellow</span>
-					</a>{" "}
-					for Summer 2026. I'm also building{" "}
-					<a
-						href="https://chelseacommons.co"
-						target="_blank"
-						rel="noopener noreferrer"
-						className="whitespace-nowrap no-underline"
-					>
-						<img
-							src="/assets/logos/cc-logo.png"
-							alt="Chelsea Commons"
-							className="inline h-4 w-4 object-contain align-text-bottom"
-						/>{" "}
-						<span className="link-text">Chelsea Commons</span>
-					</a>
-					, a community for builders in NY.
-				</p></FadeIn>
+				<FadeIn delay={0.15}>
+					<p>
+						I'm an incoming Software Engineering Intern at{" "}
+						<a
+							href="https://ramp.com"
+							target="_blank"
+							rel="noopener noreferrer"
+							className="whitespace-nowrap no-underline"
+						>
+							<img
+								src="/assets/logos/ramp-logo.png"
+								alt="Ramp"
+								className="inline h-4 w-4 object-contain align-text-bottom"
+							/>{" "}
+							<span className="link-text">Ramp</span>
+						</a>{" "}
+						and{" "}
+						<a
+							href="https://www.8vc.com/fellowships"
+							target="_blank"
+							rel="noopener noreferrer"
+							className="whitespace-nowrap no-underline"
+						>
+							<img
+								src="/assets/logos/8vc-logo.png"
+								alt="8VC"
+								className="inline h-4 w-4 object-contain align-text-bottom"
+							/>{" "}
+							<span className="link-text">8VC fellow</span>
+						</a>{" "}
+						for Summer 2026. I'm also building{" "}
+						<a
+							href="https://chelseacommons.co"
+							target="_blank"
+							rel="noopener noreferrer"
+							className="whitespace-nowrap no-underline"
+						>
+							<img
+								src="/assets/logos/cc-logo.png"
+								alt="Chelsea Commons"
+								className="inline h-4 w-4 object-contain align-text-bottom"
+							/>{" "}
+							<span className="link-text">Chelsea Commons</span>
+						</a>
+						, a community for builders in NY.
+					</p>
+				</FadeIn>
 
-				<FadeIn delay={0.25}><p>
-					I previously cofounded{" "}
-					<a
-						href="https://connectalum.com"
-						target="_blank"
-						rel="noopener noreferrer"
-						className="whitespace-nowrap no-underline"
-					>
-						<img
-							src="/assets/logos/connectalum-logo.png"
-							alt="Connect"
-							className="inline h-4 w-4 object-contain align-text-bottom"
-						/>{" "}
-						<span className="link-text">Connect</span>
-					</a>
-					, an EdTech company serving 10,000+ students.
-				</p></FadeIn>
+				<FadeIn delay={0.25}>
+					<p>
+						I previously cofounded{" "}
+						<a
+							href="https://connectalum.com"
+							target="_blank"
+							rel="noopener noreferrer"
+							className="whitespace-nowrap no-underline"
+						>
+							<img
+								src="/assets/logos/connectalum-logo.png"
+								alt="Connect"
+								className="inline h-4 w-4 object-contain align-text-bottom"
+							/>{" "}
+							<span className="link-text">Connect</span>
+						</a>
+						, an EdTech company serving 10,000+ students.
+					</p>
+				</FadeIn>
 
-				<FadeIn delay={0.35}><p>
-					I'm a junior at{" "}
-					<a
-						href="https://washu.edu/"
-						target="_blank"
-						rel="noopener noreferrer"
-						className="whitespace-nowrap no-underline"
-					>
-						<img
-							src="/assets/logos/washu-logo.png"
-							alt="WashU"
-							className="inline h-4 w-4 object-contain align-text-bottom"
-						/>{" "}
-						<span className="link-text">Washington University</span>
-					</a>{" "}
-					studying CS and finance. Currently on exchange at{" "}
-					<a
-						href="https://hkust.edu.hk/"
-						target="_blank"
-						rel="noopener noreferrer"
-						className="whitespace-nowrap no-underline"
-					>
-						<img
-							src="/assets/logos/hkust-logo.png"
-							alt="HKUST"
-							className="inline h-4 w-4 object-contain align-text-bottom"
-						/>{" "}
-						<span className="link-text">HKUST</span>
-					</a>{" "}
-					.
-				</p></FadeIn>
+				<FadeIn delay={0.35}>
+					<p>
+						I'm a junior at{" "}
+						<a
+							href="https://washu.edu/"
+							target="_blank"
+							rel="noopener noreferrer"
+							className="whitespace-nowrap no-underline"
+						>
+							<img
+								src="/assets/logos/washu-logo.png"
+								alt="WashU"
+								className="inline h-4 w-4 object-contain align-text-bottom"
+							/>{" "}
+							<span className="link-text">Washington University</span>
+						</a>{" "}
+						studying CS and finance. Currently on exchange at{" "}
+						<a
+							href="https://hkust.edu.hk/"
+							target="_blank"
+							rel="noopener noreferrer"
+							className="whitespace-nowrap no-underline"
+						>
+							<img
+								src="/assets/logos/hkust-logo.png"
+								alt="HKUST"
+								className="inline h-4 w-4 object-contain align-text-bottom"
+							/>{" "}
+							<span className="link-text">HKUST</span>
+						</a>
+						.
+					</p>
+				</FadeIn>
 
-				<FadeIn delay={0.45}><p>
-					I love building all sorts of things—web/mobile apps, AI systems,
-					infrastructure, and more recently hardware. I work primarily with
-					TypeScript, React/Next.js, and React Native, but I've worked across
-					the stack from Swift to Rust to cloud architecture.
-				</p></FadeIn>
+				<FadeIn delay={0.45}>
+					<p>
+						I love building all sorts of things—web/mobile apps, AI systems,
+						infrastructure, and more recently hardware. I work primarily with
+						TypeScript, React/Next.js, and React Native, but I've worked across
+						the stack from Swift to Rust to cloud architecture.
+					</p>
+				</FadeIn>
 
-				<FadeIn delay={0.55}><p>
-					Outside of work I like{" "}
-					<a
-						href="https://www.instagram.com/ethn.raw/"
-						target="_blank"
-						rel="noopener noreferrer"
-					>
-						photography
-					</a>
-					, play piano, love cars, and type kinda{" "}
-					<a
-						href="https://monkeytype.com/profile/ethan.ng"
-						target="_blank"
-						rel="noopener noreferrer"
-					>
-						fast
-					</a>
-					. Recently been playing a lot of Mahjong, tennis, and badminton.
-				</p></FadeIn>
+				<FadeIn delay={0.55}>
+					<p>
+						Outside of work I like{" "}
+						<a
+							href="https://www.instagram.com/ethn.raw/"
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							photography
+						</a>
+						, play piano, love cars, and type kinda{" "}
+						<a
+							href="https://monkeytype.com/profile/ethan.ng"
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							fast
+						</a>
+						. Recently been playing a lot of Mahjong, tennis, and badminton.
+					</p>
+				</FadeIn>
 
-				<FadeIn delay={0.65}><p>
-					You can reach me at{" "}
-					<a href="mailto:hey@ethans.site">
-						<code>hey@ethans.site</code>
-					</a>
-					.
-				</p></FadeIn>
+				<FadeIn delay={0.65}>
+					<p>
+						You can reach me at{" "}
+						<a href="mailto:hey@ethans.site">
+							<code>hey@ethans.site</code>
+						</a>
+						.
+					</p>
+				</FadeIn>
 			</div>
 		</Layout>
 	);

@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
-import React, { type ReactNode, useRef, useState } from "react";
+import React, { type ReactNode, useEffect, useRef, useState } from "react";
 import { Toaster } from "sonner";
 import { Shadow } from "./shadow";
 
@@ -14,10 +14,10 @@ interface LayoutProps {
 	tableOfContents?: ReactNode;
 }
 
-const MemoizedShadow = React.memo(() => (
+const MemoizedShadow = React.memo(({ isMobile }: { isMobile: boolean }) => (
 	<Shadow
 		color="rgba(128, 128, 128, 0.3)"
-		animation={{ scale: 50, speed: 80 }}
+		animation={isMobile ? undefined : { scale: 50, speed: 80 }}
 		noise={{ opacity: 1, scale: 1.5 }}
 		sizing="fill"
 	/>
@@ -86,13 +86,13 @@ function MobileMenu({
 }: { activeSection: string; onClose: () => void }) {
 	return (
 		<motion.div
-			className="fixed inset-0 z-50 flex flex-col bg-background/95 backdrop-blur-lg md:hidden"
+			className="fixed inset-0 z-50 flex flex-col bg-background/95 backdrop-blur-sm md:hidden"
 			initial={{ opacity: 0 }}
 			animate={{ opacity: 1 }}
 			exit={{ opacity: 0 }}
 			transition={{ duration: 0.15 }}
 		>
-			<div className="flex items-center justify-between p-6 pb-0">
+			<div className="flex items-center justify-between p-4 pb-0">
 				<h1
 					className="text-foreground text-3xl select-none"
 					style={{ fontFamily: "'Rubik Glitch', cursive" }}
@@ -107,8 +107,8 @@ function MobileMenu({
 					[esc]
 				</button>
 			</div>
-			<hr className="border-white/20 mt-6" />
-			<nav className="flex flex-col gap-1 px-6 pt-6 font-mono">
+			<hr className="border-white/20 mt-4" />
+			<nav className="flex flex-col gap-1 px-4 pt-4 font-mono">
 				{MOBILE_NAV_ITEMS.map((item, i) => {
 					const isExternal = item.to.startsWith("mailto:");
 					return (
@@ -122,9 +122,10 @@ function MobileMenu({
 								<a
 									href={item.to}
 									onClick={onClose}
-									className="block py-3 text-2xl text-muted-foreground hover:text-foreground transition-colors no-underline"
+									className="inline-flex items-center gap-2 py-3 text-2xl text-muted-foreground hover:text-foreground transition-colors no-underline"
 								>
 									{item.label}
+									<ArrowUpRight className="w-4 h-4" />
 								</a>
 							) : (
 								<Link
@@ -143,8 +144,8 @@ function MobileMenu({
 					);
 				})}
 			</nav>
-			<div className="mt-auto px-6 pb-6 font-mono">
-				<hr className="border-white/20 mb-4 -mx-6" />
+			<div className="mt-auto px-4 pb-4 font-mono">
+				<hr className="border-white/20 mb-4 -mx-4" />
 				<div className="flex flex-wrap gap-4 text-sm">
 					{SOCIALS.map((s, i) => (
 						<motion.a
@@ -175,6 +176,22 @@ export function Layout({
 	const skipShell = useRef(hasAnimatedShell);
 	hasAnimatedShell = true;
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+	const [isMobile, setIsMobile] = useState(
+		typeof window !== "undefined" ? window.innerWidth < 768 : false,
+	);
+	useEffect(() => {
+		setIsMobile(window.innerWidth < 768);
+	}, []);
+	useEffect(() => {
+		if (mobileMenuOpen) {
+			document.body.style.overflow = "hidden";
+		} else {
+			document.body.style.overflow = "";
+		}
+		return () => {
+			document.body.style.overflow = "";
+		};
+	}, [mobileMenuOpen]);
 
 	return (
 		<div className="text-muted-foreground relative min-h-dvh md:h-dvh md:overflow-hidden">
@@ -182,7 +199,7 @@ export function Layout({
 				className="bg-background fixed inset-0 pointer-events-none"
 				style={{ backgroundColor: "#212121" }}
 			>
-				<MemoizedShadow />
+				<MemoizedShadow isMobile={isMobile} />
 			</div>
 
 			<AnimatePresence>
@@ -200,62 +217,46 @@ export function Layout({
 					className={`flex flex-col ${previewContent ? "md:w-1/2" : "w-full"} ${previewContent ? "border-r border-white/20" : ""}`}
 				>
 					{/* Header */}
-					<div className="p-6 pb-0 sticky top-0 z-20 backdrop-blur-md bg-background/80 md:static md:backdrop-blur-none md:bg-transparent">
+					<div className="p-4 pb-0 md:px-6 md:pt-4 md:pb-0 sticky top-0 z-20 backdrop-blur-md bg-background/80 md:static md:backdrop-blur-none md:bg-transparent">
 						<div className="flex items-center justify-between">
-							<div className="flex items-center gap-6 flex-wrap">
-								<FadeIn skip={skipShell.current}>
-									{writingTitle ? (
-										<Link to="/" className="no-underline">
-											<h1
-												className="text-foreground text-3xl select-none"
-												style={{ fontFamily: "'Rubik Glitch', cursive" }}
-											>
-												ETHAN NG
-											</h1>
-										</Link>
-									) : (
-										<h1
-											className="text-foreground text-3xl select-none"
-											style={{ fontFamily: "'Rubik Glitch', cursive" }}
-										>
-											ETHAN NG
-										</h1>
-									)}
-								</FadeIn>
-								{/* Desktop nav */}
-								<nav className="hidden md:flex items-center gap-4 text-sm flex-wrap">
-									{NAV_ITEMS.map((item, i) => (
-										<FadeIn
-											key={item.section}
-											delay={0.1 + i * 0.05}
-											skip={skipShell.current}
-										>
-											<Link
-												to={item.to}
-												className={`font-mono transition-colors duration-300 ${
-													activeSection === item.section
-														? "text-foreground"
-														: "text-muted-foreground hover:text-foreground"
-												}`}
-											>
-												{item.label}
-											</Link>
-										</FadeIn>
-									))}
+							{writingTitle ? (
+								<Link to="/" className="no-underline">
+									<h1
+										className="text-foreground text-3xl select-none whitespace-nowrap"
+										style={{ fontFamily: "'Rubik Glitch', cursive" }}
+									>
+										<span className="hidden lg:inline">ETHAN NG</span><span className="lg:hidden">EN</span>
+									</h1>
+								</Link>
+							) : (
+								<h1
+									className="text-foreground text-3xl select-none whitespace-nowrap"
+									style={{ fontFamily: "'Rubik Glitch', cursive" }}
+								>
+									<span className="hidden lg:inline">ETHAN NG</span><span className="lg:hidden">EN</span>
+								</h1>
+							)}
+							{/* Desktop nav */}
+							<nav className="hidden md:flex items-center gap-2 lg:gap-4 text-sm">
+								{NAV_ITEMS.map((item, i) => (
 									<FadeIn
-										delay={0.1 + NAV_ITEMS.length * 0.05}
+										key={item.section}
+										delay={0.1 + i * 0.05}
 										skip={skipShell.current}
 									>
-										<a
-											href="mailto:hey@ethans.site"
-											className="inline-flex items-center gap-1 font-mono text-muted-foreground hover:text-foreground transition-colors duration-300 no-underline"
+										<Link
+											to={item.to}
+											className={`font-mono transition-colors duration-300 ${
+												activeSection === item.section
+													? "text-foreground"
+													: "text-muted-foreground hover:text-foreground"
+											}`}
 										>
-											contact
-											<ArrowUpRight className="w-3 h-3" />
-										</a>
+											{item.label}
+										</Link>
 									</FadeIn>
-								</nav>
-							</div>
+								))}
+							</nav>
 							{/* Mobile menu button */}
 							<button
 								type="button"
@@ -265,7 +266,7 @@ export function Layout({
 								./menu
 							</button>
 						</div>
-						<hr className="border-white/20 mt-6 -mx-6" />
+						<hr className="border-white/20 mt-4 -mx-4 md:mt-6 md:-mx-6" />
 					</div>
 
 					{/* Main content */}

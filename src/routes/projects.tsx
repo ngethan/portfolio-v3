@@ -9,7 +9,7 @@ const DESCRIPTION =
 export const Route = createFileRoute("/projects")({
 	head: () =>
 		buildSeoTags({
-			title: "Projects | Ethan Ng",
+			title: "PROJECTS | ETHAN NG",
 			description: DESCRIPTION,
 			path: "/projects",
 		}),

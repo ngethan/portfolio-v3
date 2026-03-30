@@ -25,7 +25,7 @@ const PAGE_URL = buildCanonicalUrl("/press");
 export const Route = createFileRoute("/press")({
 	head: () => {
 		const baseSeo = buildSeoTags({
-			title: "Press | Ethan Ng",
+			title: "PRESS | ETHAN NG",
 			description: DESCRIPTION,
 			path: "/press",
 		});
