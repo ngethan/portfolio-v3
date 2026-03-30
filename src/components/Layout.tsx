@@ -266,7 +266,7 @@ export function Layout({
 								./menu
 							</button>
 						</div>
-						<hr className="border-white/20 mt-4 -mx-4 md:mt-6 md:-mx-6" />
+						<hr className="border-white/20 mt-4 -mx-4 md:-mx-6" />
 					</div>
 
 					{/* Main content */}
