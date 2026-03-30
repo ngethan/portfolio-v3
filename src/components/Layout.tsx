@@ -244,16 +244,19 @@ export function Layout({
 										delay={0.1 + i * 0.05}
 										skip={skipShell.current}
 									>
-										<Link
-											to={item.to}
-											className={`font-mono transition-colors duration-300 ${
-												activeSection === item.section
-													? "text-foreground"
-													: "text-muted-foreground hover:text-foreground"
-											}`}
-										>
-											{item.label}
-										</Link>
+										<span className="flex items-center gap-2 lg:gap-4">
+											{i > 0 && <span className="text-muted-foreground">/</span>}
+											<Link
+												to={item.to}
+												className={`font-mono transition-colors duration-300 ${
+													activeSection === item.section
+														? "text-foreground"
+														: "text-muted-foreground hover:text-foreground"
+												}`}
+											>
+												{item.label}
+											</Link>
+										</span>
 									</FadeIn>
 								))}
 							</nav>
