@@ -5,6 +5,8 @@ import { motion } from "motion/react";
 import type { ReactNode } from "react";
 import { useState } from "react";
 import { Layout } from "../components/Layout";
+import { ContributionGrid } from "../components/projects/ContributionGrid";
+import { fetchGitHubData } from "../lib/github";
 import { buildSeoTags, siteConfig } from "../site-config";
 
 function FadeIn({
@@ -42,6 +44,10 @@ export const Route = createFileRoute("/")({
 			description: siteConfig.description,
 			path: "/",
 		}),
+	loader: async () => {
+		const data = await fetchGitHubData();
+		return { data };
+	},
 	component: App,
 });
 
@@ -110,14 +116,14 @@ const PREVIEW_ITEMS: PreviewItem[] = [
 		description: (
 			<p>
 				Some shots from travels and everyday life, all shot on my Fujifilm
-				X100V. More on{" "}
+				X100V. More on my{" "}
 				<a
 					href="https://www.instagram.com/ethn.raw/"
 					target="_blank"
 					className="text-white hover:underline"
 					rel="noreferrer"
 				>
-					@ethn.raw
+					instagram
 				</a>
 				.
 			</p>
@@ -129,7 +135,7 @@ const PREVIEW_ITEMS: PreviewItem[] = [
 			{
 				src: "/assets/chelseacommons-asset.png",
 				alt: "Chelsea Commons",
-				caption: "Chelsea Commons — NYC",
+				caption: "Design stuff for Chelsea Commons",
 			},
 		],
 		description: (
@@ -148,54 +154,32 @@ const PREVIEW_ITEMS: PreviewItem[] = [
 		),
 	},
 	{
-		key: "connect",
+		key: "dogs",
 		images: [
 			{
-				src: "/assets/connect-landing.png",
-				alt: "Connect platform",
-				caption: "Connect — EdTech platform",
+				src: "/assets/dogs.jpeg",
+				alt: "My Dawgs 😎",
+				caption: "My Dawgs 😎",
 			},
 		],
 		description: (
 			<p>
-				<a
-					href="https://connectalum.com"
-					target="_blank"
-					className="text-white hover:underline"
-					rel="noreferrer"
-				>
-					Connect
-				</a>{" "}
-				is an EdTech platform I cofounded in my freshman year. We scaled it from
-				0 to 250k ARR in the first year, now serving over 10,000 students across
-				multiple school districts and universities.
+				Despite being allergic to them, my family has two dogs. Baxter's a
+				Maltese we've had since 2017, and Benji's a teacup poodle we got over
+				COVID.
 			</p>
 		),
 	},
 	{
-		key: "washu",
+		key: "norwegians",
 		images: [
 			{
-				src: "/assets/washu.png",
-				alt: "Washington University",
-				caption: "Washington University in St. Louis",
+				src: "/assets/me-and-norwegians.jpeg",
+				alt: "Friends from exchange in Hong Kong 🇭🇰",
+				caption: "Some of my friends from exchange in Hong Kong 🇭🇰",
 			},
 		],
-		description: (
-			<p>
-				Junior at{" "}
-				<a
-					href="https://washu.edu/"
-					target="_blank"
-					className="text-white hover:underline"
-					rel="noreferrer"
-				>
-					Washington University
-				</a>{" "}
-				studying CS and finance. Won the Skandalaris venture competition, worked
-				at DevSTAC, won HackWashU, and worked on the WashU Robotics Rover team.
-			</p>
-		),
+		description: null,
 	},
 	{
 		key: "typing",
@@ -216,6 +200,16 @@ const PREVIEW_ITEMS: PreviewItem[] = [
 				src: "/assets/350z.png",
 				alt: "Nissan 350Z",
 				caption: "My wonderful 6-speed 2004 Nissan 350Z",
+			},
+		],
+		description: null,
+	},
+	{
+		key: "wisdom",
+		images: [
+			{
+				src: "/assets/wisdom.jpeg",
+				alt: "😋🥓🥚🧀",
 			},
 		],
 		description: null,
@@ -297,6 +291,8 @@ function PreviewGallery() {
 }
 
 function App() {
+	const { data } = Route.useLoaderData();
+
 	return (
 		<Layout activeSection="about" previewContent={<PreviewGallery />}>
 			<div
@@ -306,7 +302,8 @@ function App() {
 				<BeepBoop delay={0.1} />
 				<FadeIn delay={0.15}>
 					<p>
-						I'm an incoming Software Engineering Intern at{" "}
+						Hey, I'm Ethan! I'm an incoming Software Engineering Intern on the
+						international team at{" "}
 						<a
 							href="https://ramp.com"
 							target="_blank"
@@ -319,8 +316,8 @@ function App() {
 								className="inline h-4 w-4 object-contain align-text-bottom"
 							/>{" "}
 							<span className="link-text">Ramp</span>
-						</a>{" "}
-						and{" "}
+						</a>
+						. I'm also an{" "}
 						<a
 							href="https://www.8vc.com/fellowships"
 							target="_blank"
@@ -334,7 +331,7 @@ function App() {
 							/>{" "}
 							<span className="link-text">8VC fellow</span>
 						</a>{" "}
-						for Summer 2026. I'm also building{" "}
+						for Summer 2026. Currently building{" "}
 						<a
 							href="https://chelseacommons.co"
 							target="_blank"
@@ -368,7 +365,8 @@ function App() {
 							/>{" "}
 							<span className="link-text">Connect</span>
 						</a>
-						, an EdTech company serving 10,000+ students.
+						, an EdTech company serving 10,000+ students across multiple school
+						districts and universities.
 					</p>
 				</FadeIn>
 
@@ -386,7 +384,7 @@ function App() {
 								alt="WashU"
 								className="inline h-4 w-4 object-contain align-text-bottom"
 							/>{" "}
-							<span className="link-text">Washington University</span>
+							<span className="link-text">WashU</span>
 						</a>{" "}
 						studying CS and finance. Currently on exchange at{" "}
 						<a
@@ -402,16 +400,9 @@ function App() {
 							/>{" "}
 							<span className="link-text">HKUST</span>
 						</a>
-						.
-					</p>
-				</FadeIn>
-
-				<FadeIn delay={0.45}>
-					<p>
-						I love building all sorts of things—web/mobile apps, AI systems,
-						infrastructure, and more recently hardware. I work primarily with
-						TypeScript, React/Next.js, and React Native, but I've worked across
-						the stack from Swift to Rust to cloud architecture.
+						. I previously was a Lead Software Engineer at DevSTAC, helped
+						organize HackWashU, worked on the WashU Robotics Rover team, and
+						maybe some more stuff that's not immediately coming to mind.
 					</p>
 				</FadeIn>
 
@@ -425,13 +416,13 @@ function App() {
 						>
 							photography
 						</a>
-						, play piano, love cars, and type kinda{" "}
+						, play piano, love cars, and{" "}
 						<a
 							href="https://monkeytype.com/profile/ethan.ng"
 							target="_blank"
 							rel="noopener noreferrer"
 						>
-							fast
+							type pretty quickly
 						</a>
 						. Recently been playing a lot of Mahjong, tennis, and badminton.
 					</p>
@@ -446,6 +437,8 @@ function App() {
 						.
 					</p>
 				</FadeIn>
+
+				{data && <ContributionGrid weeks={data.weeks} baseDelay={0.85} />}
 			</div>
 		</Layout>
 	);

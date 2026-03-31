@@ -7,7 +7,13 @@ import { Shadow } from "./shadow";
 
 interface LayoutProps {
 	children: ReactNode;
-	activeSection: "about" | "projects" | "press" | "media" | "writing";
+	activeSection:
+		| "about"
+		| "projects"
+		| "press"
+		| "media"
+		| "writing"
+		| "contact";
 	writingTitle?: string;
 	previewContent?: ReactNode;
 	enableScrollFade?: boolean;
@@ -50,10 +56,15 @@ function FadeIn({
 }
 
 const NAV_ITEMS = [
-	{ to: "/", label: "about", section: "about" },
-	{ to: "/projects", label: "projects", section: "projects" },
-	{ to: "/media", label: "media", section: "media" },
-	{ to: "/writing", label: "writing", section: "writing" },
+	{ to: "/", label: "about", section: "about", external: false },
+	{ to: "/projects", label: "projects", section: "projects", external: false },
+	{ to: "/writing", label: "writing", section: "writing", external: false },
+	{
+		to: "mailto:hey@ethans.site",
+		label: "contact",
+		section: "contact",
+		external: true,
+	},
 ] as const;
 
 const SOCIALS = [
@@ -71,14 +82,7 @@ const SOCIALS = [
 	{ href: "https://x.com/ethn_ng/", label: "x", handle: "@ethn_ng" },
 ];
 
-const MOBILE_NAV_ITEMS = [
-	...NAV_ITEMS,
-	{
-		to: "mailto:hey@ethans.site" as const,
-		label: "contact",
-		section: "contact" as const,
-	},
-];
+const MOBILE_NAV_ITEMS = [...NAV_ITEMS];
 
 function MobileMenu({
 	activeSection,
@@ -225,7 +229,8 @@ export function Layout({
 										className="text-foreground text-3xl select-none whitespace-nowrap"
 										style={{ fontFamily: "'Rubik Glitch', cursive" }}
 									>
-										<span className="hidden lg:inline">ETHAN NG</span><span className="lg:hidden">EN</span>
+										<span className="md:hidden lg:inline">ETHAN NG</span>
+										<span className="hidden md:inline lg:hidden">EN</span>
 									</h1>
 								</Link>
 							) : (
@@ -233,7 +238,8 @@ export function Layout({
 									className="text-foreground text-3xl select-none whitespace-nowrap"
 									style={{ fontFamily: "'Rubik Glitch', cursive" }}
 								>
-									<span className="hidden lg:inline">ETHAN NG</span><span className="lg:hidden">EN</span>
+									<span className="md:hidden lg:inline">ETHAN NG</span>
+									<span className="hidden md:inline lg:hidden">EN</span>
 								</h1>
 							)}
 							{/* Desktop nav */}
@@ -245,17 +251,29 @@ export function Layout({
 										skip={skipShell.current}
 									>
 										<span className="flex items-center gap-2 lg:gap-4">
-											{i > 0 && <span className="text-muted-foreground">/</span>}
-											<Link
-												to={item.to}
-												className={`font-mono transition-colors duration-300 ${
-													activeSection === item.section
-														? "text-foreground"
-														: "text-muted-foreground hover:text-foreground"
-												}`}
-											>
-												{item.label}
-											</Link>
+											{i > 0 && (
+												<span className="text-muted-foreground">/</span>
+											)}
+											{item.external ? (
+												<a
+													href={item.to}
+													className="font-mono transition-colors duration-300 text-muted-foreground hover:text-foreground flex items-center gap-1 no-underline"
+												>
+													{item.label}
+													<ArrowUpRight className="w-3 h-3" />
+												</a>
+											) : (
+												<Link
+													to={item.to as "/"}
+													className={`font-mono transition-colors duration-300 ${
+														activeSection === item.section
+															? "text-foreground"
+															: "text-muted-foreground hover:text-foreground"
+													}`}
+												>
+													{item.label}
+												</Link>
+											)}
 										</span>
 									</FadeIn>
 								))}

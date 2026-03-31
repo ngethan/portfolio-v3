@@ -253,18 +253,3 @@ main a.no-underline:hover .link-text {
 }
 
 
-@media (hover: hover) {
-	.projects-list .project-item {
-		transition: filter 0.2s ease, opacity 0.2s ease;
-	}
-
-	.projects-list:has(.project-item:hover) .project-item:not(:hover) {
-		filter: blur(1px);
-		opacity: 0.5;
-	}
-
-	.projects-list .project-item:hover {
-		filter: none;
-		opacity: 1;
-	}
-}
