@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { ContributionWeek } from "../../lib/github";
 import {
 	EMPTY_TILE_COLOR,
@@ -14,6 +14,7 @@ interface ContributionGridProps {
 const TILE_SIZE = 14;
 const GAP = 3;
 const COL_WIDTH = TILE_SIZE + GAP;
+const HOVER_RADIUS = 50;
 
 export function ContributionGrid({
 	weeks,
@@ -38,8 +39,10 @@ export function ContributionGrid({
 	);
 
 	const containerRef = useRef<HTMLDivElement>(null);
+	const gridRef = useRef<HTMLDivElement>(null);
 	const [visibleCols, setVisibleCols] = useState(fullWeeks.length);
 	const hasAnimated = useRef(false);
+	const rafId = useRef<number>(0);
 
 	useEffect(() => {
 		const el = containerRef.current;
@@ -51,7 +54,6 @@ export function ContributionGrid({
 		};
 
 		update();
-		// Mark animated after entrance completes
 		const timeout = setTimeout(
 			() => {
 				hasAnimated.current = true;
@@ -66,6 +68,44 @@ export function ContributionGrid({
 			clearTimeout(timeout);
 		};
 	}, [fullWeeks.length, baseDelay]);
+
+	const handleMouseMove = useCallback((e: React.MouseEvent) => {
+		cancelAnimationFrame(rafId.current);
+		rafId.current = requestAnimationFrame(() => {
+			const grid = gridRef.current;
+			if (!grid) return;
+
+			const cx = e.clientX;
+			const cy = e.clientY;
+			const tiles = grid.querySelectorAll<HTMLElement>(".contrib-tile");
+
+			for (const tile of tiles) {
+				const r = tile.getBoundingClientRect();
+				const tx = r.left + r.width / 2;
+				const ty = r.top + r.height / 2;
+				const dist = Math.sqrt((cx - tx) ** 2 + (cy - ty) ** 2);
+
+				if (dist < HOVER_RADIUS) {
+					const intensity = 1 - dist / HOVER_RADIUS;
+					tile.style.filter = `brightness(${1 + intensity * 0.35})`;
+					tile.style.transform = `scale(${1 + intensity * 0.08})`;
+				} else {
+					tile.style.filter = "";
+					tile.style.transform = "";
+				}
+			}
+		});
+	}, []);
+
+	const handleMouseLeave = useCallback(() => {
+		cancelAnimationFrame(rafId.current);
+		const grid = gridRef.current;
+		if (!grid) return;
+		for (const tile of grid.querySelectorAll<HTMLElement>(".contrib-tile")) {
+			tile.style.filter = "";
+			tile.style.transform = "";
+		}
+	}, []);
 
 	const visibleWeeks = fullWeeks.slice(fullWeeks.length - visibleCols);
 	const animated = hasAnimated.current;
@@ -86,9 +126,7 @@ export function ContributionGrid({
 						border-radius: 2px;
 						width: ${TILE_SIZE}px;
 						height: ${TILE_SIZE}px;
-					}
-					.contrib-tile:hover {
-						filter: brightness(1.25);
+						transition: filter 0.15s ease-out, transform 0.15s ease-out;
 					}
 					.contrib-tile.entering {
 						opacity: 0;
@@ -107,8 +145,12 @@ export function ContributionGrid({
 					}
 				`}
 			</style>
-			<div ref={containerRef}>
-				<div className="flex" style={{ gap: GAP }}>
+			<div
+				ref={containerRef}
+				onMouseMove={handleMouseMove}
+				onMouseLeave={handleMouseLeave}
+			>
+				<div ref={gridRef} className="flex" style={{ gap: GAP }}>
 					{visibleWeeks.map((week, weekIdx) => (
 						<div
 							key={`week-${weekIdx}`}
