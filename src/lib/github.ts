@@ -1,3 +1,4 @@
+import https from "node:https";
 import { createServerFn } from "@tanstack/react-start";
 
 export interface ContributionDay {
@@ -32,9 +33,42 @@ query {
 }
 `;
 
+function graphqlRequest(
+	token: string,
+	query: string,
+): Promise<{ statusCode: number; data: string }> {
+	return new Promise((resolve, reject) => {
+		const postData = JSON.stringify({ query });
+		const req = https.request(
+			{
+				hostname: "api.github.com",
+				path: "/graphql",
+				method: "POST",
+				headers: {
+					Authorization: `bearer ${token}`,
+					"Content-Type": "application/json",
+					"User-Agent": "portfolio-v3",
+					"Content-Length": Buffer.byteLength(postData),
+				},
+			},
+			(res) => {
+				let data = "";
+				res.on("data", (chunk) => {
+					data += chunk;
+				});
+				res.on("end", () => {
+					resolve({ statusCode: res.statusCode ?? 0, data });
+				});
+			},
+		);
+		req.on("error", reject);
+		req.write(postData);
+		req.end();
+	});
+}
+
 export const fetchGitHubData = createServerFn({ method: "GET" }).handler(
 	async (): Promise<GitHubData | null> => {
-		const { request } = await import("undici");
 		const token = process.env.VITE_GITHUB_TOKEN || process.env.GITHUB_TOKEN;
 
 		if (!token) {
@@ -43,21 +77,8 @@ export const fetchGitHubData = createServerFn({ method: "GET" }).handler(
 		}
 
 		try {
-			const { statusCode, body } = await request(
-				"https://api.github.com/graphql",
-				{
-					method: "POST",
-					headers: {
-						Authorization: `bearer ${token}`,
-						"Content-Type": "application/json",
-						"User-Agent": "portfolio-v3",
-					},
-					body: JSON.stringify({ query: QUERY }),
-				},
-			);
-
-			// biome-ignore lint/suspicious/noExplicitAny: GitHub API response
-			const json = (await body.json()) as any;
+			const { statusCode, data } = await graphqlRequest(token, QUERY);
+			const json = JSON.parse(data);
 
 			if (statusCode !== 200 || json.errors) {
 				console.error("GitHub API error:", statusCode, json.errors);
