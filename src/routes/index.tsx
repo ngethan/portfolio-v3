@@ -164,9 +164,9 @@ const PREVIEW_ITEMS: PreviewItem[] = [
 		],
 		description: (
 			<p>
-				Despite being allergic to them, my family has two dogs. Baxter's a
-				Maltese we've had since 2017, and Benji's a teacup poodle we got over
-				COVID.
+				I'm allergic to dogs, but that hasn't stopped my family from getting
+				two: Baxter, a Maltese since 2017, and Benji, a teacup poodle picked up
+				during COVID.
 			</p>
 		),
 	},
