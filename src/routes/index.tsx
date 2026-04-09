@@ -438,7 +438,7 @@ function App() {
 					</p>
 				</FadeIn>
 
-				{data && <ContributionGrid weeks={data.weeks} baseDelay={0.85} />}
+				{data?.weeks && <ContributionGrid weeks={data.weeks} baseDelay={0.85} />}
 			</div>
 		</Layout>
 	);

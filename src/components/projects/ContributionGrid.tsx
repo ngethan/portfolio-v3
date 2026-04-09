@@ -20,6 +20,8 @@ export function ContributionGrid({
 	weeks,
 	baseDelay = 0,
 }: ContributionGridProps) {
+	if (!weeks?.length) return null;
+
 	const maxCount = Math.max(
 		...weeks.flatMap((w) => w.contributionDays.map((d) => d.contributionCount)),
 		1,
