@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { Link, createFileRoute } from "@tanstack/react-router";
 import { Image } from "@unpic/react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion } from "motion/react";
@@ -410,23 +410,19 @@ function App() {
 
 				<FadeIn delay={0.55}>
 					<p>
-						Outside of work I like{" "}
+						Outside of work I{" "}
 						<a
 							href="https://www.instagram.com/ethn.raw/"
 							target="_blank"
 							rel="noopener noreferrer"
 						>
-							photography
+							shoot 35mm
 						</a>
-						, play piano, love cars, and{" "}
-						<a
-							href="https://monkeytype.com/profile/ethan.ng"
-							target="_blank"
-							rel="noopener noreferrer"
-						>
-							type pretty quickly
-						</a>
-						. Recently been playing a lot of Mahjong, tennis, and badminton.
+						, play Mahjong, tinker with hardware, and{" "}
+						<Link to="/writing">write</Link> whatever's on my mind. Currently
+						thinking about multi-agent orchestration, physical intelligence and
+						robotics, the human condition, and what show to watch next
+						(recommendations encouraged 🙏).
 					</p>
 				</FadeIn>
 
@@ -436,11 +432,13 @@ function App() {
 						<a href="mailto:hey@ethans.site">
 							<code>hey@ethans.site</code>
 						</a>
-						.
+						. Happy to chat about anything!
 					</p>
 				</FadeIn>
 
-				{data?.weeks && <ContributionGrid weeks={data.weeks} baseDelay={0.85} />}
+				{data?.weeks && (
+					<ContributionGrid weeks={data.weeks} baseDelay={0.85} />
+				)}
 			</div>
 		</Layout>
 	);

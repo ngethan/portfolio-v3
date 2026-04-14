@@ -79,7 +79,11 @@ const SOCIALS = [
 		label: "instagram",
 		handle: "@ethn.ng",
 	},
-	{ href: "https://x.com/ethn_ng/", label: "x", handle: "@ethn_ng" },
+	{
+		href: "https://monkeytype.com/profile/ethan.ng",
+		label: "monkeytype",
+		handle: "@ethan.ng",
+	},
 ];
 
 const MOBILE_NAV_ITEMS = [...NAV_ITEMS];
@@ -133,7 +137,7 @@ function MobileMenu({
 								</a>
 							) : (
 								<Link
-									to={item.to}
+									to={item.to as "/"}
 									onClick={onClose}
 									className={`block py-3 text-2xl transition-colors no-underline ${
 										activeSection === item.section
