@@ -48,6 +48,8 @@ export const Route = createFileRoute("/")({
 		const data = await fetchGitHubData();
 		return { data };
 	},
+	staleTime: Number.POSITIVE_INFINITY,
+	gcTime: Number.POSITIVE_INFINITY,
 	component: App,
 });
 

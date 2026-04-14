@@ -59,7 +59,7 @@ main a.no-underline:hover .link-text {
 	--card-foreground: oklch(0.9851 0 0);
 	--popover: oklch(0.209 0 0);
 	--popover-foreground: oklch(0.9851 0 0);
-	--primary: oklch(0.5635 0.2408 260.8178);
+	--primary: oklch(0.7193 0.1317 39.95);
 	--primary-foreground: oklch(1.0 0 0);
 	--secondary: oklch(0.3086 0 0);
 	--secondary-foreground: oklch(0.9851 0 0);
@@ -73,20 +73,20 @@ main a.no-underline:hover .link-text {
 	--destructive-foreground: oklch(1.0 0 0);
 	--border: oklch(0.2739 0.0055 286.0326);
 	--input: oklch(0.2739 0.0055 286.0326);
-	--ring: oklch(0.5635 0.2408 260.8178);
-	--chart-1: oklch(0.5635 0.2408 260.8178);
+	--ring: oklch(0.7193 0.1317 39.95);
+	--chart-1: oklch(0.7193 0.1317 39.95);
 	--chart-2: oklch(0.5461 0.2152 262.8809);
 	--chart-3: oklch(0.6231 0.188 259.8145);
 	--chart-4: oklch(0.7137 0.1434 254.624);
 	--chart-5: oklch(0.8091 0.0956 251.8128);
 	--sidebar: oklch(0.1776 0 0);
 	--sidebar-foreground: oklch(0.9851 0 0);
-	--sidebar-primary: oklch(0.5635 0.2408 260.8178);
+	--sidebar-primary: oklch(0.7193 0.1317 39.95);
 	--sidebar-primary-foreground: oklch(1.0 0 0);
 	--sidebar-accent: oklch(0.3611 0 0);
 	--sidebar-accent-foreground: oklch(0.9851 0 0);
 	--sidebar-border: oklch(0.2739 0.0055 286.0326);
-	--sidebar-ring: oklch(0.5635 0.2408 260.8178);
+	--sidebar-ring: oklch(0.7193 0.1317 39.95);
 	--font-sans: Geist;
 	--font-serif: "Playfair Display Variable", serif;
 	--font-mono: "GT Pressura Mono", Geist Mono;
@@ -182,8 +182,8 @@ main a.no-underline:hover .link-text {
 		position: relative;
 	}
 	::selection {
-		background-color: white;
-		color: black;
+		background-color: oklch(0.7193 0.1317 39.95 / 0.4);
+		color: var(--primary-foreground);
 	}
 
 	/* Hide scrollbar */
@@ -251,5 +251,3 @@ main a.no-underline:hover .link-text {
 	position: relative;
 	overflow: hidden;
 }
-
-
