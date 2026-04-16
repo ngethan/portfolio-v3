@@ -57,7 +57,6 @@ function FadeIn({
 
 const NAV_ITEMS = [
 	{ to: "/", label: "about", section: "about", external: false },
-	{ to: "/projects", label: "projects", section: "projects", external: false },
 	{ to: "/writing", label: "writing", section: "writing", external: false },
 	{
 		to: "mailto:hey@ethans.site",
