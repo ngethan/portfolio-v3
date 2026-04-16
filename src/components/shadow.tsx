@@ -1,7 +1,7 @@
 "use client";
 
 import { type AnimationPlaybackControls, animate, motionValue } from "motion";
-import { type CSSProperties, useEffect, useId, useRef, useState } from "react";
+import { type CSSProperties, useEffect, useId, useRef } from "react";
 
 interface ResponsiveImage {
 	src: string;
@@ -66,17 +66,6 @@ export function Shadow({
 	const feColorMatrixRef = useRef<SVGFEColorMatrixElement>(null);
 	const hueRotateAnimation = useRef<AnimationPlaybackControls | null>(null);
 	const hueRotateMotionValueRef = useRef(motionValue(0));
-	// Defer applying the SVG filter until after mount so the mask shadow
-	// paints on first frame alongside grain. Heavy filter chains
-	// (feTurbulence + feDisplacementMap) otherwise delay the whole
-	// filtered subtree until the filter is computed.
-	const [filterActive, setFilterActive] = useState(false);
-
-	useEffect(() => {
-		if (!animationEnabled) return;
-		const raf = requestAnimationFrame(() => setFilterActive(true));
-		return () => cancelAnimationFrame(raf);
-	}, [animationEnabled]);
 
 	const displacementScale = animation
 		? mapRange(animation.scale, 1, 100, 20, 100)
@@ -165,8 +154,7 @@ export function Shadow({
 				style={{
 					position: "absolute",
 					inset: -displacementScale,
-					filter:
-						animationEnabled && filterActive ? `url(#${id}) blur(4px)` : "none",
+					filter: animationEnabled ? `url(#${id}) blur(4px)` : "none",
 					opacity: 1,
 				}}
 			>

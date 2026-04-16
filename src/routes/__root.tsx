@@ -10,6 +10,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import { AnimatePresence } from "motion/react";
 
+import { LoadingScreen } from "../components/LoadingScreen";
 import { buildSeoTags, siteConfig } from "../site-config";
 import appCss from "../styles.css?url";
 
@@ -122,6 +123,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 			</head>
 			<body style={{ backgroundColor: '#1a1a1a' }}>
 				{children}
+				<LoadingScreen />
 				{process.env.NODE_ENV === "development" && (
 					<TanStackDevtools
 						config={{
