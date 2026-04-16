@@ -1,7 +1,7 @@
 "use client";
 
 import { type AnimationPlaybackControls, animate, motionValue } from "motion";
-import { type CSSProperties, useEffect, useId, useRef } from "react";
+import { type CSSProperties, useEffect, useId, useRef, useState } from "react";
 
 interface ResponsiveImage {
 	src: string;
@@ -66,6 +66,17 @@ export function Shadow({
 	const feColorMatrixRef = useRef<SVGFEColorMatrixElement>(null);
 	const hueRotateAnimation = useRef<AnimationPlaybackControls | null>(null);
 	const hueRotateMotionValueRef = useRef(motionValue(0));
+	// Defer applying the SVG filter until after mount so the mask shadow
+	// paints on first frame alongside grain. Heavy filter chains
+	// (feTurbulence + feDisplacementMap) otherwise delay the whole
+	// filtered subtree until the filter is computed.
+	const [filterActive, setFilterActive] = useState(false);
+
+	useEffect(() => {
+		if (!animationEnabled) return;
+		const raf = requestAnimationFrame(() => setFilterActive(true));
+		return () => cancelAnimationFrame(raf);
+	}, [animationEnabled]);
 
 	const displacementScale = animation
 		? mapRange(animation.scale, 1, 100, 20, 100)
@@ -82,7 +93,7 @@ export function Shadow({
 		const duration = mapRange(animation.speed, 1, 100, 20, 2);
 
 		// Restore animation state from sessionStorage
-		const savedState = sessionStorage.getItem('shadow-animation-state');
+		const savedState = sessionStorage.getItem("shadow-animation-state");
 		let startValue = 0;
 		let startTime = Date.now();
 
@@ -91,7 +102,7 @@ export function Shadow({
 				const { value, timestamp } = JSON.parse(savedState);
 				const elapsed = (Date.now() - timestamp) / 1000; // seconds
 				const cycles = elapsed / duration;
-				startValue = (value + (cycles * 360)) % 360;
+				startValue = (value + cycles * 360) % 360;
 			} catch (e) {
 				// Invalid state, start from 0
 			}
@@ -99,27 +110,37 @@ export function Shadow({
 
 		hueRotateMotionValue.set(startValue);
 
-		hueRotateAnimation.current = animate(hueRotateMotionValue, startValue + 360, {
-			duration,
-			repeat: Number.POSITIVE_INFINITY,
-			ease: "linear",
-			onUpdate: (value: number) => {
-				if (feColorMatrixRef.current) {
-					const normalizedValue = value % 360;
-					feColorMatrixRef.current.setAttribute("values", String(normalizedValue));
+		hueRotateAnimation.current = animate(
+			hueRotateMotionValue,
+			startValue + 360,
+			{
+				duration,
+				repeat: Number.POSITIVE_INFINITY,
+				ease: "linear",
+				onUpdate: (value: number) => {
+					if (feColorMatrixRef.current) {
+						const normalizedValue = value % 360;
+						feColorMatrixRef.current.setAttribute(
+							"values",
+							String(normalizedValue),
+						);
 
-					// Periodically save state (every 100ms)
-					const now = Date.now();
-					if (now - startTime > 100) {
-						startTime = now;
-						sessionStorage.setItem('shadow-animation-state', JSON.stringify({
-							value: normalizedValue,
-							timestamp: now,
-						}));
+						// Periodically save state (every 100ms)
+						const now = Date.now();
+						if (now - startTime > 100) {
+							startTime = now;
+							sessionStorage.setItem(
+								"shadow-animation-state",
+								JSON.stringify({
+									value: normalizedValue,
+									timestamp: now,
+								}),
+							);
+						}
 					}
-				}
+				},
 			},
-		});
+		);
 
 		return () => {
 			if (hueRotateAnimation.current) {
@@ -144,7 +165,8 @@ export function Shadow({
 				style={{
 					position: "absolute",
 					inset: -displacementScale,
-					filter: animationEnabled ? `url(#${id}) blur(4px)` : "none",
+					filter:
+						animationEnabled && filterActive ? `url(#${id}) blur(4px)` : "none",
 					opacity: 1,
 				}}
 			>

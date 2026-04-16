@@ -73,12 +73,15 @@
 		format("woff2");
 }
 
-/* Rubik Glitch */
+/* Rubik Glitch — decorative title font. Use `block` so titles render as
+   invisible text until the woff2 is ready rather than ever flashing the
+   browser's `cursive` fallback. Preloaded in __root.tsx so the invisible
+   phase is imperceptible on any real connection. */
 @font-face {
 	font-family: "Rubik Glitch";
 	font-style: normal;
 	font-weight: 400;
-	font-display: swap;
+	font-display: block;
 	src: url("/fonts/RubikGlitch-Regular.woff2") format("woff2");
 }
 
