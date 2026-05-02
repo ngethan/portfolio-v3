@@ -408,7 +408,7 @@ function App() {
 					</p>
 				</FadeIn>
 
-				<FadeIn delay={0.55}>
+				{/* <FadeIn delay={0.55}>
 					<p>
 						Outside of work I{" "}
 						<a
@@ -420,6 +420,23 @@ function App() {
 						</a>
 						, play Mahjong, tinker with hardware, and{" "}
 						<Link to="/writing">write</Link> whatever's on my mind. Currently
+						thinking about multi-agent orchestration, physical intelligence and
+						robotics, the human condition, and what show to watch next
+						(recommendations encouraged 🙏).
+					</p>
+				</FadeIn> */}
+
+				<FadeIn delay={0.55}>
+					<p>
+						Outside of work I{" "}
+						<a
+							href="https://www.instagram.com/ethn.raw/"
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							shoot 35mm
+						</a>
+						, play Mahjong, tinker with hardware, and play piano. Currently
 						thinking about multi-agent orchestration, physical intelligence and
 						robotics, the human condition, and what show to watch next
 						(recommendations encouraged 🙏).
